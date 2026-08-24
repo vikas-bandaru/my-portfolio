@@ -1,14 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, CheckCircle, Send } from "lucide-react";
+import { Mail, CheckCircle, Send, MapPin } from "lucide-react";
 
 export default function ContactPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const subject = encodeURIComponent(`Portfolio Inquiry from ${name || "a Visitor"}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+    window.location.href = `mailto:vikas.bandaaru@gmail.com?subject=${subject}&body=${body}`;
     setFormSubmitted(true);
   };
 
@@ -31,17 +38,22 @@ export default function ContactPage() {
       <div className="grid gap-8 sm:grid-cols-2">
         {/* Contact Form */}
         <div className="p-6 rounded-xl border border-stone-200 bg-white space-y-4">
-          <h2 className="text-lg font-bold text-stone-900">
-            Send a Direct Message
-          </h2>
+          <div>
+            <h2 className="text-lg font-bold text-stone-900">
+              Send a Direct Message
+            </h2>
+            <p className="text-xs text-stone-500 mt-1">
+              Sends an email directly to <span className="font-medium text-stone-700">vikas.bandaaru@gmail.com</span>
+            </p>
+          </div>
 
           {formSubmitted ? (
             <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-900 text-sm flex items-start gap-3">
               <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold">Message sent!</p>
+                <p className="font-semibold">Email client opened!</p>
                 <p className="text-xs text-emerald-700">
-                  Thank you for reaching out. I'll get back to you shortly.
+                  Your message draft has been opened in your email app. If it didn't open automatically, feel free to email <a href="mailto:vikas.bandaaru@gmail.com" className="underline font-medium">vikas.bandaaru@gmail.com</a> directly.
                 </p>
               </div>
             </div>
@@ -57,6 +69,8 @@ export default function ContactPage() {
                 <input
                   type="text"
                   id="contact-name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   required
                   placeholder="e.g. Priyan Sharma"
                   className="w-full px-3 py-2 text-sm border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-600"
@@ -73,6 +87,8 @@ export default function ContactPage() {
                 <input
                   type="email"
                   id="contact-email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder="priyan@example.com"
                   className="w-full px-3 py-2 text-sm border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-600"
@@ -89,6 +105,8 @@ export default function ContactPage() {
                 <textarea
                   id="contact-message"
                   rows={4}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   required
                   placeholder="Tell me about your project, workshop request, or feedback..."
                   className="w-full px-3 py-2 text-sm border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-600"
@@ -101,7 +119,7 @@ export default function ContactPage() {
                 className="w-full py-2.5 px-4 rounded-lg bg-sky-700 text-white font-medium text-sm hover:bg-sky-800 transition-colors flex items-center justify-center gap-2"
               >
                 <Send className="w-4 h-4" />
-                Send Message
+                Send Message via Email
               </button>
             </form>
           )}
@@ -144,21 +162,16 @@ export default function ContactPage() {
 
           <div className="p-6 rounded-xl border border-stone-200 bg-stone-50/60 space-y-3 text-xs text-stone-600">
             <h3 className="font-bold text-stone-900 text-sm">
-              Direct Contact & Socials
+              Direct Contact Details
             </h3>
-            <p>Email: <a href="mailto:vikas.bandaaru@gmail.com" className="text-sky-700 underline">vikas.bandaaru@gmail.com</a></p>
-            <p>Location: India (Remote & Available for On-Site Workshops)</p>
-            <div className="pt-2 flex flex-col gap-1.5 font-medium text-sky-700">
-              <a href="https://www.youtube.com/@VikasBandaruTech1" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                YouTube: @VikasBandaruTech1
-              </a>
-              <a href="https://www.linkedin.com/in/vikas-bandaru/" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                LinkedIn: vikas-bandaru
-              </a>
-              <a href="https://www.instagram.com/thoughts.in.beta" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                Instagram: @thoughts.in.beta
-              </a>
-            </div>
+            <p className="flex items-center gap-2">
+              <Mail className="w-4 h-4 text-sky-700 shrink-0" />
+              <span>Email: <a href="mailto:vikas.bandaaru@gmail.com" className="text-sky-700 underline font-medium">vikas.bandaaru@gmail.com</a></span>
+            </p>
+            <p className="flex items-start gap-2">
+              <MapPin className="w-4 h-4 text-stone-500 shrink-0 mt-0.5" />
+              <span>Location: Hyderabad, India (Available for Remote & On-Site Engagement)</span>
+            </p>
           </div>
         </div>
       </div>
