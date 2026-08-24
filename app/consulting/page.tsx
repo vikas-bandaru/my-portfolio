@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Award, ExternalLink, Code2 } from "lucide-react";
+import { ArrowRight, Award, ExternalLink, Code2, Cpu, Database, Cloud, Zap } from "lucide-react";
 
 export const metadata = {
   title: "Dev & Salesforce Consulting — Vikas Bandaru",
@@ -38,7 +38,7 @@ export default function ConsultingPage() {
       </section>
 
       {/* Web Development Venture & Case Study */}
-      <section className="space-y-4 p-6 rounded-xl border border-stone-200 bg-white">
+      <section className="space-y-6 p-6 rounded-xl border border-stone-200 bg-white">
         <div className="flex items-center gap-3">
           <Code2 className="w-6 h-6 text-emerald-700" />
           <h2 className="text-xl font-bold text-stone-900">
@@ -46,26 +46,72 @@ export default function ConsultingPage() {
           </h2>
         </div>
         <p className="text-sm text-stone-600 leading-relaxed">
-          As part of a small web development venture taking on client engagements, I engineer fast, reliable web applications.
+          As part of a small web development venture taking on client engagements, I engineer fast, reliable web applications using modern agentic AI workflows and serverless backends.
         </p>
 
-        <div className="p-4 rounded-lg bg-stone-50 border border-stone-200 space-y-2">
-          <div className="flex items-center justify-between">
-            <h3 className="font-bold text-stone-900 text-sm">
-              Featured Build: traits.co.in
-            </h3>
+        {/* Featured Build: traits.co.in */}
+        <div className="p-5 rounded-xl bg-stone-50 border border-stone-200 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-200 pb-3">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-semibold mb-1">
+                <Zap className="w-3 h-3" /> Agentic AI Vibe Coding Showcase
+              </div>
+              <h3 className="font-bold text-stone-900 text-base">
+                Traits E-Commerce (<span className="text-sky-700 font-mono text-xs">traits.co.in</span>)
+              </h3>
+            </div>
             <a
               href="https://traits.co.in"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-sky-700 hover:underline inline-flex items-center gap-1"
+              className="text-xs font-semibold text-sky-700 hover:text-sky-900 hover:underline inline-flex items-center gap-1 self-start sm:self-auto"
             >
-              Visit Site <ExternalLink className="w-3 h-3" />
+              Visit traits.co.in <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
-          <p className="text-xs text-stone-600 leading-relaxed">
-            Engineered an e-commerce platform built with <strong>readdy.ai</strong> integrated with <strong>Supabase</strong> database architecture and serverless Edge Functions for custom backend transactions.
+
+          <p className="text-xs text-stone-700 leading-relaxed">
+            Architected and delivered a full-featured e-commerce platform using <strong>Agentic AI Vibe Coding</strong> for rapid development, paired with a robust <strong>Supabase</strong> relational backend and serverless edge functions.
           </p>
+
+          {/* Detailed Tech Stack breakdown */}
+          <div className="grid gap-3 sm:grid-cols-2 pt-1 text-xs">
+            <div className="p-3 rounded-lg bg-white border border-stone-200/80 space-y-1.5">
+              <div className="flex items-center gap-1.5 font-bold text-stone-900 text-xs">
+                <Cpu className="w-3.5 h-3.5 text-sky-700" /> Frontend & SPA Framework
+              </div>
+              <p className="text-stone-600 text-[11px] leading-normal">
+                React 19 + TypeScript, Vite (SWC), React Router DOM v7 SPA. Styled with TailwindCSS v3, Remixicon & Lucide. Multi-language support via <code className="bg-stone-100 px-1 py-0.5 rounded">i18next</code> with browser detection.
+              </p>
+            </div>
+
+            <div className="p-3 rounded-lg bg-white border border-stone-200/80 space-y-1.5">
+              <div className="flex items-center gap-1.5 font-bold text-stone-900 text-xs">
+                <Database className="w-3.5 h-3.5 text-emerald-700" /> Backend & Database
+              </div>
+              <p className="text-stone-600 text-[11px] leading-normal">
+                Supabase Cloud PostgreSQL (<code className="bg-stone-100 px-1 py-0.5 rounded">product_items</code>, <code className="bg-stone-100 px-1 py-0.5 rounded">orders</code>, <code className="bg-stone-100 px-1 py-0.5 rounded">profiles</code>) with Row Level Security (RLS) & Supabase Auth (Email OTP + OAuth).
+              </p>
+            </div>
+
+            <div className="p-3 rounded-lg bg-white border border-stone-200/80 space-y-1.5">
+              <div className="flex items-center gap-1.5 font-bold text-stone-900 text-xs">
+                <Zap className="w-3.5 h-3.5 text-amber-600" /> Edge Functions & Payments
+              </div>
+              <p className="text-stone-600 text-[11px] leading-normal">
+                Supabase Edge Functions (TypeScript/Deno) for admin creation/verification routines, Razorpay order & signature verification, and Resend transactional email dispatches.
+              </p>
+            </div>
+
+            <div className="p-3 rounded-lg bg-white border border-stone-200/80 space-y-1.5">
+              <div className="flex items-center gap-1.5 font-bold text-stone-900 text-xs">
+                <Cloud className="w-3.5 h-3.5 text-purple-700" /> Hosting & Media CDN
+              </div>
+              <p className="text-stone-600 text-[11px] leading-normal">
+                Hosted on Vercel (SPA rewrite rules) & Supabase Edge Network. Product media served via Supabase Storage (<code className="bg-stone-100 px-1 py-0.5 rounded">product-images</code> public CDN bucket) & static assets.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

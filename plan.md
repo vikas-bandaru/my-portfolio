@@ -29,7 +29,7 @@ This site is the platform for that argument — not a resume, not a lead-gen pag
 - `/blog` — Education reform writing, articles, essays, filterable by topic; `/blog/[slug]` for individual posts
 - `/speaking` — Past talks/speeches at organizations, available topics, booking contact
 - `/teaching` — YouTube section: featured videos, playlists, channel link (not a full mirror); plus an online training consulting offering with two tracks — **train the student** (direct instruction) and **train the trainer** (helping other educators/trainers build their own teaching capability)
-- `/consulting` — Salesforce/dev consulting, plus recent hands-on web development experience: built traits.co.in (an e-commerce site) using readdy.ai integrated with Supabase and edge functions for DB operations, as part of a small web-dev venture taking on client engagements
+- `/consulting` — Salesforce/dev consulting, plus recent hands-on web development experience: built traits.co.in (an e-commerce site) using agentic AI vibe coding integrated with Supabase and edge functions for DB operations, as part of a small web-dev venture taking on client engagements
 - `/contact` — Simple, direct: email/social, mailing list signup
 
 ## Design direction
