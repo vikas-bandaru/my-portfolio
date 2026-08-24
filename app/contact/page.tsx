@@ -142,12 +142,23 @@ export default function ContactPage() {
             )}
           </div>
 
-          <div className="p-6 rounded-xl border border-stone-200 bg-stone-50/60 space-y-2 text-xs text-stone-600">
+          <div className="p-6 rounded-xl border border-stone-200 bg-stone-50/60 space-y-3 text-xs text-stone-600">
             <h3 className="font-bold text-stone-900 text-sm">
               Direct Contact & Socials
             </h3>
-            <p>Email: <a href="mailto:vikas@example.com" className="text-sky-700 underline">vikas@example.com</a></p>
+            <p>Email: <a href="mailto:vikas.bandaaru@gmail.com" className="text-sky-700 underline">vikas.bandaaru@gmail.com</a></p>
             <p>Location: India (Remote & Available for On-Site Workshops)</p>
+            <div className="pt-2 flex flex-col gap-1.5 font-medium text-sky-700">
+              <a href="https://www.youtube.com/@VikasBandaruTech1" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                YouTube: @VikasBandaruTech1
+              </a>
+              <a href="https://www.linkedin.com/in/vikas-bandaru/" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                LinkedIn: vikas-bandaru
+              </a>
+              <a href="https://www.instagram.com/thoughts.in.beta" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                Instagram: @thoughts.in.beta
+              </a>
+            </div>
           </div>
         </div>
       </div>

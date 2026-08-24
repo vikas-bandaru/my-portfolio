@@ -116,7 +116,7 @@ export default function RootLayout({
           <p>© {new Date().getFullYear()} Vikas Bandaru. All rights reserved.</p>
           <div className="flex gap-4">
             <a
-              href="https://youtube.com"
+              href="https://www.youtube.com/@VikasBandaruTech1"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline"
@@ -125,22 +125,22 @@ export default function RootLayout({
               YouTube
             </a>
             <a
-              href="https://x.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline"
-              id="footer-x"
-            >
-              X (Twitter)
-            </a>
-            <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/vikas-bandaru/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline"
               id="footer-linkedin"
             >
               LinkedIn
+            </a>
+            <a
+              href="https://www.instagram.com/thoughts.in.beta"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+              id="footer-instagram"
+            >
+              Instagram
             </a>
           </div>
         </footer>

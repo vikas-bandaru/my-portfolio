@@ -32,7 +32,7 @@ export default function TeachingPage() {
         </p>
         <div className="pt-2">
           <a
-            href="https://youtube.com"
+            href="https://www.youtube.com/@VikasBandaruTech1"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-xs font-semibold text-sky-700 hover:text-sky-900"

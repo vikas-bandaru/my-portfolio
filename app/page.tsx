@@ -154,7 +154,7 @@ export default function HomePage() {
           </div>
 
           <a
-            href="https://youtube.com"
+            href="https://www.youtube.com/@VikasBandaruTech1"
             target="_blank"
             rel="noopener noreferrer"
             className="z-20 w-16 h-16 rounded-full bg-sky-600 hover:bg-sky-500 text-white flex items-center justify-center transition-transform group-hover:scale-105 shadow-lg"
