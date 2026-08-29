@@ -17,9 +17,9 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "Vikas Bandaru — Educator, Builder, Learning Architect",
+  title: "Vikas Bandaru — Learning, Technology & Real-World Problem Solving",
   description:
-    "11 years in engineering education. Building LogicSims, training educators, and teaching developers to learn by doing.",
+    "Engineering educator, independent builder, and systems thinker exploring how people develop the capability to solve complex real-world problems through technology.",
 };
 
 export default function RootLayout({
@@ -43,11 +43,47 @@ export default function RootLayout({
             <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium text-stone-600">
               <li>
                 <Link
-                  href="/"
+                  href="/ideas"
                   className="hover:text-stone-900 transition-colors"
-                  id="nav-home"
+                  id="nav-ideas"
                 >
-                  Home
+                  Ideas
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/builds"
+                  className="hover:text-stone-900 transition-colors"
+                  id="nav-builds"
+                >
+                  Builds
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/watch"
+                  className="hover:text-stone-900 transition-colors"
+                  id="nav-watch"
+                >
+                  Watch
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/work"
+                  className="hover:text-stone-900 transition-colors"
+                  id="nav-work"
+                >
+                  Work With Me
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/collaborate"
+                  className="hover:text-stone-900 transition-colors"
+                  id="nav-collaborate"
+                >
+                  Collaborate
                 </Link>
               </li>
               <li>
@@ -57,51 +93,6 @@ export default function RootLayout({
                   id="nav-about"
                 >
                   About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog"
-                  className="hover:text-stone-900 transition-colors"
-                  id="nav-blog"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/speaking"
-                  className="hover:text-stone-900 transition-colors"
-                  id="nav-speaking"
-                >
-                  Speaking
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/teaching"
-                  className="hover:text-stone-900 transition-colors"
-                  id="nav-teaching"
-                >
-                  Teaching
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/consulting"
-                  className="hover:text-stone-900 transition-colors"
-                  id="nav-consulting"
-                >
-                  Consulting
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:text-stone-900 transition-colors"
-                  id="nav-contact"
-                >
-                  Contact
                 </Link>
               </li>
             </ul>
@@ -114,21 +105,30 @@ export default function RootLayout({
 
         <footer className="pt-10 pb-6 border-t border-stone-200 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-stone-500">
           <p>© {new Date().getFullYear()} Vikas Bandaru. All rights reserved.</p>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4 items-center">
+            <a
+              href="https://www.youtube.com/@VikasBandaruOfficial"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline hover:text-stone-800"
+              id="footer-youtube-official"
+            >
+              YouTube (Official)
+            </a>
             <a
               href="https://www.youtube.com/@VikasBandaruTech1"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
-              id="footer-youtube"
+              className="hover:underline hover:text-stone-800"
+              id="footer-youtube-tech"
             >
-              YouTube
+              YouTube (Tech)
             </a>
             <a
               href="https://www.linkedin.com/in/vikas-bandaru/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="hover:underline hover:text-stone-800"
               id="footer-linkedin"
             >
               LinkedIn
@@ -137,11 +137,18 @@ export default function RootLayout({
               href="https://www.instagram.com/thoughts.in.beta"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="hover:underline hover:text-stone-800"
               id="footer-instagram"
             >
               Instagram
             </a>
+            <Link
+              href="/contact"
+              className="hover:underline hover:text-stone-800"
+              id="footer-contact"
+            >
+              Contact
+            </Link>
           </div>
         </footer>
       </body>
