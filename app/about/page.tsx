@@ -42,7 +42,10 @@ export default function AboutPage() {
             Rather than remaining solely within theoretical frameworks, I stepped out to build solutions directly. I earned Salesforce Certified App Builder and Platform Developer I credentials, delivered enterprise platform training, and immersed myself in modern full-stack web engineering.
           </p>
           <p>
-            Today, I am the lead developer of <strong>LogicSims</strong> — a discovery-based learning platform designed to replace passive lectures with interactive, consequence-driven simulations.
+            This journey began with <strong>LogicSims Java</strong> — an early practical experiment exploring what an interactive, simulator-based environment for learning programming concepts could look like. What began as a focused investigation into programming education through consequence and state visualization evolved into a broader vision: <strong>LogicSims</strong>, an architecture using logic as a first-principles operating system for understanding complex systems.
+          </p>
+          <p>
+            Today, LogicSims Java is publicly available as the first live prototype, while the broader systems-learning architecture continues to develop through learner feedback and classroom observation.
           </p>
         </section>
 

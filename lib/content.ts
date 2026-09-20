@@ -93,29 +93,29 @@ export const BUILDS: BuildItem[] = [
   {
     slug: "logicsims",
     title: "LogicSims",
-    tagline: "Discovery-based learning environment using logic as a first-principles operating system",
-    category: "Platform",
+    tagline: "Discovery-based learning environment — with LogicSims Java as the first public prototype",
+    category: "Experiment",
     status: "live",
-    liveUrl: "https://logicsims.com",
-    techStack: ["Next.js", "TypeScript", "State Machines", "Interactive Visualizers"],
-    summary: "A proof of concept and learning platform designed to replace passive lectures with interactive, consequence-driven simulations. Built from scratch to help learners construct deep mental models of complex systems.",
+    liveUrl: "https://logic-sims-java.vercel.app/",
+    techStack: ["React", "Next.js", "TypeScript", "State Machines", "Interactive Visualizers"],
+    summary: "LogicSims is a broader vision and evolving architecture for learning through consequence, experimentation, and systems thinking. LogicSims Java serves as its first live, public prototype — an early experiment exploring how programming concepts can be mastered through interactive simulation.",
     outcomes: [
-      "Interactive mental modeling of asynchronous execution, states, and constraints",
-      "Learning through consequence rather than passive explanation",
-      "Foundation for multi-level problem progression (Macro -> Meso -> Micro -> Capstone)"
+      "First practical public prototype (LogicSims Java) deployed and accessible for real learners",
+      "Interactive mental modeling of code execution flow, state variables, and failure constraints",
+      "Active feedback loop: observing learner interactions in online classes to inform future iterations"
     ],
     highlights: [
       {
-        label: "First-Principles OS",
-        description: "Reduces complex systems to variables, state transitions, constraints, and feedback loops."
+        label: "First Public Experiment",
+        description: "LogicSims Java provides a hands-on simulator where learners manipulate code state and observe real-time execution consequences."
       },
       {
-        label: "Proof of Work",
-        description: "Validates true understanding through stress-testing and debugging rather than multiple-choice quizzes."
+        label: "Direct Learner Feedback",
+        description: "Being introduced into online classes to gather empirical observation and learner feedback on simulation mechanics."
       },
       {
-        label: "Live Prototype",
-        description: "Functional programming & async simulation environment currently accessible online."
+        label: "Evolving Systems Vision",
+        description: "The broader LogicSims framework continues to develop toward multi-domain system modeling, Socratic auditing, and capstone stress-testing."
       }
     ]
   },

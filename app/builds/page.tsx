@@ -29,10 +29,13 @@ export default function BuildsPage() {
           <div className="inline-flex items-center gap-2">
             <Layers className="w-5 h-5 text-sky-400" />
             <span className="text-xs font-mono font-semibold uppercase tracking-wider text-sky-300">
-              Flagship Project
+              Flagship Experiment
             </span>
           </div>
-          <MaturityBadge status="live" className="bg-emerald-950/80 text-emerald-300 border-emerald-800" />
+          <span className="inline-flex items-center gap-1.5 font-medium rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-800 px-2.5 py-1 text-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            Live Prototype
+          </span>
         </div>
 
         <div className="space-y-2">
@@ -40,28 +43,28 @@ export default function BuildsPage() {
             LogicSims
           </h2>
           <p className="text-sm text-stone-300 leading-relaxed max-w-2xl">
-            A discovery-based learning platform using logic as a first-principles operating system. Replaces passive lecture models with interactive mental modeling, consequence tracing, and proof-of-work validation.
+            A discovery-based learning architecture replacing passive lectures with consequence-driven simulation. <strong>LogicSims Java</strong> is the first public prototype — a practical simulator focused on programming concepts, state manipulation, and interactive mental modeling.
           </p>
         </div>
 
         <div className="flex flex-wrap gap-3 pt-2">
+          <a
+            href="https://logic-sims-java.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-sky-500 text-stone-950 font-semibold text-xs hover:bg-sky-400 transition-colors"
+            id="builds-logicsims-external-btn"
+          >
+            Launch Prototype (LogicSims Java) <ExternalLink className="w-3.5 h-3.5" />
+          </a>
           <Link
             href="/logicsims"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-sky-500 text-stone-950 font-semibold text-xs hover:bg-sky-400 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-stone-700 text-stone-200 font-medium text-xs hover:bg-stone-800 transition-colors"
             id="builds-logicsims-link"
           >
             Deep Dive into LogicSims Architecture
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
-          <a
-            href="https://logicsims.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-stone-700 text-stone-200 font-medium text-xs hover:bg-stone-800 transition-colors"
-            id="builds-logicsims-external-btn"
-          >
-            Launch Prototype (logicsims.com) <ExternalLink className="w-3.5 h-3.5" />
-          </a>
         </div>
       </section>
 

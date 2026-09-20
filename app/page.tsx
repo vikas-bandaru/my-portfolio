@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, XCircle, Play, Sparkles, Cpu, Layers, Users, Briefcase, Compass } from "lucide-react";
+import { ArrowRight, CheckCircle2, XCircle, Play, Sparkles, Cpu, Layers, Users, Briefcase, Compass, ExternalLink } from "lucide-react";
 import { getIdeas, getBuilds } from "@/lib/content";
 import { MaturityBadge } from "@/components/MaturityBadge";
 
@@ -31,20 +31,22 @@ export default function HomePage() {
         </p>
 
         <div className="flex flex-wrap gap-4 pt-2">
-          <Link
-            href="/logicsims"
+          <a
+            href="https://logic-sims-java.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-sky-700 text-white font-medium text-sm hover:bg-sky-800 transition-colors shadow-xs"
             id="hero-cta-logicsims"
           >
-            Explore LogicSims (Live Proof)
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+            Explore the LogicSims Prototype
+            <ExternalLink className="w-4 h-4" />
+          </a>
           <Link
-            href="/ideas"
+            href="/logicsims"
             className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-stone-300 text-stone-700 font-medium text-sm hover:bg-stone-100 transition-colors"
-            id="hero-cta-ideas"
+            id="hero-cta-vision"
           >
-            Read Ideas & Essays
+            Explore the LogicSims Vision
           </Link>
         </div>
       </section>
@@ -151,10 +153,10 @@ export default function HomePage() {
               The Operating Loop
             </h2>
             <h3 className="text-xl font-bold text-stone-900 mt-1">
-              Ideas, Systems & Research
+              The Thinking & Systems Analysis
             </h3>
             <p className="text-xs text-stone-500 mt-0.5">
-              Working notes and exploratory pieces in development as the body of work expands.
+              The authored mission body of work is currently being built. Essays, research notes, and systems analyses will be published here as they are developed. Below are earlier working drafts pending author review.
             </p>
           </div>
           <Link
@@ -162,7 +164,7 @@ export default function HomePage() {
             className="text-xs font-semibold text-sky-700 hover:text-sky-900 inline-flex items-center gap-1"
             id="home-all-ideas-link"
           >
-            Explore All Ideas <ArrowRight className="w-3.5 h-3.5" />
+            Explore Ideas Archive <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
@@ -194,11 +196,13 @@ export default function HomePage() {
               className="p-5 rounded-xl border border-stone-200 bg-white hover:border-stone-400 transition-colors flex flex-col justify-between space-y-3 group"
             >
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-[11px] text-stone-500">
+                <div className="flex flex-wrap items-center justify-between gap-1 text-[11px] text-stone-500">
                   <span className="font-semibold text-sky-700 uppercase tracking-wider">
                     {idea.category}
                   </span>
-                  <span>{idea.readTime}</span>
+                  <span className="px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200/80 text-[10px] font-medium">
+                    Legacy Draft
+                  </span>
                 </div>
                 <h4 className="font-bold text-stone-900 text-sm group-hover:text-sky-700 transition-colors leading-snug">
                   <Link href={`/ideas/${idea.slug}`}>{idea.title}</Link>
@@ -212,7 +216,7 @@ export default function HomePage() {
                   href={`/ideas/${idea.slug}`}
                   className="text-xs font-semibold text-sky-700 inline-flex items-center gap-1 group-hover:underline"
                 >
-                  Read Essay <ArrowRight className="w-3 h-3" />
+                  View Working Draft <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
             </article>
@@ -246,10 +250,13 @@ export default function HomePage() {
             <div className="inline-flex items-center gap-2">
               <Layers className="w-5 h-5 text-sky-400" />
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-sky-300">
-                Flagship Project
+                Flagship Experiment
               </span>
             </div>
-            <MaturityBadge status="live" className="bg-emerald-950/80 text-emerald-300 border-emerald-800" />
+            <span className="inline-flex items-center gap-1.5 font-medium rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-800 px-2.5 py-1 text-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Live Prototype
+            </span>
           </div>
 
           <div className="space-y-2 max-w-2xl">
@@ -257,28 +264,29 @@ export default function HomePage() {
               LogicSims — Discovery-Based Simulation Environment
             </h3>
             <p className="text-sm text-stone-300 leading-relaxed">
-              Logic as a first-principles operating system for complexity. Designed to replace passive lectures with interactive, consequence-driven simulations where learners manipulate variables, observe constraints, and master systems.
+              LogicSims is the broader vision for learning through simulation, experimentation, consequence, and systems thinking. LogicSims Java is the first public prototype — an early experiment exploring how programming concepts can be learned through an interactive simulator-based environment.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
-            <Link
-              href="/logicsims"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-sky-500 text-stone-950 font-semibold text-xs hover:bg-sky-400 transition-colors"
-              id="home-logicsims-deepdive-btn"
-            >
-              Deep Dive into LogicSims Architecture
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
             <a
-              href="https://logicsims.com"
+              href="https://logic-sims-java.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-stone-700 text-stone-200 font-medium text-xs hover:bg-stone-800 transition-colors"
-              id="home-logicsims-external-btn"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-sky-500 text-stone-950 font-semibold text-xs hover:bg-sky-400 transition-colors"
+              id="home-logicsims-prototype-btn"
             >
-              Launch Live Simulator
+              Explore the LogicSims Prototype
+              <ExternalLink className="w-3.5 h-3.5" />
             </a>
+            <Link
+              href="/logicsims"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-stone-700 text-stone-200 font-medium text-xs hover:bg-stone-800 transition-colors"
+              id="home-logicsims-vision-btn"
+            >
+              Explore the LogicSims Vision
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
 
@@ -342,14 +350,19 @@ export default function HomePage() {
           {/* Channel 1: Official */}
           <div className="p-6 rounded-xl border border-stone-200 bg-white space-y-3 flex flex-col justify-between">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[11px] font-semibold">
-                Translate + Legitimize
+              <div className="flex flex-wrap items-center justify-between gap-1">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[11px] font-semibold">
+                  Translate + Legitimize
+                </div>
+                <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-amber-50 text-amber-800 border border-amber-200">
+                  Launching / In Preparation
+                </span>
               </div>
               <h4 className="font-bold text-stone-900 text-base">
                 Vikas Bandaru (Official Channel)
               </h4>
               <p className="text-xs text-stone-600 leading-relaxed">
-                Broader systems thinking, Indian education policy, future of work, AI-washing critique, and what developing nations can build for their own conditions.
+                Broader systems thinking, Indian education policy, future of work, AI-washing critique, and what developing nations can build for their own conditions. Mission video content is currently in preparation.
               </p>
               <p className="text-[11px] text-stone-500 italic">
                 Audience: Educators, decision-makers, parents, and systems thinkers.

@@ -24,8 +24,15 @@ export default function IdeasPage() {
           Ideas & Systems Analysis
         </h1>
         <p className="text-stone-600 leading-relaxed font-medium">
-          Writing, working notes, and pedagogical analyses in development as the body of work expands around technical education reform and system mental models.
+          The body of work is being built. Essays, research notes, and systems analyses will be published here as they are developed.
         </p>
+
+        <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200/80 text-xs text-amber-900 leading-relaxed space-y-1">
+          <span className="font-semibold block">Editorial Status Note:</span>
+          <span>
+            Authored mission essays and formal research publications are currently in progress. The items below represent earlier exploratory working drafts preserved from repository scaffolding, currently pending author review.
+          </span>
+        </div>
 
         {/* Topic Filter */}
         <div className="flex items-center gap-3 pt-2">
@@ -55,17 +62,18 @@ export default function IdeasPage() {
             key={post.slug}
             className="p-6 rounded-xl border border-stone-200 bg-white hover:border-stone-400 transition-colors space-y-3"
           >
-            <div className="flex items-center justify-between text-xs text-stone-500">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-stone-500">
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-sky-700 uppercase tracking-wider">
                   {post.category}
                 </span>
                 <span>•</span>
-                <span>{post.date}</span>
+                <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-[10px] font-medium">
+                  Legacy Draft — Pending Review
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <span>{post.readTime}</span>
-                <MaturityBadge status={post.status} />
               </div>
             </div>
 
@@ -82,7 +90,7 @@ export default function IdeasPage() {
                 href={`/ideas/${post.slug}`}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-700 hover:text-sky-900"
               >
-                Read Full Essay
+                View Working Draft
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

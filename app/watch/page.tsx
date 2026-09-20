@@ -24,8 +24,13 @@ export default function WatchPage() {
         {/* Channel 1: VikasBandaruOfficial */}
         <section className="p-6 rounded-2xl border border-stone-200 bg-white space-y-4 flex flex-col justify-between shadow-xs">
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[11px] font-semibold">
-              Translate + Legitimize
+            <div className="flex flex-wrap items-center justify-between gap-1.5">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[11px] font-semibold">
+                Translate + Legitimize
+              </div>
+              <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200">
+                Launching / In Preparation
+              </span>
             </div>
 
             <h2 className="text-xl font-bold text-stone-900">
@@ -33,7 +38,7 @@ export default function WatchPage() {
             </h2>
 
             <p className="text-xs text-stone-600 leading-relaxed">
-              The intellectual and public channel exploring broader systemic questions:
+              The planned intellectual and public channel exploring broader systemic questions:
             </p>
 
             <ul className="text-xs text-stone-600 space-y-1.5 list-disc pl-4 leading-relaxed">
@@ -45,7 +50,7 @@ export default function WatchPage() {
             </ul>
 
             <div className="pt-2 text-[11px] text-stone-500 font-medium">
-              Target Audience: Educators, institutional leaders, parents, and systems thinkers.
+              Status: Mission-oriented video essays currently in production. Target audience: Educators, institutional leaders, parents, and systems thinkers.
             </div>
           </div>
 
@@ -65,8 +70,13 @@ export default function WatchPage() {
         {/* Channel 2: VikasBandaruTech1 */}
         <section className="p-6 rounded-2xl border border-stone-200 bg-white space-y-4 flex flex-col justify-between shadow-xs">
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-semibold">
-              Enable + Implement
+            <div className="flex flex-wrap items-center justify-between gap-1.5">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-semibold">
+                Enable + Implement
+              </div>
+              <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Active Builder Channel
+              </span>
             </div>
 
             <h2 className="text-xl font-bold text-stone-900">
@@ -104,33 +114,31 @@ export default function WatchPage() {
         </section>
       </div>
 
-      {/* Featured Video Spotlight */}
-      <section className="space-y-4">
-        <h2 className="text-xl font-bold tracking-tight text-stone-900">
-          Featured Technical Breakdown
+      {/* Active Builder Channel Spotlight */}
+      <section className="p-6 rounded-2xl bg-stone-900 text-white space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <span className="text-xs uppercase tracking-wider text-emerald-400 font-mono font-semibold">
+            Active Channel
+          </span>
+          <span className="text-xs text-stone-400">
+            Hands-on Engineering & Tutorials
+          </span>
+        </div>
+        <h2 className="text-xl font-bold tracking-tight">
+          Explore Hands-on Tutorials on VikasBandaruTech1
         </h2>
-        <div className="relative aspect-video rounded-xl bg-stone-900 overflow-hidden flex items-center justify-center border border-stone-800 group shadow-sm">
-          <div className="absolute inset-0 bg-stone-950/40 flex flex-col justify-end p-6 text-white z-10">
-            <span className="text-xs uppercase tracking-wider text-sky-400 font-semibold">
-              Featured Lesson
-            </span>
-            <h3 className="text-lg font-bold">
-              Deconstructing Async JS & Event Loop Mental Models
-            </h3>
-            <p className="text-xs text-stone-300">
-              YouTube Channel • Practical breakdown for developers
-            </p>
-          </div>
-
+        <p className="text-xs sm:text-sm text-stone-300 leading-relaxed max-w-xl">
+          Direct engineering tutorials and programming breakdowns covering full-stack concepts, state machines, and Salesforce architecture on the active developer channel.
+        </p>
+        <div className="pt-2">
           <a
             href="https://www.youtube.com/@VikasBandaruTech1"
             target="_blank"
             rel="noopener noreferrer"
-            className="z-20 w-16 h-16 rounded-full bg-sky-600 hover:bg-sky-500 text-white flex items-center justify-center transition-transform group-hover:scale-105 shadow-lg"
-            id="watch-featured-video-play-btn"
-            aria-label="Play Featured Technical Breakdown Video"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs transition-colors"
+            id="watch-tech-channel-cta"
           >
-            <Play className="w-7 h-7 fill-current translate-x-0.5" />
+            Watch on VikasBandaruTech1 <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
       </section>
