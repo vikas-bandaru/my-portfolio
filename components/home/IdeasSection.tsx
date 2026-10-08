@@ -3,6 +3,7 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import SectionHeader from "@/components/SectionHeader";
 import { ArrowRight } from "lucide-react";
+import { getIdeas } from "@/lib/content";
 
 export const loopSteps = [
   "Observe",
@@ -15,48 +16,24 @@ export const loopSteps = [
   "Share",
 ];
 
-export const featuredArticles = [
-  {
-    slug: "rote-to-real-problem-solving",
-    category: "Reform",
-    badge: "Legacy Draft",
-    title: "Why High Exam Scores Fail in Software Roles (And How Discovery Learning Fixes It)",
-    excerpt:
-      "An analysis of why traditional score-oriented technical education in India creates brittle graduates, and how simulation-based learning restores practical capability.",
-    readTime: "6 min read",
-    image: "/images/editorial/idea-exam-hall.webp",
-  },
-  {
-    slug: "train-the-trainer-framework",
-    category: "Pedagogy",
-    badge: "Legacy Draft",
-    title: "Train the Trainer: Building Capability Beyond the Slide Deck",
-    excerpt:
-      "How to coach engineering faculty to shift from lecturing syntax to guiding open-ended technical discovery.",
-    readTime: "8 min read",
-    image: "/images/editorial/idea-mentoring.webp",
-  },
-  {
-    slug: "mental-models-async-javascript",
-    category: "Engineering",
-    badge: "Legacy Draft",
-    title: "Teaching Mental Models Over Syntax: The Async Execution Case Study",
-    excerpt:
-      "Why memorizing event loop rules fails under pressure, and how visual state machines teach asynchronous logic intuitively to developers.",
-    readTime: "5 min read",
-    image: "/images/editorial/idea-event-loop.webp",
-  },
-];
+const ideaThumbnails: Record<string, string> = {
+  "collapse-of-syntax-first-cs": "/images/editorial/idea-exam-hall.webp",
+  "proof-of-work-for-the-mind": "/images/editorial/idea-event-loop.webp",
+  "curriculum-as-life-toolkit": "/images/editorial/idea-mentoring.webp",
+  "death-of-middle-tier-it": "/images/editorial/hero-network.webp",
+};
 
 export default function IdeasSection() {
+  const posts = getIdeas().slice(0, 3);
+
   return (
     <section id="ideas" className="w-full bg-background-50 py-20 md:py-28 scroll-mt-20">
       <div className="max-w-content mx-auto px-6 md:px-10">
         <Reveal>
           <SectionHeader
-            title="The Thinking & Systems Analysis"
-            description="The authored mission body of work is currently being built. Essays, research notes, and systems analyses will be published as they are developed — below are earlier working drafts pending author review."
-            linkLabel="Explore Ideas Archive"
+            title="Ideas & Systems Analysis"
+            description="Reflective practitioner essays drawn from 12 years in university engineering classrooms, systems architecture, and cognitive pedagogy in the post-AI era."
+            linkLabel="Explore All Essays"
             linkHref="/ideas"
           />
         </Reveal>
@@ -79,13 +56,13 @@ export default function IdeasSection() {
         </Reveal>
 
         <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {featuredArticles.map((article, index) => (
-            <Reveal key={article.title} delay={index * 90}>
+          {posts.map((post, index) => (
+            <Reveal key={post.slug} delay={index * 90}>
               <article className="group h-full flex flex-col rounded-xl border border-background-200 bg-background-50 overflow-hidden transition-colors duration-300 hover:border-primary-400 shadow-xs">
                 <div className="relative w-full h-44 overflow-hidden bg-background-200">
                   <Image
-                    src={article.image}
-                    alt={article.title}
+                    src={ideaThumbnails[post.slug] || "/images/editorial/hero-network.webp"}
+                    alt={post.title}
                     fill
                     className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   />
@@ -93,25 +70,25 @@ export default function IdeasSection() {
                 <div className="flex flex-col flex-1 p-5">
                   <div className="flex items-center justify-between gap-2">
                     <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-primary-700 font-semibold">
-                      {article.category}
+                      {post.category}
                     </span>
-                    <span className="px-2 py-0.5 rounded-full bg-secondary-100 text-secondary-900 border border-secondary-200 text-[10px] font-medium">
-                      {article.badge}
+                    <span className="text-[11px] font-mono text-foreground-400">
+                      {post.date}
                     </span>
                   </div>
                   <h3 className="mt-3 font-heading text-base font-semibold text-foreground-950 leading-snug group-hover:text-primary-700 transition-colors">
-                    <Link href={`/ideas/${article.slug}`}>{article.title}</Link>
+                    <Link href={`/ideas/${post.slug}`}>{post.title}</Link>
                   </h3>
                   <p className="mt-2.5 text-xs text-foreground-600 leading-relaxed line-clamp-3">
-                    {article.excerpt}
+                    {post.excerpt}
                   </p>
                   <div className="mt-auto pt-5 flex items-center justify-between">
-                    <span className="text-[11px] text-foreground-500">{article.readTime}</span>
+                    <span className="text-[11px] text-foreground-500">{post.readTime}</span>
                     <Link
-                      href={`/ideas/${article.slug}`}
+                      href={`/ideas/${post.slug}`}
                       className="inline-flex items-center gap-1 text-xs font-semibold text-primary-700 group-hover:gap-2 transition-all"
                     >
-                      View Draft
+                      Read Essay
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
