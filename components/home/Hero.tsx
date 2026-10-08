@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, ArrowDown } from "lucide-react";
 
 export const heroStats = [
-  { value: "10+", label: "Years teaching engineering education" },
+  { value: "12", label: "Years teaching engineering education" },
   { value: "02", label: "Public YouTube channels" },
   { value: "01", label: "Live learning prototype" },
 ];
@@ -28,19 +28,19 @@ export default function Hero() {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-background-50/20 bg-background-50/10 backdrop-blur-sm text-xs font-mono uppercase tracking-[0.16em] text-background-100 animate-float">
             <span className="w-1.5 h-1.5 rounded-full bg-primary-400 animate-pulse-dot"></span>
-            Independent Learning Architect &amp; Builder
+            Independent Learning Architect &amp; Engineering Educator
           </div>
 
           <h1 className="mt-7 font-heading font-semibold text-background-50 tracking-tight text-4xl sm:text-5xl lg:text-[3.75rem] leading-[1.05]">
             Degrees test memory.
             <br />
-            <span className="text-primary-300">Building solves real problems.</span>
+            AI writes boilerplate.
+            <br />
+            <span className="text-primary-300">Engineering is understanding systems.</span>
           </h1>
 
-          <p className="mt-7 text-base sm:text-lg text-background-100/85 leading-relaxed max-w-2xl">
-            Exploring how people develop the capability to solve complex real-world problems
-            through technology — while grounding learning in consequences, public impact, and
-            human agency.
+          <p className="mt-7 text-base sm:text-lg text-background-100/85 leading-relaxed max-w-2xl font-light">
+            In an era where generative AI commoditizes syntax-first coding, technical education must evolve from rote memorization toward <strong>inductive, consequence-driven mental modeling</strong> and verifiable proof of competence.
           </p>
 
           <div className="mt-9 flex flex-col sm:flex-row gap-3">

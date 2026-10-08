@@ -18,12 +18,12 @@ export const channels = [
   {
     role: "Enable + Implement",
     status: "Active Builder Channel",
-    title: "Vikas Bandaru Tech1",
+    title: "Vikas Bandaru Tech",
     description:
       "Technical how-tos, programming breakdowns, Salesforce / Agentforce implementation, LogicSims engine development, and build-in-public logs.",
     audience: "Software engineers, aspiring builders, and hands-on developers.",
     cta: "Visit Tech Channel",
-    href: "https://www.youtube.com/@VikasBandaruTech1",
+    href: "https://www.youtube.com/@VikasBandaruTech",
     image: "/images/editorial/watch-tech.webp",
   },
 ];

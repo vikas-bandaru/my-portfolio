@@ -2,7 +2,7 @@ import Reveal from "@/components/Reveal";
 import { GraduationCap, Code2, GitBranch, Video } from "lucide-react";
 
 export const evidenceParagraphs = [
-  "Over a decade spent teaching in engineering education and managing technical training programs revealed a recurring structural failure: graduates routinely score top marks on theoretical exams, yet struggle to debug an asynchronous failure or build a functional software system.",
+  "12 years spent teaching in engineering education and managing technical training programs revealed a recurring structural failure: graduates routinely score top marks on theoretical exams, yet struggle to debug an asynchronous failure or build a functional software system.",
   "When learning happens in isolated subject silos, students memorize abstract syntax without forming conceptual mental models. Real reform requires shifting from passive recall to empirical consequence — where building things makes learning meaningful, and employment becomes a natural byproduct of genuine capability.",
 ];
 
@@ -24,7 +24,7 @@ export default function AboutSection() {
                 The Evidence &amp; The Problem
               </span>
               <h2 className="mt-4 font-heading text-3xl md:text-4xl font-semibold text-foreground-950 tracking-tight leading-[1.15]">
-                A decade of teaching exposed the same structural failure.
+                12 years of teaching exposed the same structural failure.
               </h2>
               <div className="mt-6 space-y-5">
                 {evidenceParagraphs.map((paragraph, i) => (

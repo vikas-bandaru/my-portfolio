@@ -7,24 +7,24 @@ import { FlaskConical, BookOpen } from "lucide-react";
 export const pedagogyModes = [
   {
     key: "rote",
-    label: "Rote Instruction",
-    heading: "Rote Method — Traditional Classroom",
-    summary: "Content is delivered once, memorized for an exam, and rarely revisited once the grade is posted.",
+    label: "Syntax-First Instruction",
+    heading: "Deductive / Syllabus-First — Traditional CS Classroom",
+    summary: "Abstract syntax and definitions are presented first, memorized for exams, and collapse under non-deterministic production conditions.",
     points: [
-      'Lecture: "A Promise represents a future value. Remember the definition for the exam."',
-      "Outcome: Surface recall that collapses the moment the problem changes shape.",
-      "Result: Brittle confidence with no transferable mental model.",
+      'Lecture: "A Promise represents a future value. Memorize the syntax for the exam."',
+      "Cognitive Failure: High extraneous load; abstract syntax without internal mental models or visual grounding.",
+      "Result: Brittle graduates who score 90%+ in exams but panic when debugging an asynchronous race condition.",
     ],
   },
   {
     key: "discovery",
-    label: "Discovery Simulator",
-    heading: "Discovery Method — LogicSims Consequence Engine",
-    summary: "Students manipulate a live system, watch consequences unfold, and build durable intuition.",
+    label: "Inductive Simulation",
+    heading: "Inductive / Consequence-Driven — LogicSims Cognitive Architecture",
+    summary: "Learners manipulate interactive system states and discover boundary conditions before formalizing code schemas.",
     points: [
-      'Simulation: "Here is a live state machine dropping 15% of packets. Manipulate the event loop buffer and observe where execution starves."',
-      "Outcome: A deep mental model of state transitions, empirical debugging intuition, and transferable problem-solving confidence.",
-      "Result: Capability that survives contact with real systems and real deadlines.",
+      'Simulation: "Manipulate the event loop buffer, force thread contention, and observe where execution starves."',
+      "Cognitive Science: Dual Coding Theory (visual state + textual logic) anchoring parallel memory traces.",
+      "Result: Deep intuition that survives contact with real-world distributed architectures.",
     ],
   },
 ];

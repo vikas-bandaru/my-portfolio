@@ -1,15 +1,31 @@
 export type MaturityStatus = "live" | "building" | "vision";
 
+export interface IdeaSection {
+  heading?: string;
+  subheading?: string;
+  paragraphs: string[];
+  callout?: {
+    type: "lens" | "observation" | "principle";
+    text: string;
+    attribution?: string;
+  };
+}
+
 export interface IdeaItem {
   slug: string;
   title: string;
+  subtitle?: string;
   date: string;
   category: "Reform" | "Pedagogy" | "Engineering";
   excerpt: string;
   readTime: string;
   status: MaturityStatus;
-  reviewStatus: "legacy_pending_review" | "approved";
-  content: string[];
+  reviewStatus: "draft" | "published";
+  crossPostLinks?: {
+    medium?: string;
+    linkedin?: string;
+  };
+  sections: IdeaSection[];
   relatedBuildSlug?: string;
   relatedChannel?: "official" | "tech";
 }
@@ -33,58 +49,199 @@ export interface BuildItem {
 
 export const IDEAS: IdeaItem[] = [
   {
-    slug: "rote-to-real-problem-solving",
-    title: "Why High Exam Scores Fail in Software Roles (And How Discovery Learning Fixes It)",
-    date: "August 18, 2026",
+    slug: "collapse-of-syntax-first-cs",
+    title: "The Collapse of Syntax-First CS",
+    subtitle: "What Happens When Code Generation Costs Near-Zero?",
+    date: "October 02, 2026",
     category: "Reform",
-    excerpt: "An analysis of why traditional score-oriented technical education in India creates brittle graduates, and how simulation-based learning restores practical capability.",
-    readTime: "6 min read",
-    status: "building",
-    reviewStatus: "legacy_pending_review",
-    relatedBuildSlug: "logicsims",
-    relatedChannel: "official",
-    content: [
-      "In traditional technical education across India, students are evaluated primarily on their ability to recall syntax and reproduce standard algorithmic answers under exam conditions. This system rewards memory retention over diagnostic reasoning.",
-      "When these graduates join production software teams, they encounter non-deterministic bugs, complex state dependencies, and ambiguous specs — environments where textbook recall offers zero guidance.",
-      "The root problem is structural rather than individual capability. Treating software engineering as an exercise in memorization strips learners of the chance to develop mental models through consequence.",
-      "Discovery-based learning flips the lecture model. Rather than providing formulas first and asking students to confirm them, we present students with interactive simulations: broken networks, memory leaks, and unoptimized queries.",
-      "By experimenting, breaking things, and observing real-time feedback, learners construct deep conceptual mental models. When they understand why a system behaves a certain way, the syntax becomes trivial to look up and apply."
-    ]
-  },
-  {
-    slug: "train-the-trainer-framework",
-    title: "Train the Trainer: Building Capability Beyond the Slide Deck",
-    date: "July 24, 2026",
-    category: "Pedagogy",
-    excerpt: "How to coach engineering faculty to shift from lecturing syntax to guiding open-ended technical discovery.",
+    excerpt: "For two decades, technical education equated coding fluency with typing syntax. Now that LLMs emit boilerplate instantly, we face an acute diagnostic crisis in our classrooms and hiring loops.",
     readTime: "8 min read",
     status: "building",
-    reviewStatus: "legacy_pending_review",
+    reviewStatus: "published",
+    crossPostLinks: {
+      // Hidden on website reader until published via CMS
+      medium: "",
+      linkedin: "",
+    },
     relatedBuildSlug: "logicsims",
     relatedChannel: "official",
-    content: [
-      "Most faculty development programs in engineering colleges focus on syllabus coverage and tool adoption. They train teachers on what slides to show, rather than how to facilitate active diagnostic reasoning.",
-      "When an instructor is accustomed to lecturing from slides, open-ended student questions can feel disruptive. The traditional lecture is safe because it is completely deterministic.",
-      "To build discovery-based classrooms, educators need training in Socratic facilitation and constraint design. An effective educator designs problems where the error message itself becomes the instructor.",
-      "By shifting the teacher's role from 'authoritative broadcaster' to 'diagnostic facilitator', students develop self-reliance and the confidence to debug unfamiliar failures without waiting for a ready-made solution."
+    sections: [
+      {
+        heading: "1. The Grand Illusion of Fluency",
+        paragraphs: [
+          "For more than a decade standing before university lecture halls and mentoring junior developers, I watched the same pattern play out: students who scored top marks on paper programming exams froze the moment they were asked to debug an unhandled null pointer in a multi-threaded process.",
+          "We spent twenty years equating computer science with syntax fluency. If a student could memorize the exact parameter order of a library function or regurgitate a binary tree traversal from memory onto a whiteboard, we stamped them as 'competent'. We built entire placement training funnels around LeetCode pattern matching.",
+          "In 2026, generative AI shattered that entire premise. When an LLM can emit syntactically flawless boilerplate in three seconds, the market value of syntax recall drops to zero. Yet, when I sit with learners today, a startling paradox emerges: their code looks cleaner than ever, but their mental model of what is actually executing in runtime memory is more fragile than it has ever been."
+        ],
+        callout: {
+          type: "observation",
+          text: "When code synthesis is friction-free, we risk producing 'epistemic learned helplessness'—engineers who can stitch together massive systems but cannot reason about failure boundaries when things break.",
+        }
+      },
+      {
+        heading: "2. The AI Trust Crisis in Engineering Loops",
+        paragraphs: [
+          "Talk to engineering directors and tech leads at Global Capability Centers (GCCs) in Bengaluru, Hyderabad, or Pune right now, and you will hear a consistent complaint: the entry-level hiring pipeline is broken. Resumes look immaculate. Take-home projects have pristine README files and comprehensive test suites generated in minutes.",
+          "Then comes the live diagnostic round. When an interviewer introduces a subtle race condition or injects unexpected latency into a distributed queue, the candidate freezes. They know what the code says, but they don't know what the system does.",
+          "This is not a failure of intelligence; it is a failure of pedagogical architecture. By treating programming as the act of 'writing code' rather than 'managing state transitions under constraints', our educational systems optimized for the very skill that machines now automate best."
+        ]
+      },
+      {
+        heading: "3. The Shift to Inductive Diagnosis",
+        paragraphs: [
+          "How do we fix this? In my experiments with LogicSims, the answer has been to invert the classroom completely: take syntax off the screen first.",
+          "Instead of teaching loops and memory allocation through PowerPoint slides or syntax cheat sheets, we put learners inside interactive visual simulations. We introduce broken state, starvation, and memory leaks. We ask them to observe what happens before showing them how to fix it.",
+          "When learners manipulate variables directly and observe the immediate consequence on execution buffers, they build an intuitive, physical feel for computation. Syntax then becomes what it was always meant to be: merely a secondary notation for expressing a mental model that already exists clearly in the mind."
+        ],
+        callout: {
+          type: "principle",
+          text: "True engineering is not the emission of code. It is the ability to construct, stress-test, and verify a mental model of dynamic state under real-world constraints.",
+          attribution: "Pedagogical Note — Vikas Bandaru"
+        }
+      }
     ]
   },
   {
-    slug: "mental-models-async-javascript",
-    title: "Teaching Mental Models Over Syntax: The Async Execution Case Study",
-    date: "June 12, 2026",
-    category: "Engineering",
-    excerpt: "Why memorizing event loop rules fails under pressure, and how visual state machines teach asynchronous logic intuitively to developers.",
-    readTime: "5 min read",
+    slug: "proof-of-work-for-the-mind",
+    title: "Proof of Work for the Mind",
+    subtitle: "How I Think About Learning Sciences in the Post-AI Era",
+    date: "September 18, 2026",
+    category: "Pedagogy",
+    excerpt: "When paper degrees and LeetCode ranks lose all epistemic credibility, how do we verify genuine comprehension? Lessons from Ausubel, Kolb, and Paivio applied to simulation-driven learning.",
+    readTime: "10 min read",
     status: "building",
-    reviewStatus: "legacy_pending_review",
+    reviewStatus: "published",
+    crossPostLinks: {
+      medium: "",
+      linkedin: "",
+    },
     relatedBuildSlug: "logicsims",
-    relatedChannel: "tech",
-    content: [
-      "Asynchronous JavaScript is notorious for tripping up beginners and intermediate developers alike. Most tutorials attempt to explain it through textual rules: call stack, web APIs, callback queue, microtask queue.",
-      "Students memorize the order of execution for five contrived Promise examples, but fail when debugging an actual race condition in a multi-step user checkout flow.",
-      "The failure happens because text rules do not construct an active visual state machine in memory. When developers can manipulate the event loop interactively — pausing microtasks, observing call stack frames pop, and witnessing starvation — the intuition becomes permanent.",
-      "This insight is at the core of simulation-based learning: when learners can manipulate variables and observe consequences in real time, complex architectural concepts shift from abstract memorization to empirical intuition."
+    relatedChannel: "official",
+    sections: [
+      {
+        heading: "1. When Static Credentials Lose Meaning",
+        paragraphs: [
+          "In the pre-AI era, a university degree or a verified online certificate served as a rough heuristic for intellectual effort. It implied that someone sat through hours of study, wrote assignments, and passed supervised assessments.",
+          "Today, that signal has collapsed. When any homework prompt can be synthesized into an essay, and any coding challenge can be resolved by a reasoning model running in a background tab, static submissions tell us almost nothing about what has actually taken root in a learner's mind.",
+          "This led me to a central question that has driven my work on the LogicSims ecosystem: What constitutes an honest 'Proof of Work for the Mind'?"
+        ]
+      },
+      {
+        heading: "2. The Cognitive Foundations: Anchors, Cycles, and Dual Channels",
+        paragraphs: [
+          "To design a learning environment that builds verifiable intuition rather than surface memorization, I turned to the learning sciences. Rather than inventing novelty for its own sake, I found that the answers were already articulated by foundational cognitive theorists—we just had never built software engines that respected them.",
+          "First is David Ausubel’s Meaningful Reception Theory. Ausubel argued that learners do not absorb isolated facts; new knowledge must be 'subsumed' into existing cognitive anchors. This is why LogicSims organizes subjects as a Directed Acyclic Graph (DAG) rather than a linear syllabus. Before exposing a student to asynchronous callbacks, we must explicitly anchor their mental schema to synchronous queues.",
+          "Second is David Kolb’s Experiential Learning Cycle. Traditional classrooms start with the formula (abstract conceptualization) and ask students to confirm it. We flip this: the learner starts with Concrete Experience in a simulator, reflects on the state telemetry, extracts the rule inductively, and only then tests their model against novel edge cases."
+        ],
+        callout: {
+          type: "lens",
+          text: "Drawing on Allan Paivio's Dual-Coding Theory: human working memory is easily choked when tracking mutable program state purely through textual syntax. By pairing code with visual, spatial state transitions in real time, the brain encodes concepts across both verbal and spatial channels simultaneously.",
+          attribution: "Applied Cognitive Science"
+        }
+      },
+      {
+        heading: "3. Socratic Scaffolding Over Instant Answers",
+        paragraphs: [
+          "A crucial component of this architecture is how artificial intelligence is deployed. In mainstream edtech, AI is marketed as a personal tutor that writes explanations or generates code for the student. In practice, this often acts as an intellectual crutch, removing the friction necessary for deep learning.",
+          "In our Socratic design, the AI is deliberately constrained. When a student encounters a runtime error or an unexpected state, the system is forbidden from providing the fix. Instead, it acts as a diagnostic auditor: 'Look at the value of pointer `p` on step 4. What did you expect to happen when the buffer filled up?'",
+          "By forcing the learner to debug their own reasoning, we preserve the 'zone of proximal development' that psychologist Lev Vygotsky described. The proof of competence is not the finished code—it is the learner's recorded diagnostic reasoning and post-mortem breakdown."
+        ]
+      }
+    ]
+  },
+  {
+    slug: "curriculum-as-life-toolkit",
+    title: "Curriculum as a Life Toolkit",
+    subtitle: "Why We Must Teach Systems Logic Beyond the Degree Factory",
+    date: "August 24, 2026",
+    category: "Pedagogy",
+    excerpt: "Engineering education is not vocational training for temporary tech stacks. Concurrency, state transitions, and error budgets are cognitive lenses for navigating real-world life decisions.",
+    readTime: "7 min read",
+    status: "building",
+    reviewStatus: "published",
+    crossPostLinks: {
+      medium: "",
+      linkedin: "",
+    },
+    relatedBuildSlug: "logicsims",
+    relatedChannel: "official",
+    sections: [
+      {
+        heading: "1. The Syllabus Trap",
+        paragraphs: [
+          "Every semester, I speak with engineering students who are deeply anxious. They ask which framework they should memorize: 'Sir, should I learn React 19, or should I switch to Next.js? Will Flutter still get me a job in two years?'",
+          "This hyper-fixation on ephemeral vendor tools is a tragedy of modern technical education. We have turned engineering schools into vocational boot camps designed to train graduates for specific, short-lived industry slots.",
+          "When a technology shifts or an automated tool streamlines that workflow, students feel abandoned. They believe their education has expired, because they were taught tools rather than fundamental systems logic."
+        ]
+      },
+      {
+        heading: "2. The Universal Physics Engine of Systems",
+        paragraphs: [
+          "The truth that great engineers discover is that computational concepts are universal principles of reality:",
+          "A buffer overflow is not just an error in C; it is a universal lesson in recognizing unseen capacity boundaries and the perils of unconstrained trust.",
+          "A race condition is not just a multithreading bug; it is what happens in human teams, traffic bottlenecks, and financial systems when two dependent actions assume exclusive access without synchronization.",
+          "An error budget in site reliability engineering is the exact mathematical formulation of emotional resilience and personal risk tolerance."
+        ],
+        callout: {
+          type: "lens",
+          text: "As cognitive scientists Derek and Laura Cabrera demonstrated in their DSRP theory, all human understanding resolves into Distinctions, Systems, Relationships, and Perspectives. Software engineering happens to be the most accessible digital sandbox for training these cognitive muscles.",
+          attribution: "Cabrera Research Lab & Systems Thinking"
+        }
+      },
+      {
+        heading: "3. Educating for Life Agency",
+        paragraphs: [
+          "When we teach curriculum as an intellectual toolkit rather than an exam cram sheet, the student transforms. They stop asking what will appear on tomorrow's test and start looking at their own daily challenges as manageable systems.",
+          "They can look at a confusing personal budget, an overwhelming schedule, or an ambiguous team conflict, break it down into variables, identify the feedback loops, and find the highest-leverage point of intervention.",
+          "Our responsibility as educators is not to produce compliant platform consumers. It is to graduate independent human thinkers equipped with the cognitive tools to build, evaluate, and navigate an unpredictable world."
+        ]
+      }
+    ]
+  },
+  {
+    slug: "death-of-middle-tier-it",
+    title: "The Shift in Tech Careers",
+    subtitle: "Observations on India's 2026 Hiring Reality and Campus Transformation",
+    date: "July 30, 2026",
+    category: "Reform",
+    excerpt: "The mass campus recruitment era that defined Indian IT for twenty years is over. GCC insourcing and AI copilots demand a radical shift toward systems autonomy and active faculty mentorship.",
+    readTime: "9 min read",
+    status: "building",
+    reviewStatus: "published",
+    crossPostLinks: {
+      medium: "",
+      linkedin: "",
+    },
+    relatedBuildSlug: "logicsims",
+    relatedChannel: "official",
+    sections: [
+      {
+        heading: "1. The End of an Era",
+        paragraphs: [
+          "For anyone who spent the last two decades in Indian engineering education, the annual campus placement season had a familiar rhythm. Large IT service delivery giants would arrive in convoys of buses at engineering colleges, conduct aptitude tests, and issue offer letters in batches of hundreds.",
+          "That model was built on global cost arbitrage and routine application maintenance. In 2026, that era has definitively closed.",
+          "Routine code migration, boilerplate scripting, manual unit testing, and basic documentation tasks—the traditional proving ground of fresh graduates—are now handled seamlessly by autonomous developer tools and code copilots. The entry-level pyramid has permanently contracted."
+        ],
+        callout: {
+          type: "observation",
+          text: "Between 2024 and 2026, while legacy IT service hiring flattened to single-digit additions, Global Capability Centers (GCCs) in India expanded aggressively, demanding autonomous problem solvers over rote coders.",
+        }
+      },
+      {
+        heading: "2. The Rise of Capability-Led Engineering",
+        paragraphs: [
+          "The jobs haven't vanished; they have transformed. Over 2,100 Global Capability Centers in India have shifted from back-office support into primary global product ownership nodes. They are hiring engineers who understand cloud infrastructure, relational constraints, security postures, and edge deployments.",
+          "The tragedy is that most college curricula have not adapted. While Tier-1 institutions retain their industry advantages through alumni networks and brand equity, Tier-2 and Tier-3 colleges face an existential turning point. Teaching students textbook definitions of 10-year-old frameworks leaves them functionally unhirable in a market that prioritizes immediate systems autonomy."
+        ]
+      },
+      {
+        heading: "3. What Must Happen Next: Faculty Empowerment",
+        paragraphs: [
+          "The answer is neither commercial bootcamps promising 6-week magic transitions nor panic-driven bans on AI tools in college labs. The real leverage point in the Indian ecosystem is our college faculty.",
+          "In my work conducting Faculty Development Programs (Train-the-Trainer), I find that professors are just as frustrated by outdated syllabi as the students are. But when faculty are given pedagogical scaffolding—interactive simulators, problem-first rubrics, and diagnostic assessment designs—they transform.",
+          "India possesses the most passionate demographic of young technical talent in the world. If we equip our educators to replace lecture-broadcast classrooms with active discovery labs, our graduates will not merely survive this transition; they will lead it."
+        ]
+      }
     ]
   }
 ];
