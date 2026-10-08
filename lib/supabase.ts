@@ -2,12 +2,15 @@ import { createClient } from "@supabase/supabase-js";
 
 const cleanEnv = (val?: string) => (val || "").trim().replace(/^["']|["']$/g, "");
 
-const supabaseUrl = cleanEnv(process.env.NEXT_PUBLIC_SUPABASE_URL);
-const supabaseKey = cleanEnv(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+const supabaseUrl =
+  cleanEnv(process.env.NEXT_SUPABASE_URL) ||
+  cleanEnv(process.env.NEXT_PUBLIC_SUPABASE_URL) ||
+  "https://placeholder.supabase.co";
 
-if (!supabaseUrl || !supabaseKey) {
-  console.warn("Supabase credentials missing in environment variables.");
-}
+const supabaseKey =
+  cleanEnv(process.env.NEXT_SUPABASE_ANON_KEY) ||
+  cleanEnv(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) ||
+  "placeholder-anon-key";
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
