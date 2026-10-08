@@ -233,34 +233,63 @@ export default function LogicSimsPage() {
           </section>
         </Reveal>
 
-        {/* 5. MULTI-LAYER EXECUTION HIERARCHY */}
+        {/* 5. PLATFORM ENGINE & STRUCTURAL WORKFLOW */}
         <Reveal delay={250}>
           <section className="space-y-6">
             <div className="border-b border-background-200 pb-4">
               <span className="font-mono text-xs font-semibold tracking-wider uppercase text-primary-600 block">
-                Structural Framework
+                Platform Architecture
               </span>
               <h2 className="font-heading font-semibold text-2xl sm:text-3xl text-foreground-950 mt-1">
-                The 4 Progressive Pedagogical Layers
+                The 4 Operational Engine Layers
               </h2>
             </div>
             <p className="text-sm sm:text-base text-foreground-600 leading-relaxed font-light">
-              LogicSims organizes inquiry through a 4-tier progressive hierarchy moving from holistic systems intuition down to deep programmatic constraints:
+              While the cognitive foundations define <em>how the mind learns</em>, the LogicSims engine implements a concrete, gated product workflow that moves the learner from initial orientation to public construction:
             </p>
 
             <div className="grid gap-4 pt-2">
               {[
-                { title: "1. Macro Tier: Holistic Domain Schema (Ausubel Anchors)", desc: "Orient learners within broad systemic contexts (e.g. agricultural supply, memory allocation topologies, distributed networks) before exposing code or equations." },
-                { title: "2. Meso Tier: Subsystem Interactions & Telemetry (Kolb Cycle)", desc: "Observe asynchronous handshakes, queues, buffers, and dynamic boundary exchanges through interactive visual state telemetry." },
-                { title: "3. Micro Tier: Variable Constraints & Failure Sandboxes (Paivio Dual-Coding)", desc: "Directly manipulate threshold variables, mutated loops, and pointer references in isolated sandboxes to observe immediate visual consequence." },
-                { title: "4. Capstone Tier: Chaotic Stress-Testing & Architectural Post-Mortems", desc: "Validate genuine comprehension by diagnosing, isolating, and rectifying non-deterministic concurrency and real-world failure states." },
-              ].map((tier, idx) => (
-                <div key={idx} className="p-6 rounded-2xl bg-background-50/80 border border-background-200 shadow-xs space-y-1.5">
-                  <div className="font-heading font-semibold text-foreground-950 text-sm sm:text-base flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-primary-600 shrink-0" />
-                    <span>{tier.title}</span>
+                {
+                  tier: "Layer 01",
+                  title: "Macro Shelf: The Knowledge Graph (Directed Acyclic Graph)",
+                  desc: "Instead of a flat catalog or endless linear video playlists, subjects live on a navigable Knowledge Graph. Learners see explicit prerequisite paths, understanding where a domain sits in their mental roadmap before taking their first step.",
+                  badge: "Navigation & Scope"
+                },
+                {
+                  tier: "Layer 02",
+                  title: "Meso Orchestrator: The Gated Progression Loop",
+                  desc: "Within each module, progression follows a strict, locked sequence: Brief (relevance) → Real-World App (context) → Simulator (discovery) → Logic Synthesis (formalization) → Diagnostic Challenge. Locking later stages prevents the cognitive overwhelm that causes students to abandon difficult concepts.",
+                  badge: "Scaffolded Progression"
+                },
+                {
+                  tier: "Layer 03",
+                  title: "Micro Sandbox: Interactive Simulator & Live Code Mind",
+                  desc: "The dual-surface interaction layer. On the left, an interactive visual canvas lets learners manipulate physical system variables, thresholds, and queues. On the right, 'Code Mind' synchronizes execution state in real time, turning invisible memory into tangible cause-and-effect.",
+                  badge: "Interactive Core"
+                },
+                {
+                  tier: "Layer 04",
+                  title: "Capstone Studio: Emergent Synthesis & Constructionist Portfolios",
+                  desc: "Mastery does not end with multiple-choice quizzes. The engine tracks mastered logic patterns (e.g. loops + state buffers + pointers) and generates an Emergent Synthesis Project. Learners build and export a verifiable, interactive public portfolio asset proving hands-on capability.",
+                  badge: "Proof of Competence"
+                },
+              ].map((layer, idx) => (
+                <div key={idx} className="p-6 sm:p-7 rounded-2xl bg-background-50/80 border border-background-200 shadow-xs space-y-2 hover:border-primary-400/40 transition-all">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-primary-700 font-semibold">
+                      {layer.tier}
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-primary-50 text-primary-800 border border-primary-200/60 font-mono text-[10px] font-medium">
+                      {layer.badge}
+                    </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-foreground-600 leading-relaxed pl-6 font-light">{tier.desc}</p>
+                  <div className="font-heading font-semibold text-foreground-950 text-base sm:text-lg">
+                    {layer.title}
+                  </div>
+                  <p className="text-xs sm:text-sm text-foreground-600 leading-relaxed font-light">
+                    {layer.desc}
+                  </p>
                 </div>
               ))}
             </div>
