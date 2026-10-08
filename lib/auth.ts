@@ -19,9 +19,13 @@ function verifyToken(token: string, secret: string): boolean {
   return token === expected;
 }
 
+function getAdminSecret(): string {
+  return (process.env.CMS_ADMIN_SECRET || "").trim().replace(/^["']|["']$/g, "");
+}
+
 export async function createStudioSession(secretAttempt: string): Promise<boolean> {
-  const adminSecret = process.env.CMS_ADMIN_SECRET?.trim();
-  if (!adminSecret || secretAttempt !== adminSecret) {
+  const adminSecret = getAdminSecret();
+  if (!adminSecret || secretAttempt.trim() !== adminSecret) {
     return false;
   }
 
@@ -41,7 +45,7 @@ export async function createStudioSession(secretAttempt: string): Promise<boolea
 }
 
 export async function verifyStudioSession(): Promise<boolean> {
-  const adminSecret = process.env.CMS_ADMIN_SECRET?.trim();
+  const adminSecret = getAdminSecret();
   if (!adminSecret) return false;
 
   const cookieStore = await cookies();

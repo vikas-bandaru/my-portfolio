@@ -14,7 +14,7 @@ export const metadata = {
 export default async function StudioPage() {
   const isAuth = await verifyStudioSession();
   if (!isAuth) {
-    redirect("/studio/login");
+    redirect("/studio/not-found");
   }
 
   const { items } = await fetchCurationItems();

@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { CurationItemRecord, ContentType, PublicationStatus, TargetSurface } from "@/lib/supabase";
+import {
+  CurationItemRecord,
+  ContentType,
+  PublicationStatus,
+  TargetSurface,
+} from "@/lib/supabase";
 import { saveCurationItem, deleteCurationItem } from "./actions";
 import { logoutAction } from "./login/actions";
 import {
@@ -16,14 +21,14 @@ import {
   Trash2,
   ExternalLink,
   LogOut,
-  CheckCircle2,
   Clock,
-  Archive,
-  ArrowRight,
-  Eye,
   Tag,
   Link as LinkIcon,
   Search,
+  Image as ImageIcon,
+  BookMarked,
+  Wand2,
+  Check,
 } from "lucide-react";
 
 const CONTENT_TYPES: { id: ContentType; label: string; icon: typeof FileText }[] = [
@@ -45,6 +50,31 @@ const TARGET_SURFACES: { id: TargetSurface; label: string }[] = [
   { id: "about", label: "About (Story)" },
 ];
 
+const EDITORIAL_IMAGES = [
+  { path: "/images/editorial/hero-network.webp", label: "Hero Network (Cognitive Grid)" },
+  { path: "/images/editorial/build-logicsims.webp", label: "LogicSims Interactive Lab" },
+  { path: "/images/editorial/build-traits.webp", label: "Traits Architectural Engine" },
+  { path: "/images/editorial/idea-event-loop.webp", label: "Event Loop & Concurrency" },
+  { path: "/images/editorial/idea-exam-hall.webp", label: "Exam Hall Pedagogy" },
+  { path: "/images/editorial/idea-mentoring.webp", label: "Engineering Mentorship" },
+  { path: "/images/editorial/watch-official.webp", label: "Vikas Bandaru Official" },
+  { path: "/images/editorial/watch-tech.webp", label: "VikasBandaruTech Deep Dives" },
+];
+
+const COGNITIVE_SUGGESTIONS = [
+  "Ausubel Meaningful Learning",
+  "Kolb Experiential Cycle",
+  "Dual Coding Theory",
+  "Finite State Machines",
+  "Garbage Collection Internals",
+  "Pedagogy & Mental Models",
+  "Systems Architecture",
+  "Distributed Systems",
+  "Active Recall",
+  "TypeScript Engineering",
+  "Next.js App Router",
+];
+
 export default function StudioClient({ initialItems }: { initialItems: CurationItemRecord[] }) {
   const [items, setItems] = useState<CurationItemRecord[]>(initialItems);
   const [selectedId, setSelectedId] = useState<string | null>(initialItems[0]?.id || null);
@@ -54,7 +84,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  // Draft form state for the selected item
+  // Form State
   const selectedItem = items.find((i) => i.id === selectedId) || null;
   const [formState, setFormState] = useState<Partial<CurationItemRecord>>(
     selectedItem || createBlankItem("idea")
@@ -84,10 +114,11 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
       read_time: "5 min read",
       excerpt: "",
       main_content: "",
+      cover_image: "",
       tags: [],
       related_content_ids: [],
       related_project_slug: "",
-      related_channel: null,
+      related_channel: type === "video" ? "tech" : null,
       external_links: [],
       cross_post_links: {},
       research_sources: [],
@@ -96,7 +127,14 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
 
   function handleSelect(item: CurationItemRecord) {
     setSelectedId(item.id);
-    setFormState(item);
+    setFormState({
+      ...item,
+      secondary_surfaces: item.secondary_surfaces || [],
+      tags: item.tags || [],
+      external_links: item.external_links || [],
+      cross_post_links: item.cross_post_links || {},
+      research_sources: item.research_sources || [],
+    });
     setMessage(null);
   }
 
@@ -107,11 +145,113 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
     setMessage(null);
   }
 
-  function autoSlug(title: string) {
-    return title
+  // --- AUTOMATIONS ---
+
+  // 1. Smart Slug Generator (type-aware prefixing)
+  function generateSmartSlug(title: string, type?: ContentType) {
+    const sanitized = title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)+/g, "");
+    if (!sanitized) return "";
+
+    const activeType = type || formState.content_type || "idea";
+    const prefixMap: Partial<Record<ContentType, string>> = {
+      build: "build",
+      experiment: "lab",
+      logicsims_update: "sim",
+      video: "watch",
+      experience: "story",
+    };
+
+    const prefix = prefixMap[activeType];
+    if (prefix && !sanitized.startsWith(prefix)) {
+      return `${prefix}-${sanitized}`;
+    }
+    return sanitized;
+  }
+
+  // 2. Real-time Read-time calculation based on word count
+  function calculateReadTime(text: string): string {
+    const words = (text || "").trim().split(/\s+/).filter(Boolean).length;
+    if (words === 0) return "1 min read";
+    const minutes = Math.max(1, Math.ceil(words / 200));
+    return `${minutes} min read`;
+  }
+
+  // 3. Auto-Excerpt Generator
+  function extractAutoExcerpt(text: string): string {
+    if (!text) return "";
+    const clean = text
+      .replace(/^#+\s.*$/gm, "") // remove headers
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // link markdown
+      .replace(/[*_`]/g, "") // bold/italic/code
+      .trim();
+    const firstParagraph = clean.split(/\n\s*\n/)[0] || clean;
+    return firstParagraph.slice(0, 180).trim() + (firstParagraph.length > 180 ? "..." : "");
+  }
+
+  // Toggle secondary surface
+  function toggleSecondarySurface(surface: TargetSurface) {
+    const current = formState.secondary_surfaces || [];
+    const exists = current.includes(surface);
+    const updated = exists ? current.filter((s) => s !== surface) : [...current, surface];
+    setFormState((prev) => ({ ...prev, secondary_surfaces: updated }));
+  }
+
+  // Add / remove tag
+  function addTag(tag: string) {
+    const trimmed = tag.trim();
+    if (!trimmed) return;
+    const current = formState.tags || [];
+    if (!current.includes(trimmed)) {
+      setFormState((prev) => ({ ...prev, tags: [...current, trimmed] }));
+    }
+  }
+
+  function removeTag(tagToRemove: string) {
+    const current = formState.tags || [];
+    setFormState((prev) => ({ ...prev, tags: current.filter((t) => t !== tagToRemove) }));
+  }
+
+  // Research Sources Helpers
+  function addResearchSource() {
+    const current = formState.research_sources || [];
+    setFormState((prev) => ({
+      ...prev,
+      research_sources: [...current, { title: "", citation: "", url: "" }],
+    }));
+  }
+
+  function updateResearchSource(index: number, field: "title" | "citation" | "url", value: string) {
+    const current = [...(formState.research_sources || [])];
+    current[index] = { ...current[index], [field]: value };
+    setFormState((prev) => ({ ...prev, research_sources: current }));
+  }
+
+  function removeResearchSource(index: number) {
+    const current = (formState.research_sources || []).filter((_, i) => i !== index);
+    setFormState((prev) => ({ ...prev, research_sources: current }));
+  }
+
+  // External Links Helpers
+  function addExternalLink() {
+    const current = formState.external_links || [];
+    setFormState((prev) => ({
+      ...prev,
+      external_links: [...current, { label: "", url: "" }],
+    }));
+  }
+
+  function updateExternalLink(index: number, field: "label" | "url", value: string) {
+    const current = [...(formState.external_links || [])];
+    current[index] = { ...current[index], [field]: value };
+    setFormState((prev) => ({ ...prev, external_links: current }));
+  }
+
+  function removeExternalLink(index: number) {
+    const current = (formState.external_links || []).filter((_, i) => i !== index);
+    setFormState((prev) => ({ ...prev, external_links: current }));
   }
 
   async function handleSave() {
@@ -120,7 +260,10 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
 
     const payload = { ...formState };
     if (!payload.slug && payload.title) {
-      payload.slug = autoSlug(payload.title);
+      payload.slug = generateSmartSlug(payload.title, payload.content_type);
+    }
+    if (!payload.read_time && payload.main_content) {
+      payload.read_time = calculateReadTime(payload.main_content);
     }
 
     const res = await saveCurationItem(payload);
@@ -129,7 +272,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
     if (res.error) {
       setMessage({ type: "error", text: res.error });
     } else if (res.item) {
-      setMessage({ type: "success", text: "Successfully saved to Supabase!" });
+      setMessage({ type: "success", text: "Successfully saved to Supabase Cloud!" });
       const saved = res.item;
       setSelectedId(saved.id);
       setFormState(saved);
@@ -147,7 +290,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
 
   async function handleDelete() {
     if (!formState.id) return;
-    if (!confirm("Are you sure you want to delete this curation item?")) return;
+    if (!confirm("Are you sure you want to permanently delete this curation record?")) return;
 
     const res = await deleteCurationItem(formState.id);
     if (res.error) {
@@ -160,19 +303,18 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
       } else {
         handleCreateNew("idea");
       }
-      setMessage({ type: "success", text: "Item deleted." });
+      setMessage({ type: "success", text: "Record deleted." });
     }
   }
 
-  // Filter list
   const filteredItems = items.filter((item) => {
     if (activeFilter !== "all" && item.content_type !== activeFilter) return false;
     if (statusFilter !== "all" && item.status !== statusFilter) return false;
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
-      const matchTitle = item.title.toLowerCase().includes(q);
-      const matchExcerpt = item.excerpt.toLowerCase().includes(q);
-      const matchSlug = item.slug.toLowerCase().includes(q);
+      const matchTitle = (item.title || "").toLowerCase().includes(q);
+      const matchExcerpt = (item.excerpt || "").toLowerCase().includes(q);
+      const matchSlug = (item.slug || "").toLowerCase().includes(q);
       if (!matchTitle && !matchExcerpt && !matchSlug) return false;
     }
     return true;
@@ -200,7 +342,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
           <div className="hidden md:flex items-center gap-3 text-xs font-mono text-foreground-400">
             <span className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-400" />
-              {items.filter((i) => i.status === "published").length} Published
+              {items.filter((i) => i.status === "published").length} Live
             </span>
             <span className="text-white/20">•</span>
             <span className="flex items-center gap-1.5">
@@ -217,7 +359,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
           <form action={logoutAction}>
             <button
               type="submit"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-foreground-300 hover:text-white text-xs font-mono transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-foreground-300 hover:text-white text-xs font-mono transition-colors cursor-pointer"
             >
               <LogOut className="w-3 h-3" />
               <span>Lock Studio</span>
@@ -244,37 +386,37 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
                   <button
                     key={type.id}
                     onClick={() => handleCreateNew(type.id)}
-                    className="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-primary-500/30 text-foreground-300 hover:text-white text-[11px] transition-all gap-1 text-center"
+                    className="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-primary-500/30 text-foreground-300 hover:text-white text-[11px] transition-all gap-1 text-center cursor-pointer"
                     title={`Create new ${type.label}`}
                   >
                     <Icon className="w-3.5 h-3.5 text-primary-400" />
-                    <span className="truncate w-full">{type.label.split("/")[0].trim()}</span>
+                    <span className="line-clamp-1 text-[10px]">{type.label.split("/")[0]}</span>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Search & Filters */}
-          <div className="p-4 border-b border-white/10 space-y-2.5">
+          {/* Search & Filter */}
+          <div className="p-3 border-b border-white/10 space-y-2 bg-[#050b16]">
             <div className="relative">
+              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-foreground-400" />
               <input
                 type="text"
-                placeholder="Search titles, slugs..."
+                placeholder="Search drafts, titles, slugs..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-3 py-1.5 pl-8 rounded-lg bg-white/5 border border-white/10 text-xs text-white placeholder-foreground-500 focus:outline-none focus:border-primary-400"
+                className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white placeholder-foreground-500 focus:outline-none focus:border-primary-400 font-mono"
               />
-              <Search className="w-3.5 h-3.5 text-foreground-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex gap-2">
               <select
                 value={activeFilter}
                 onChange={(e) => setActiveFilter(e.target.value)}
-                className="flex-1 bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-xs text-foreground-300 focus:outline-none"
+                className="flex-1 bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-[11px] text-foreground-300 focus:outline-none font-mono"
               >
-                <option value="all">All Ecosystem Types</option>
+                <option value="all">All Content Types</option>
                 {CONTENT_TYPES.map((t) => (
                   <option key={t.id} value={t.id}>
                     {t.label}
@@ -285,9 +427,9 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-xs text-foreground-300 focus:outline-none"
+                className="bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-[11px] text-foreground-300 focus:outline-none font-mono"
               >
-                <option value="all">All Status</option>
+                <option value="all">All Statuses</option>
                 <option value="published">Published</option>
                 <option value="in_progress">In Progress</option>
                 <option value="draft">Draft</option>
@@ -296,7 +438,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
             </div>
           </div>
 
-          {/* Content List Feed */}
+          {/* Item List */}
           <div className="flex-1 overflow-y-auto divide-y divide-white/5">
             {filteredItems.length === 0 ? (
               <div className="p-8 text-center text-xs text-foreground-500 font-light space-y-2">
@@ -319,7 +461,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
                   <button
                     key={item.id}
                     onClick={() => handleSelect(item)}
-                    className={`w-full text-left p-4 transition-colors space-y-1.5 ${
+                    className={`w-full text-left p-4 transition-colors space-y-1.5 cursor-pointer ${
                       isSelected
                         ? "bg-primary-500/10 border-l-2 border-primary-500"
                         : "hover:bg-white/5"
@@ -355,7 +497,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
           <div className="p-4 border-b border-white/10 flex items-center justify-between bg-[#08101e]/80 sticky top-0 z-20 backdrop-blur-md">
             <div className="flex items-center gap-3">
               <span className="font-mono text-xs text-foreground-400">
-                {formState.id ? "Editing Existing Item" : "New Unsaved Draft"}
+                {formState.id ? `Editing Record: ${formState.id.slice(0, 8)}...` : "New Unsaved Draft"}
               </span>
               {message && (
                 <span
@@ -374,7 +516,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
               {formState.id && (
                 <button
                   onClick={handleDelete}
-                  className="px-3 py-1.5 rounded-lg border border-red-500/30 text-red-400 hover:bg-red-500/10 text-xs font-mono transition-colors flex items-center gap-1.5"
+                  className="px-3 py-1.5 rounded-lg border border-red-500/30 text-red-400 hover:bg-red-500/10 text-xs font-mono transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>Delete</span>
@@ -387,19 +529,34 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
                 className="px-5 py-1.5 rounded-lg bg-primary-500 hover:bg-primary-400 disabled:opacity-50 text-white text-xs font-mono font-semibold transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
               >
                 <Save className="w-3.5 h-3.5" />
-                <span>{saving ? "Saving..." : "Save Changes"}</span>
+                <span>{saving ? "Saving..." : "Save Record"}</span>
               </button>
             </div>
           </div>
 
-          {/* Form Fields */}
+          {/* Form Fields - 100% Comprehensive Schema */}
           <div className="max-w-4xl w-full mx-auto p-6 md:p-10 space-y-8">
-            {/* Metadata Cluster */}
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="sm:col-span-2 space-y-1.5">
-                <label className="font-mono text-xs text-foreground-400 uppercase tracking-wider">
-                  Title
-                </label>
+            {/* 1. Primary Title & Identifiers */}
+            <div className="space-y-4">
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="font-mono text-xs text-foreground-400 uppercase tracking-wider">
+                    Content Title
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (formState.title) {
+                        const newSlug = generateSmartSlug(formState.title, formState.content_type);
+                        setFormState((prev) => ({ ...prev, slug: newSlug }));
+                      }
+                    }}
+                    className="flex items-center gap-1 text-[11px] font-mono text-primary-400 hover:text-primary-300 cursor-pointer"
+                  >
+                    <Wand2 className="w-3 h-3" />
+                    <span>Auto-generate slug</span>
+                  </button>
+                </div>
                 <input
                   type="text"
                   value={formState.title || ""}
@@ -408,7 +565,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
                     setFormState((prev) => ({
                       ...prev,
                       title,
-                      slug: prev.slug || autoSlug(title),
+                      slug: prev.slug || generateSmartSlug(title, prev.content_type),
                     }));
                   }}
                   placeholder="Enter publication title"
@@ -416,34 +573,36 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
                 />
               </div>
 
-              <div className="space-y-1.5">
-                <label className="font-mono text-xs text-foreground-400 uppercase tracking-wider">
-                  Subtitle / Subheading
-                </label>
-                <input
-                  type="text"
-                  value={formState.subtitle || ""}
-                  onChange={(e) => setFormState((prev) => ({ ...prev, subtitle: e.target.value }))}
-                  placeholder="Optional subtitle"
-                  className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-primary-400"
-                />
-              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-1.5">
+                  <label className="font-mono text-xs text-foreground-400 uppercase tracking-wider">
+                    Subtitle / Subheading
+                  </label>
+                  <input
+                    type="text"
+                    value={formState.subtitle || ""}
+                    onChange={(e) => setFormState((prev) => ({ ...prev, subtitle: e.target.value }))}
+                    placeholder="Optional secondary context"
+                    className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-primary-400"
+                  />
+                </div>
 
-              <div className="space-y-1.5">
-                <label className="font-mono text-xs text-foreground-400 uppercase tracking-wider">
-                  URL Slug
-                </label>
-                <input
-                  type="text"
-                  value={formState.slug || ""}
-                  onChange={(e) => setFormState((prev) => ({ ...prev, slug: e.target.value }))}
-                  placeholder="url-slug"
-                  className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-mono text-primary-300 focus:outline-none focus:border-primary-400"
-                />
+                <div className="space-y-1.5">
+                  <label className="font-mono text-xs text-foreground-400 uppercase tracking-wider">
+                    URL Slug
+                  </label>
+                  <input
+                    type="text"
+                    value={formState.slug || ""}
+                    onChange={(e) => setFormState((prev) => ({ ...prev, slug: e.target.value }))}
+                    placeholder="e.g. state-machines-in-practice"
+                    className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-mono text-primary-300 focus:outline-none focus:border-primary-400"
+                  />
+                </div>
               </div>
             </div>
 
-            {/* Ecosystem Classification */}
+            {/* 2. Routing, Surfaces & Publication Status */}
             <div className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-4">
               <span className="font-mono text-xs font-semibold uppercase tracking-wider text-primary-400 block">
                 Ecosystem Routing &amp; Status
@@ -454,12 +613,14 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
                   <label className="font-mono text-[11px] text-foreground-400">Content Type</label>
                   <select
                     value={formState.content_type || "idea"}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      const newType = e.target.value as ContentType;
                       setFormState((prev) => ({
                         ...prev,
-                        content_type: e.target.value as ContentType,
-                      }))
-                    }
+                        content_type: newType,
+                        slug: prev.title ? generateSmartSlug(prev.title, newType) : prev.slug,
+                      }));
+                    }}
                     className="w-full bg-[#0d1627] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   >
                     {CONTENT_TYPES.map((t) => (
@@ -472,7 +633,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
 
                 <div className="space-y-1.5">
                   <label className="font-mono text-[11px] text-foreground-400">
-                    Primary Destination Surface
+                    Primary Surface
                   </label>
                   <select
                     value={formState.primary_surface || "ideas"}
@@ -506,7 +667,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
                     }
                     className="w-full bg-[#0d1627] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none font-semibold"
                   >
-                    <option value="draft">Draft</option>
+                    <option value="draft">Draft (Private in CMS)</option>
                     <option value="in_progress">In Progress</option>
                     <option value="published">Published (Live to Site)</option>
                     <option value="archived">Archived</option>
@@ -514,7 +675,38 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-6 pt-2 text-xs">
+              {/* Secondary Cross-Display Surfaces */}
+              <div className="space-y-2 pt-2 border-t border-white/5">
+                <label className="font-mono text-[11px] text-foreground-400">
+                  Secondary Surfaces (also surface item on these pages):
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {TARGET_SURFACES.map((s) => {
+                    const isPrimary = formState.primary_surface === s.id;
+                    const isSelected = formState.secondary_surfaces?.includes(s.id);
+                    if (isPrimary) return null;
+
+                    return (
+                      <button
+                        key={s.id}
+                        type="button"
+                        onClick={() => toggleSecondarySurface(s.id)}
+                        className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-all border cursor-pointer ${
+                          isSelected
+                            ? "bg-primary-500/20 text-primary-300 border-primary-500/40"
+                            : "bg-white/5 text-foreground-400 border-white/10 hover:border-white/20"
+                        }`}
+                      >
+                        {isSelected ? "✓ " : "+ "}
+                        {s.label.split(" ")[0]}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Featured toggle & Read Time Automation */}
+              <div className="flex flex-wrap items-center justify-between gap-4 pt-2 text-xs border-t border-white/5">
                 <label className="flex items-center gap-2 cursor-pointer text-foreground-300">
                   <input
                     type="checkbox"
@@ -524,7 +716,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
                     }
                     className="rounded border-white/20 text-primary-500 focus:ring-0"
                   />
-                  <span>Feature on Home Page</span>
+                  <span>Feature on Home Page Featured Rail</span>
                 </label>
 
                 <div className="flex items-center gap-2">
@@ -535,18 +727,102 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
                     onChange={(e) =>
                       setFormState((prev) => ({ ...prev, read_time: e.target.value }))
                     }
-                    placeholder="e.g. 8 min read"
-                    className="bg-white/5 border border-white/10 rounded-lg px-2.5 py-1 text-xs text-white w-28"
+                    placeholder="e.g. 5 min read"
+                    className="bg-white/5 border border-white/10 rounded-lg px-2.5 py-1 text-xs text-white w-28 font-mono"
                   />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (formState.main_content) {
+                        setFormState((prev) => ({
+                          ...prev,
+                          read_time: calculateReadTime(prev.main_content || ""),
+                        }));
+                      }
+                    }}
+                    title="Calculate read time from word count"
+                    className="text-primary-400 hover:text-primary-300 cursor-pointer p-1"
+                  >
+                    <Wand2 className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
             </div>
 
-            {/* Excerpt */}
+            {/* 3. Cover Image & Visual Assets */}
+            <div className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-primary-400 flex items-center gap-2">
+                  <ImageIcon className="w-3.5 h-3.5" />
+                  Cover Image / Visual Asset
+                </span>
+                {formState.cover_image && (
+                  <button
+                    type="button"
+                    onClick={() => setFormState((prev) => ({ ...prev, cover_image: "" }))}
+                    className="text-[11px] font-mono text-red-400 hover:text-red-300 cursor-pointer"
+                  >
+                    Clear image
+                  </button>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <input
+                  type="text"
+                  value={formState.cover_image || ""}
+                  onChange={(e) => setFormState((prev) => ({ ...prev, cover_image: e.target.value }))}
+                  placeholder="/images/editorial/hero-network.webp or external image URL"
+                  className="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white font-mono"
+                />
+
+                <p className="text-[11px] text-foreground-400 font-mono">
+                  Select from pre-rendered editorial assets:
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+                  {EDITORIAL_IMAGES.map((img) => (
+                    <button
+                      key={img.path}
+                      type="button"
+                      onClick={() => setFormState((prev) => ({ ...prev, cover_image: img.path }))}
+                      className={`text-left p-2 rounded-lg border text-[11px] transition-all cursor-pointer ${
+                        formState.cover_image === img.path
+                          ? "bg-primary-500/20 border-primary-500 text-white"
+                          : "bg-white/5 border-white/10 text-foreground-400 hover:border-white/20 hover:text-foreground-200"
+                      }`}
+                    >
+                      <div className="line-clamp-1 font-semibold">{img.label}</div>
+                      <div className="text-[9px] font-mono text-foreground-500 truncate">
+                        {img.path.replace("/images/editorial/", "")}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* 4. Short Description / Excerpt */}
             <div className="space-y-1.5">
-              <label className="font-mono text-xs text-foreground-400 uppercase tracking-wider">
-                Short Description / Excerpt
-              </label>
+              <div className="flex items-center justify-between">
+                <label className="font-mono text-xs text-foreground-400 uppercase tracking-wider">
+                  Short Description / Excerpt
+                </label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (formState.main_content) {
+                      setFormState((prev) => ({
+                        ...prev,
+                        excerpt: extractAutoExcerpt(prev.main_content || ""),
+                      }));
+                    }
+                  }}
+                  className="flex items-center gap-1 text-[11px] font-mono text-primary-400 hover:text-primary-300 cursor-pointer"
+                >
+                  <Wand2 className="w-3 h-3" />
+                  <span>Auto-extract from content</span>
+                </button>
+              </div>
               <textarea
                 rows={2}
                 value={formState.excerpt || ""}
@@ -556,50 +832,118 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
               />
             </div>
 
-            {/* Main Content Markdown Canvas */}
+            {/* 5. Main Content Markdown Canvas */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
                 <label className="font-mono text-xs text-foreground-400 uppercase tracking-wider">
                   Main Content (Markdown Body)
                 </label>
                 <span className="font-mono text-[11px] text-foreground-500">
-                  Supports headings, callouts, lists &amp; code blocks
+                  {formState.main_content ? `${formState.main_content.trim().split(/\s+/).filter(Boolean).length} words` : "0 words"}
                 </span>
               </div>
               <textarea
                 rows={16}
                 value={formState.main_content || ""}
-                onChange={(e) =>
-                  setFormState((prev) => ({ ...prev, main_content: e.target.value }))
-                }
-                placeholder="# Introduction&#10;&#10;Write your deep essay, build breakdown, or learning telemetry here..."
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setFormState((prev) => ({
+                    ...prev,
+                    main_content: val,
+                    read_time: calculateReadTime(val),
+                  }));
+                }}
+                placeholder="# Deep Systems Breakdown&#10;&#10;Write your pedagogical essay, platform architecture breakdown, or experiment observations here..."
                 className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white font-mono leading-relaxed focus:outline-none focus:border-primary-400"
               />
             </div>
 
-            {/* Ecosystem Cross-Links & Tags */}
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-1.5">
-                <label className="font-mono text-xs text-foreground-400 uppercase tracking-wider">
-                  Tags / Cognitive Themes (comma-separated)
-                </label>
-                <input
-                  type="text"
-                  value={formState.tags?.join(", ") || ""}
-                  onChange={(e) =>
-                    setFormState((prev) => ({
-                      ...prev,
-                      tags: e.target.value
-                        .split(",")
-                        .map((t) => t.trim())
-                        .filter(Boolean),
-                    }))
-                  }
-                  placeholder="Ausubel, Kolb, State Machines, Systems"
-                  className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-primary-400"
-                />
+            {/* 6. Tags & Cognitive Themes */}
+            <div className="space-y-3">
+              <label className="font-mono text-xs text-foreground-400 uppercase tracking-wider block">
+                Tags &amp; Cognitive Frameworks
+              </label>
+
+              {/* Tag Badges */}
+              <div className="flex flex-wrap gap-2 items-center">
+                {(formState.tags || []).map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-primary-500/15 border border-primary-500/30 text-primary-300 text-xs font-mono"
+                  >
+                    <span>{tag}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeTag(tag)}
+                      className="hover:text-red-400 cursor-pointer ml-1"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
               </div>
 
+              {/* Add Custom Tag */}
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  id="customTagInput"
+                  placeholder="Type tag and press Add..."
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      const input = e.currentTarget;
+                      addTag(input.value);
+                      input.value = "";
+                    }
+                  }}
+                  className="flex-1 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-primary-400"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById("customTagInput") as HTMLInputElement;
+                    if (el && el.value) {
+                      addTag(el.value);
+                      el.value = "";
+                    }
+                  }}
+                  className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-white text-xs font-mono cursor-pointer"
+                >
+                  Add
+                </button>
+              </div>
+
+              {/* Tag Auto-Suggestions */}
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[11px] font-mono text-foreground-500">
+                  Quick suggest (1-click to add):
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {COGNITIVE_SUGGESTIONS.map((sug) => {
+                    const alreadyAdded = formState.tags?.includes(sug);
+                    return (
+                      <button
+                        key={sug}
+                        type="button"
+                        disabled={alreadyAdded}
+                        onClick={() => addTag(sug)}
+                        className={`text-[10px] font-mono px-2 py-0.5 rounded-md transition-all cursor-pointer ${
+                          alreadyAdded
+                            ? "bg-white/5 text-foreground-600 line-through cursor-not-allowed"
+                            : "bg-white/5 hover:bg-primary-500/20 text-foreground-400 hover:text-primary-300 border border-white/5 hover:border-primary-500/30"
+                        }`}
+                      >
+                        + {sug}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* 7. Relationships & Video Distribution Channel */}
+            <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <label className="font-mono text-xs text-foreground-400 uppercase tracking-wider">
                   Related Project Slug
@@ -611,15 +955,151 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
                     setFormState((prev) => ({ ...prev, related_project_slug: e.target.value }))
                   }
                   placeholder="e.g. logicsims or traits-ecommerce"
-                  className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-primary-400"
+                  className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-primary-400 font-mono"
                 />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="font-mono text-xs text-foreground-400 uppercase tracking-wider">
+                  YouTube Target Channel
+                </label>
+                <select
+                  value={formState.related_channel || ""}
+                  onChange={(e) =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      related_channel: (e.target.value as "official" | "tech") || null,
+                    }))
+                  }
+                  className="w-full bg-[#0d1627] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
+                >
+                  <option value="">None / Not a Video</option>
+                  <option value="tech">@VikasBandaruTech (Deep Engineering Dives)</option>
+                  <option value="official">Vikas Bandaru Official (Broader Tech & Career)</option>
+                </select>
               </div>
             </div>
 
-            {/* External Syndication URLs (Medium / LinkedIn) */}
+            {/* 8. Research Sources & Citations */}
+            <div className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-primary-400 flex items-center gap-2">
+                  <BookMarked className="w-3.5 h-3.5" />
+                  Research Sources &amp; Citations
+                </span>
+                <button
+                  type="button"
+                  onClick={addResearchSource}
+                  className="text-xs font-mono text-primary-400 hover:text-primary-300 flex items-center gap-1 cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Add Source</span>
+                </button>
+              </div>
+
+              {(formState.research_sources || []).length === 0 ? (
+                <p className="text-xs font-mono text-foreground-500 font-light">
+                  No citations added yet. Click &ldquo;Add Source&rdquo; to attach scholarly references, papers, or RFCs.
+                </p>
+              ) : (
+                <div className="space-y-3">
+                  {formState.research_sources?.map((source, index) => (
+                    <div
+                      key={index}
+                      className="p-3 rounded-xl bg-white/5 border border-white/5 space-y-2 text-xs relative"
+                    >
+                      <button
+                        type="button"
+                        onClick={() => removeResearchSource(index)}
+                        className="absolute right-3 top-3 text-red-400 hover:text-red-300 text-xs font-mono cursor-pointer"
+                      >
+                        Remove
+                      </button>
+                      <div className="grid gap-2 sm:grid-cols-2 pr-12">
+                        <input
+                          type="text"
+                          placeholder="Source / Paper Title (e.g. Educational Psychology)"
+                          value={source.title}
+                          onChange={(e) => updateResearchSource(index, "title", e.target.value)}
+                          className="px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs font-mono"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Citation (e.g. Ausubel, D.P., 1968)"
+                          value={source.citation}
+                          onChange={(e) => updateResearchSource(index, "citation", e.target.value)}
+                          className="px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs font-mono"
+                        />
+                      </div>
+                      <input
+                        type="url"
+                        placeholder="Reference URL (optional)"
+                        value={source.url || ""}
+                        onChange={(e) => updateResearchSource(index, "url", e.target.value)}
+                        className="w-full px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs font-mono"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* 9. External Reference Links */}
+            <div className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-primary-400 flex items-center gap-2">
+                  <LinkIcon className="w-3.5 h-3.5" />
+                  External Links (GitHub Repos, Live Demos, Docs)
+                </span>
+                <button
+                  type="button"
+                  onClick={addExternalLink}
+                  className="text-xs font-mono text-primary-400 hover:text-primary-300 flex items-center gap-1 cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Add Link</span>
+                </button>
+              </div>
+
+              {(formState.external_links || []).length === 0 ? (
+                <p className="text-xs font-mono text-foreground-500 font-light">
+                  No external links added yet. Attach GitHub repositories, live deployments, or sandbox URLs.
+                </p>
+              ) : (
+                <div className="space-y-2">
+                  {formState.external_links?.map((link, index) => (
+                    <div key={index} className="flex gap-2 items-center">
+                      <input
+                        type="text"
+                        placeholder="Label (e.g. GitHub Repository)"
+                        value={link.label}
+                        onChange={(e) => updateExternalLink(index, "label", e.target.value)}
+                        className="w-1/3 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs font-mono"
+                      />
+                      <input
+                        type="url"
+                        placeholder="https://github.com/..."
+                        value={link.url}
+                        onChange={(e) => updateExternalLink(index, "url", e.target.value)}
+                        className="flex-1 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs font-mono"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeExternalLink(index)}
+                        className="text-red-400 hover:text-red-300 text-xs font-mono px-2 cursor-pointer"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* 10. External Cross-Post & Syndication URLs */}
             <div className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-3">
               <span className="font-mono text-xs font-semibold uppercase tracking-wider text-primary-400 block">
-                External Syndication &amp; Cross-Post URLs
+                Cross-Post Syndication URLs
               </span>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1">
@@ -637,7 +1117,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
                       }))
                     }
                     placeholder="https://medium.com/@..."
-                    className="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white"
+                    className="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white font-mono"
                   />
                 </div>
 
@@ -658,7 +1138,7 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
                       }))
                     }
                     placeholder="https://linkedin.com/pulse/..."
-                    className="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white"
+                    className="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white font-mono"
                   />
                 </div>
               </div>
