@@ -13,6 +13,7 @@ export const loopSteps = [
   "Imagine",
   "Experiment",
   "Build",
+  "Reflect",
   "Share",
 ];
 

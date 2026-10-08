@@ -8,6 +8,7 @@ const words = [
   "Imagine",
   "Experiment",
   "Build",
+  "Reflect",
   "Share",
 ];
 
