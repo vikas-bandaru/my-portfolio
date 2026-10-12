@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, GraduationCap, Users, Code2, Mic, CheckCircle2, Briefcase, Sparkles } from "lucide-react";
+import { ArrowRight, GraduationCap, Users, Code2, Mic, CheckCircle2, Briefcase, Sparkles, Compass } from "lucide-react";
 import EditorialSubpageHero from "@/components/EditorialSubpageHero";
 import Reveal from "@/components/Reveal";
 
@@ -62,17 +62,17 @@ export default function WorkPage() {
               </div>
 
               <p className="text-sm sm:text-base text-foreground-600 leading-relaxed font-light">
-                Have a technical learning goal that matches what I can genuinely teach? I offer focused, 1-on-1 diagnostic sessions and small-group coaching designed to build durable problem-solving confidence.
+                Have an immediate career dilemma or technical learning goal that matches what I can genuinely teach? I offer structured 1-on-1 diagnostic sessions, career roadmap evaluations, and individual technical mentorship.
               </p>
 
               <div className="space-y-3 pt-2">
-                <p className="font-mono text-xs font-semibold text-foreground-800 uppercase tracking-wider">Areas of Genuine Instruction:</p>
+                <p className="font-mono text-xs font-semibold text-foreground-800 uppercase tracking-wider">Areas of Genuine Instruction &amp; Guidance:</p>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {[
+                    "Career Direction & Skill Prioritization (Engineering Students & Freshers)",
                     "Modern Web Development (React, TypeScript, Next.js, Node.js)",
                     "Backend Architecture (Java, Spring Boot, MySQL, REST APIs)",
                     "Salesforce Platform (Certified App Builder & Platform Developer I)",
-                    "Practical Project Architecture & Asynchronous Debugging",
                   ].map((area, idx) => (
                     <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground-700">
                       <CheckCircle2 className="w-4 h-4 text-primary-600 shrink-0 mt-0.5" />
@@ -84,12 +84,12 @@ export default function WorkPage() {
 
               <div className="pt-4 border-t border-background-200/80 flex flex-wrap items-center gap-3">
                 <Link
-                  href="/cohorts/frontend-foundations"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-emerald-600 text-white font-medium text-xs hover:bg-emerald-700 transition-all shadow-xs"
-                  id="work-cohort-cta"
+                  href="/work/career-clarity"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-primary-500 text-white font-medium text-xs hover:bg-primary-600 transition-all shadow-xs"
+                  id="work-clarity-cta"
                 >
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Next Cohort: AI-Assisted Frontend Foundations (4 Weeks)</span>
+                  <Compass className="w-3.5 h-3.5" />
+                  <span>1-on-1 Career Clarity Session (60 Mins · ₹799)</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
                 <Link
@@ -97,8 +97,15 @@ export default function WorkPage() {
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-background-300 text-foreground-800 font-medium text-xs hover:bg-background-100 transition-all"
                   id="work-learn-cta"
                 >
-                  <span>1-on-1 Mentorship Inquiry</span>
+                  <span>Inquire for 1-on-1 Technical Mentorship</span>
                   <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+                <Link
+                  href="/learn"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono text-primary-700 hover:text-primary-800 hover:underline px-2 py-1"
+                >
+                  <span>Looking for structured cohorts? Visit /learn</span>
+                  <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
             </section>

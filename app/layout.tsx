@@ -38,6 +38,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${fraunces.variable} ${manrope.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-screen flex flex-col bg-background-50 text-foreground-950 font-sans antialiased selection:bg-primary-200 selection:text-foreground-950">

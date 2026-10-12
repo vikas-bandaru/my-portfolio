@@ -63,3 +63,18 @@ export interface CurationItemRecord {
   updated_at: string;
   published_at?: string | null;
 }
+
+export interface TestimonialRecord {
+  id: string;
+  service_slug: string; // e.g. "career-clarity", "frontend-foundations", "java-foundations", etc.
+  author_name: string;
+  author_role?: string | null; // e.g. "CSE 3rd Year · BVRIT" or "Associate Software Engineer"
+  author_avatar?: string | null;
+  rating?: number | null; // 1 to 5
+  content: string;
+  highlight?: string | null; // short quote or headline
+  status: "pending" | "approved" | "rejected";
+  created_at: string;
+  approved_at?: string | null;
+}
+

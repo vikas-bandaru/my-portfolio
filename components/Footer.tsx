@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 
 export const footerSocials = [
@@ -13,6 +16,7 @@ export const exploreLinks = [
   { label: "Builds & Portfolio", href: "/builds" },
   { label: "LogicSims Architecture", href: "/logicsims" },
   { label: "Watch & Media", href: "/watch" },
+  { label: "Learn & Cohorts", href: "/learn" },
   { label: "Work With Me", href: "/work" },
   { label: "Collaborate on Mission", href: "/collaborate" },
   { label: "About Vikas", href: "/about" },
@@ -20,6 +24,9 @@ export const exploreLinks = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname.startsWith("/studio")) return null;
+
   return (
     <footer className="w-full bg-background-100 border-t border-background-200">
       <div className="max-w-content mx-auto px-6 md:px-10 pt-14 pb-8">
@@ -85,7 +92,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-6 border-t border-background-200 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-foreground-500">
-            © {new Date().getFullYear()} Vikas Bandaru. All rights reserved.
+            © <span suppressHydrationWarning>{new Date().getFullYear()}</span> Vikas Bandaru. All rights reserved.
           </p>
           <p className="text-xs text-foreground-500 font-mono">
             degrees test memory / building solves problems
