@@ -3,7 +3,7 @@ import { GraduationCap, Code2, GitBranch, Video } from "lucide-react";
 
 export const evidenceParagraphs = [
   "12 years spent teaching in engineering education and managing technical training programs revealed a recurring structural failure: graduates routinely score top marks on theoretical exams, yet struggle to debug an asynchronous failure or build a functional software system.",
-  "When learning happens in isolated subject silos, students memorize abstract syntax without forming conceptual mental models. Real reform requires shifting from passive recall to empirical consequence — where building things makes learning meaningful, and employment becomes a natural byproduct of genuine capability.",
+  "When learning happens in isolated subject silos, students memorize abstract syntax without forming conceptual mental models. Real reform requires shifting from passive recall to empirical consequence, where building things makes learning meaningful and employment becomes a natural byproduct of genuine capability.",
 ];
 
 export const aboutSignals = [

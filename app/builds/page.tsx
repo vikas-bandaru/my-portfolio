@@ -7,7 +7,7 @@ import EditorialSubpageHero from "@/components/EditorialSubpageHero";
 import Reveal from "@/components/Reveal";
 
 export const metadata = {
-  title: "Builds & Living Portfolio — Vikas Bandaru",
+  title: "Builds & Living Portfolio | Vikas Bandaru",
   description:
     "Software architectures, learning environments, and production systems built from first principles.",
 };
@@ -60,7 +60,7 @@ export default function BuildsPage() {
                     LogicSims
                   </h2>
                   <p className="text-base text-foreground-200/90 leading-relaxed font-light">
-                    A discovery-based learning architecture replacing passive lectures with consequence-driven simulation. <strong className="text-white font-medium">LogicSims Java</strong> is the first public prototype — a practical simulator focused on programming concepts, state manipulation, and interactive mental modeling.
+                    A discovery-based learning architecture replacing passive lectures with consequence-driven simulation. <strong className="text-white font-medium">LogicSims Java</strong> is the first public prototype, serving as a practical simulator focused on programming concepts, state manipulation, and interactive mental modeling.
                   </p>
 
                   <div className="flex flex-wrap gap-2 pt-2">

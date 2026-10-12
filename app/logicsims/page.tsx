@@ -17,7 +17,7 @@ import EditorialSubpageHero from "@/components/EditorialSubpageHero";
 import Reveal from "@/components/Reveal";
 
 export const metadata = {
-  title: "LogicSims & LogicSims Java — Discovery-Based Simulation Architecture | Vikas Bandaru",
+  title: "LogicSims & LogicSims Java: Discovery-Based Simulation Architecture | Vikas Bandaru",
   description:
     "LogicSims is a discovery-based learning architecture grounded in consequence and systems thinking. Explore LogicSims Java, the first live public prototype.",
 };
@@ -31,7 +31,7 @@ export default function LogicSimsPage() {
         badgeDotColor="bg-emerald-400"
         title="LogicSims"
         titleHighlight="&amp; LogicSims Java"
-        description="A discovery-based learning architecture using logic as a first-principles operating system for understanding complex systems — moving past passive lectures toward consequence-driven mental modeling."
+        description="A discovery-based learning architecture using logic as a first-principles operating system for understanding complex systems, moving past passive lectures toward consequence-driven mental modeling."
         bgImage="/images/editorial/build-logicsims.webp"
         stats={[
           { value: "01", label: "Live Java Simulator" },
@@ -79,7 +79,7 @@ export default function LogicSimsPage() {
             <div className="flex flex-col lg:flex-row items-start justify-between gap-8 pt-6">
               <div className="space-y-4 flex-1">
                 <h2 className="font-heading font-semibold text-2xl sm:text-3xl text-white tracking-tight">
-                  LogicSims Java — The First Practical Step
+                  LogicSims Java: The First Practical Step
                 </h2>
                 <div className="space-y-4 text-foreground-200/90 text-sm sm:text-base leading-relaxed font-light">
                   <p>
@@ -90,7 +90,7 @@ export default function LogicSimsPage() {
                     <strong className="text-white font-medium">LogicSims Java</strong> is that first concrete experiment. It focuses directly on programming concepts, utilizing interactive simulations and visual state execution to let learners experience consequence-driven learning firsthand. It explores localized and personalized learning mechanics in the ways currently implemented.
                   </p>
                   <p className="text-xs text-foreground-400 italic">
-                    Note: LogicSims Java is an early, focused prototype demonstrating part of this direction — it does not represent the complete, multi-domain LogicSims vision.
+                    Note: LogicSims Java is an early, focused prototype demonstrating part of this direction. It does not represent the complete, multi-domain LogicSims vision.
                   </p>
                 </div>
 

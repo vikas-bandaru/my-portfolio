@@ -9,7 +9,7 @@ import EngagementSection from "@/components/home/EngagementSection";
 import CollaborateSection from "@/components/home/CollaborateSection";
 
 export const metadata = {
-  title: "Vikas Bandaru — Engineering Education, Builds & Systems Thinking",
+  title: "Vikas Bandaru | Engineering Education, Builds & Systems Thinking",
   description:
     "Degrees test memory. Building solves real problems. Exploring how people develop the capability to solve complex real-world problems through technology.",
 };

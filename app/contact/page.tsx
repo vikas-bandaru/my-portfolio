@@ -26,8 +26,8 @@ export default function ContactPage() {
       <EditorialSubpageHero
         badge="Direct Inquiry"
         badgeDotColor="bg-primary-400"
-        title="Get in Touch"
-        titleHighlight="— Start a Conversation"
+        title="Get in Touch:"
+        titleHighlight="Start a Conversation"
         description="Have a question about education reform, LogicSims, speaking, or consulting? Reach out directly or subscribe to essay updates."
         bgImage="/images/editorial/hero-network.webp"
         stats={[

@@ -5,7 +5,7 @@ import EditorialSubpageHero from "@/components/EditorialSubpageHero";
 import Reveal from "@/components/Reveal";
 
 export const metadata = {
-  title: "Watch & Media Channels — Vikas Bandaru",
+  title: "Watch & Media Channels | Vikas Bandaru",
   description:
     "Two distinct YouTube channels: Translating complex systems for thinkers and educators, and enabling builders through hands-on technical architecture.",
 };

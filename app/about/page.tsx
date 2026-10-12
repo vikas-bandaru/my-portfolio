@@ -5,7 +5,7 @@ import EditorialSubpageHero from "@/components/EditorialSubpageHero";
 import Reveal from "@/components/Reveal";
 
 export const metadata = {
-  title: "About Vikas Bandaru — Learning, Technology & Real-World Problem Solving",
+  title: "About Vikas Bandaru | Learning, Technology & Real-World Problem Solving",
   description:
     "Engineering educator, learning architect, Salesforce Certified Platform Developer, and creator of LogicSims exploring how people learn through building and consequence.",
 };
@@ -17,8 +17,8 @@ export default function AboutPage() {
       <EditorialSubpageHero
         badge="Profile &amp; Background"
         badgeDotColor="bg-primary-400"
-        title="About Vikas Bandaru"
-        titleHighlight="— Builder &amp; Educator"
+        title="About Vikas Bandaru:"
+        titleHighlight="Builder &amp; Educator"
         description="Engineering educator, technical learning architect, Salesforce Certified Platform Developer, and independent software builder exploring how people learn through consequence."
         bgImage="/images/editorial/hero-network.webp"
         stats={[
@@ -68,10 +68,10 @@ export default function AboutPage() {
               </div>
               <div className="space-y-4 text-foreground-600 text-sm sm:text-base leading-relaxed font-light">
                 <p>
-                  My work spans 12 years in engineering education — spending 7 years in higher education as an Assistant Professor and 4 years leading technical training management. Across thousands of students and cohorts, I observed a persistent and troubling paradox: students work tirelessly to score top percentile marks in university examinations and LeetCode-style drills, yet collapse when asked to design a real-world web architecture or trace a non-deterministic race condition.
+                  My work spans 12 years in engineering education, spending 7 years in higher education as an Assistant Professor and 4 years leading technical training management. Across thousands of students and cohorts, I observed a persistent and troubling paradox: students work tirelessly to score top percentile marks in university examinations and LeetCode-style drills, yet collapse when asked to design a real-world web architecture or trace a non-deterministic race condition.
                 </p>
                 <p>
-                  The failure is structural, not cognitive. Conventional higher education treats software engineering as an exercise in rote memorization and syllabus completion. In the post-2026 generative AI era, where LLMs generate boilerplate code in milliseconds, syntax-first rote instruction is not just ineffective — it renders graduates economically and intellectually brittle.
+                  The failure is structural, not cognitive. Conventional higher education treats software engineering as an exercise in rote memorization and syllabus completion. In the post-2026 generative AI era, where LLMs generate boilerplate code in milliseconds, syntax-first rote instruction is not just ineffective; it renders graduates economically and intellectually brittle.
                 </p>
               </div>
             </section>
@@ -93,7 +93,7 @@ export default function AboutPage() {
                   Rather than remaining solely within theoretical frameworks, I stepped out to build solutions directly. I earned Salesforce Certified App Builder and Platform Developer I credentials, delivered enterprise platform training, and immersed myself in modern full-stack web engineering.
                 </p>
                 <p>
-                  This journey began with <strong className="text-foreground-900 font-medium">LogicSims Java</strong> — an early practical experiment exploring what an interactive, simulator-based environment for learning programming concepts could look like. What began as a focused investigation into programming education through consequence and state visualization evolved into a broader vision: <strong className="text-foreground-900 font-medium">LogicSims</strong>, an architecture using logic as a first-principles operating system for understanding complex systems.
+                  This journey began with <strong className="text-foreground-900 font-medium">LogicSims Java</strong>, an early practical experiment exploring what an interactive, simulator-based environment for learning programming concepts could look like. What began as a focused investigation into programming education through consequence and state visualization evolved into a broader vision: <strong className="text-foreground-900 font-medium">LogicSims</strong>, an architecture using logic as a first-principles operating system for understanding complex systems.
                 </p>
                 <p>
                   Today, LogicSims Java is publicly available as the first live prototype, while the broader systems-learning architecture continues to develop through learner feedback and classroom observation.
@@ -156,7 +156,7 @@ export default function AboutPage() {
               </div>
               <div className="space-y-4 text-foreground-600 text-sm sm:text-base leading-relaxed font-light">
                 <p>
-                  A major area of my ongoing exploration is what India and developing nations can build with today&apos;s technologies — not merely adopting systems built elsewhere, but building solutions designed for our own unique conditions, constraints, and public impact, and eventually building tools the rest of the world can utilize.
+                  A major area of my ongoing exploration is what India and developing nations can build with today&apos;s technologies. Rather than merely adopting systems built elsewhere, we must build solutions designed for our own unique conditions, constraints, and public impact, ultimately creating tools the rest of the world can utilize.
                 </p>
               </div>
             </section>

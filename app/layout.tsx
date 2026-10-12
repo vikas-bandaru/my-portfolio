@@ -25,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vikas Bandaru — Learning, Technology & Real-World Problem Solving",
+  title: "Vikas Bandaru | Learning, Technology & Real-World Problem Solving",
   description:
     "Engineering educator, independent builder, and systems thinker exploring how people develop the capability to solve complex real-world problems through technology.",
 };

@@ -8,7 +8,7 @@ export const pedagogyModes = [
   {
     key: "rote",
     label: "Syntax-First Instruction",
-    heading: "Deductive / Syllabus-First — Traditional CS Classroom",
+    heading: "Deductive / Syllabus-First: Traditional CS Classroom",
     summary: "Abstract syntax and definitions are presented first, memorized for exams, and collapse under non-deterministic production conditions.",
     points: [
       'Lecture: "A Promise represents a future value. Memorize the syntax for the exam."',
@@ -19,7 +19,7 @@ export const pedagogyModes = [
   {
     key: "discovery",
     label: "Inductive Simulation",
-    heading: "Inductive / Consequence-Driven — LogicSims Cognitive Architecture",
+    heading: "Inductive / Consequence-Driven: LogicSims Cognitive Architecture",
     summary: "Learners manipulate interactive system states and discover boundary conditions before formalizing code schemas.",
     points: [
       'Simulation: "Manipulate the event loop buffer, force thread contention, and observe where execution starves."',

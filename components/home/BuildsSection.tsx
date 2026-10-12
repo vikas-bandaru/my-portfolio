@@ -60,10 +60,10 @@ export default function BuildsSection() {
               </div>
 
               <h3 className="mt-5 font-heading text-2xl md:text-3xl font-semibold tracking-tight max-w-3xl leading-tight">
-                LogicSims — Discovery-Based Simulation Environment
+                LogicSims: Discovery-Based Simulation Environment
               </h3>
               <p className="mt-4 text-sm md:text-base text-background-100/80 leading-relaxed max-w-2xl">
-                LogicSims is the broader vision for learning through simulation, experimentation, consequence, and systems thinking. LogicSims Java is the first public prototype — an early experiment exploring how programming concepts can be learned through an interactive simulator-based environment.
+                LogicSims is the broader vision for learning through simulation, experimentation, consequence, and systems thinking. LogicSims Java is the first public prototype, serving as an early experiment exploring how programming concepts can be learned through an interactive simulator-based environment.
               </p>
 
               <div className="mt-7 flex flex-col sm:flex-row gap-3">

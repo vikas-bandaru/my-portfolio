@@ -4,7 +4,7 @@ import EditorialSubpageHero from "@/components/EditorialSubpageHero";
 import Reveal from "@/components/Reveal";
 
 export const metadata = {
-  title: "Instruction, Faculty Development & Advisory — Vikas Bandaru",
+  title: "Instruction, Faculty Development & Advisory | Vikas Bandaru",
   description:
     "Academic instruction, faculty mentoring, curriculum development, and technical systems advisory grounded in 12 years of higher education and engineering experience.",
 };
@@ -39,7 +39,7 @@ export default function WorkPage() {
               Inductive Discovery, Cognitive Rigor &amp; Practical Competence
             </p>
             <p className="text-sm sm:text-base text-foreground-700 leading-relaxed font-light pt-1">
-              Every workshop and mentorship track is grounded in first-principles clarity, cognitive load optimization, and verified capabilities — moving learners from passive syllabus memorization to self-directed systems comprehension.
+              Every workshop and mentorship track is grounded in first-principles clarity, cognitive load optimization, and verified capabilities, helping learners move from passive syllabus memorization to self-directed systems comprehension.
             </p>
           </div>
         </Reveal>
@@ -192,7 +192,7 @@ export default function WorkPage() {
               <div className="p-5 rounded-2xl bg-background-100/70 border border-background-200 text-xs space-y-1">
                 <span className="font-semibold text-foreground-950">Exemplar Systems Case Study:</span>
                 <p className="text-foreground-600">
-                  Engineered <span className="font-semibold text-foreground-900">traits.co.in</span> — an end-to-end commerce system built using agent-orchestrated workflows, relational integrity, and edge compute.
+                  Engineered <span className="font-semibold text-foreground-900">traits.co.in</span>, an end-to-end commerce system built using agent-orchestrated workflows, relational integrity, and edge compute.
                 </p>
                 <Link href="/builds/traits-ecommerce" className="text-primary-700 hover:underline font-semibold inline-flex items-center gap-1 pt-1">
                   <span>Read Architecture Breakdown</span>

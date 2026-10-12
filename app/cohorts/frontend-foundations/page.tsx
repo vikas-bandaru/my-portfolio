@@ -36,13 +36,13 @@ export default function FrontendFoundationsPage() {
 
   return (
     <div className="w-full">
-      {/* Editorial Subpage Hero — Standardized with /collaborate and /work */}
+      {/* Editorial Subpage Hero */}
       <EditorialSubpageHero
         badge="Live Small-Group Cohort"
         badgeDotColor="bg-emerald-400"
-        title="AI-Assisted Frontend Foundations"
-        titleHighlight="— Build &amp; Explain"
-        description="Learn HTML, CSS, Bootstrap, and JavaScript through daily guided coding, real projects, and small AI-assisted experiments. Practise generating, checking, debugging, and improving code — not just prompting for a website."
+        title="AI-Assisted Frontend Foundations:"
+        titleHighlight="Build &amp; Explain"
+        description="Learn HTML, CSS, Bootstrap, and JavaScript through daily guided coding, real projects, and small AI-assisted experiments. Practise generating, checking, debugging, and improving code instead of simply prompting for a website."
         bgImage="/images/editorial/hero-network.webp"
         stats={[
           { value: "04", label: "Weeks Duration" },
@@ -357,7 +357,7 @@ export default function FrontendFoundationsPage() {
               AI Methodology
             </span>
             <h2 className="font-heading font-semibold text-2xl sm:text-3xl text-foreground-950 mt-1">
-              AI as an Assistant — Not an Authority
+              AI as an Assistant: Not an Authority
             </h2>
             <p className="text-sm sm:text-base text-foreground-600 leading-relaxed font-light mt-1 max-w-2xl">
               AI experiments are integrated into the 30 scheduled hours. We use free tools (Gemini, Claude, ChatGPT) to develop critical inspection habits.

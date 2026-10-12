@@ -4,7 +4,7 @@ import EditorialSubpageHero from "@/components/EditorialSubpageHero";
 import Reveal from "@/components/Reveal";
 
 export const metadata = {
-  title: "Collaborate (Participate in the Mission) — Vikas Bandaru",
+  title: "Collaborate (Participate in the Mission) | Vikas Bandaru",
   description:
     "Non-transactional mission participation: contribute domain variables to LogicSims, pilot discovery simulations in classrooms, or co-author systems research.",
 };
@@ -16,8 +16,8 @@ export default function CollaboratePage() {
       <EditorialSubpageHero
         badge="Mission Participation"
         badgeDotColor="bg-primary-400"
-        title="Collaborate on the Mission"
-        titleHighlight="— Open Systems"
+        title="Collaborate on the Mission:"
+        titleHighlight="Open Systems"
         description="Changing how people learn, think, and solve real-world problems is not a solo endeavor. Here are concrete ways domain experts, educators, and researchers can participate."
         bgImage="/images/editorial/hero-network.webp"
         stats={[
