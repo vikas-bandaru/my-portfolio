@@ -18,7 +18,7 @@ export default function IdeasPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
   const posts: IdeaItem[] = getIdeas();
-  const categories = ["All", "Reform", "Pedagogy", "Engineering"];
+  const categories = ["All", "Reform", "Learning", "Engineering"];
 
   const filteredPosts =
     selectedCategory === "All"

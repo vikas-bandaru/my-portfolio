@@ -16,7 +16,7 @@ export interface IdeaItem {
   title: string;
   subtitle?: string;
   date: string;
-  category: "Reform" | "Pedagogy" | "Engineering";
+  category: "Reform" | "Learning" | "Engineering" | "Pedagogy";
   excerpt: string;
   readTime: string;
   status: MaturityStatus;
@@ -50,11 +50,11 @@ export interface BuildItem {
 export const IDEAS: IdeaItem[] = [
   {
     slug: "collapse-of-syntax-first-cs",
-    title: "The Collapse of Syntax-First CS",
-    subtitle: "What Happens When Code Generation Costs Near-Zero?",
+    title: "Beyond Syntax: Why Memorizing Code Fails in the AI Era",
+    subtitle: "When AI writes the code, what makes an engineer truly capable?",
     date: "October 02, 2026",
     category: "Reform",
-    excerpt: "For two decades, technical education equated coding fluency with typing syntax. Now that LLMs emit boilerplate instantly, we face an acute diagnostic crisis in our classrooms and hiring loops.",
+    excerpt: "For two decades, technical education equated coding skill with typing syntax. Now that AI generates code instantly, memorized rules break down in interviews and production environments.",
     readTime: "8 min read",
     status: "building",
     reviewStatus: "published",
@@ -67,7 +67,7 @@ export const IDEAS: IdeaItem[] = [
     relatedChannel: "official",
     sections: [
       {
-        heading: "1. The Grand Illusion of Fluency",
+        heading: "1. The Illusion of Memorized Fluency",
         paragraphs: [
           "For more than a decade standing before university lecture halls and mentoring junior developers, I watched the same pattern play out: students who scored top marks on paper programming exams froze the moment they were asked to debug an unhandled null pointer in a multi-threaded process.",
           "We spent twenty years equating computer science with syntax fluency. If a student could memorize the exact parameter order of a library function or regurgitate a binary tree traversal from memory onto a whiteboard, we stamped them as 'competent'. We built entire placement training funnels around LeetCode pattern matching.",
@@ -75,19 +75,19 @@ export const IDEAS: IdeaItem[] = [
         ],
         callout: {
           type: "observation",
-          text: "When code synthesis is friction-free, we risk producing 'epistemic learned helplessness'—engineers who can stitch together massive systems but cannot reason about failure boundaries when things break.",
+          text: "When AI writes code with zero effort, students risk losing their diagnostic ability: building large projects without actually understanding what breaks when things fail.",
         }
       },
       {
-        heading: "2. The AI Trust Crisis in Engineering Loops",
+        heading: "2. Why Immaculate Resumes Don't Translate to Real Skills",
         paragraphs: [
           "Talk to engineering directors and tech leads at Global Capability Centers (GCCs) in Bengaluru, Hyderabad, or Pune right now, and you will hear a consistent complaint: the entry-level hiring pipeline is broken. Resumes look immaculate. Take-home projects have pristine README files and comprehensive test suites generated in minutes.",
           "Then comes the live diagnostic round. When an interviewer introduces a subtle race condition or injects unexpected latency into a distributed queue, the candidate freezes. They know what the code says, but they don't know what the system does.",
-          "This is not a failure of intelligence; it is a failure of pedagogical architecture. By treating programming as the act of 'writing code' rather than 'managing state transitions under constraints', our educational systems optimized for the very skill that machines now automate best."
+          "This is not a failure of intelligence; it is a failure of how we teach. By treating programming as the act of 'writing code' rather than 'understanding system behavior under real constraints', our educational systems optimized for the very skill that machines now automate best."
         ]
       },
       {
-        heading: "3. The Shift to Inductive Diagnosis",
+        heading: "3. The Shift to Hands-On Diagnosis",
         paragraphs: [
           "How do we fix this? In my experiments with LogicSims, the answer has been to invert the classroom completely: take syntax off the screen first.",
           "Instead of teaching loops and memory allocation through PowerPoint slides or syntax cheat sheets, we put learners inside interactive visual simulations. We introduce broken state, starvation, and memory leaks. We ask them to observe what happens before showing them how to fix it.",
@@ -95,19 +95,19 @@ export const IDEAS: IdeaItem[] = [
         ],
         callout: {
           type: "principle",
-          text: "True engineering is not the emission of code. It is the ability to construct, stress-test, and verify a mental model of dynamic state under real-world constraints.",
-          attribution: "Pedagogical Note — Vikas Bandaru"
+          text: "True engineering is not just writing code. It is the ability to build, test, and understand what happens when a system runs under real conditions.",
+          attribution: "Learning Design Note — Vikas Bandaru"
         }
       }
     ]
   },
   {
     slug: "proof-of-work-for-the-mind",
-    title: "Proof of Work for the Mind",
-    subtitle: "How I Think About Learning Sciences in the Post-AI Era",
+    title: "Real Proof of Skill in the Age of AI",
+    subtitle: "How We Truly Verify Understanding When Anyone Can Generate Answers",
     date: "September 18, 2026",
-    category: "Pedagogy",
-    excerpt: "When paper degrees and LeetCode ranks lose all epistemic credibility, how do we verify genuine comprehension? Lessons from Ausubel, Kolb, and Paivio applied to simulation-driven learning.",
+    category: "Learning",
+    excerpt: "When paper degrees and online certificates can be generated with a few prompts, how do colleges and recruiters verify real understanding? What cognitive science teaches us about interactive learning.",
     readTime: "10 min read",
     status: "building",
     reviewStatus: "published",
@@ -119,24 +119,24 @@ export const IDEAS: IdeaItem[] = [
     relatedChannel: "official",
     sections: [
       {
-        heading: "1. When Static Credentials Lose Meaning",
+        heading: "1. When Static Certificates Lose Meaning",
         paragraphs: [
-          "In the pre-AI era, a university degree or a verified online certificate served as a rough heuristic for intellectual effort. It implied that someone sat through hours of study, wrote assignments, and passed supervised assessments.",
-          "Today, that signal has collapsed. When any homework prompt can be synthesized into an essay, and any coding challenge can be resolved by a reasoning model running in a background tab, static submissions tell us almost nothing about what has actually taken root in a learner's mind.",
-          "This led me to a central question that has driven my work on the LogicSims ecosystem: What constitutes an honest 'Proof of Work for the Mind'?"
+          "In the pre-AI era, a university degree or a verified online certificate served as a rough signal of effort. It implied that someone sat through hours of study, wrote assignments, and passed supervised assessments.",
+          "Today, that signal has collapsed. When any homework prompt can be synthesized into an essay, and any coding challenge can be resolved by an AI running in a background tab, static submissions tell us almost nothing about what has actually taken root in a learner's mind.",
+          "This led me to a central question that has driven my work on LogicSims: How do students demonstrate authentic, verifiable proof of skill?"
         ]
       },
       {
-        heading: "2. The Cognitive Foundations: Anchors, Cycles, and Dual Channels",
+        heading: "2. The Foundations of Durable Learning",
         paragraphs: [
-          "To design a learning environment that builds verifiable intuition rather than surface memorization, I turned to the learning sciences. Rather than inventing novelty for its own sake, I found that the answers were already articulated by foundational cognitive theorists—we just had never built software engines that respected them.",
-          "First is David Ausubel’s Meaningful Reception Theory. Ausubel argued that learners do not absorb isolated facts; new knowledge must be 'subsumed' into existing cognitive anchors. This is why LogicSims organizes subjects as a Directed Acyclic Graph (DAG) rather than a linear syllabus. Before exposing a student to asynchronous callbacks, we must explicitly anchor their mental schema to synchronous queues.",
-          "Second is David Kolb’s Experiential Learning Cycle. Traditional classrooms start with the formula (abstract conceptualization) and ask students to confirm it. We flip this: the learner starts with Concrete Experience in a simulator, reflects on the state telemetry, extracts the rule inductively, and only then tests their model against novel edge cases."
+          "To design a learning environment that builds lasting intuition rather than surface memorization, I looked at how the human mind actually processes information.",
+          "First, learners do not absorb isolated rules in a vacuum; new concepts stick best when connected to everyday systems they already grasp. This is why LogicSims maps topics like building blocks rather than a rigid syllabus checklist.",
+          "Second, hands-on action beats passive listening. Instead of starting with an abstract formula on a slide, students interact with a live simulator, see where it slows down, uncover the pattern on their own, and only then write code to fix it."
         ],
         callout: {
           type: "lens",
-          text: "Drawing on Allan Paivio's Dual-Coding Theory: human working memory is easily choked when tracking mutable program state purely through textual syntax. By pairing code with visual, spatial state transitions in real time, the brain encodes concepts across both verbal and spatial channels simultaneously.",
-          attribution: "Applied Cognitive Science"
+          text: "When students see code lines side-by-side with a live visual diagram of memory states, variables, and threads, the invisible machine becomes visible. Understanding clicks immediately.",
+          attribution: "Applied Learning Science"
         }
       },
       {
@@ -154,8 +154,8 @@ export const IDEAS: IdeaItem[] = [
     title: "Curriculum as a Life Toolkit",
     subtitle: "Why We Must Teach Systems Logic Beyond the Degree Factory",
     date: "August 24, 2026",
-    category: "Pedagogy",
-    excerpt: "Engineering education is not vocational training for temporary tech stacks. Concurrency, state transitions, and error budgets are cognitive lenses for navigating real-world life decisions.",
+    category: "Learning",
+    excerpt: "Engineering education is not vocational training for temporary tech stacks. Concurrency, state transitions, and error budgets are practical mental models for navigating real-world decisions.",
     readTime: "7 min read",
     status: "building",
     reviewStatus: "published",
