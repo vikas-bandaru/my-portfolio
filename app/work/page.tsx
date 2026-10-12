@@ -46,65 +46,60 @@ export default function WorkPage() {
 
         {/* The 4 Tracks Grid */}
         <div className="grid grid-cols-1 gap-8">
-          {/* Track 1: Technical Mentorship */}
+          {/* Track 1: Career Clarity & Technical Mentorship */}
           <Reveal delay={80}>
-            <section id="learn" className="group relative rounded-3xl border border-background-200 bg-background-50/80 p-7 sm:p-9 md:p-10 shadow-xs hover:border-primary-400/50 hover:shadow-xl transition-all duration-300 space-y-6">
+            <section id="career-clarity" className="group relative rounded-3xl border border-background-200 bg-background-50/80 p-7 sm:p-9 md:p-10 shadow-xs hover:border-primary-400/50 hover:shadow-xl transition-all duration-300 space-y-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-primary-50 text-primary-700 border border-primary-200/60 flex items-center justify-center shrink-0">
-                  <GraduationCap className="w-6 h-6" />
+                  <Compass className="w-6 h-6" />
                 </div>
                 <div>
                   <span className="font-mono text-xs uppercase tracking-wider text-primary-600 font-semibold block">Track 01</span>
                   <h2 className="font-heading font-semibold text-2xl sm:text-3xl text-foreground-950 group-hover:text-primary-600 transition-colors">
-                    Technical Mentorship &amp; Diagnostic Learning
+                    Career Clarity &amp; 1-on-1 Mentorship
                   </h2>
                 </div>
               </div>
 
               <p className="text-sm sm:text-base text-foreground-600 leading-relaxed font-light">
-                Have an immediate career dilemma or technical learning goal that matches what I can genuinely teach? I offer structured 1-on-1 diagnostic sessions, career roadmap evaluations, and individual technical mentorship.
+                For engineering students and early-career developers facing decision paralysis, placement anxiety, or confusing learning paths. Instead of selling you another generic course, we diagnose your skills, cut through internet noise, and map a personalized 30-day action plan.
               </p>
 
-              <div className="space-y-3 pt-2">
-                <p className="font-mono text-xs font-semibold text-foreground-800 uppercase tracking-wider">Areas of Genuine Instruction &amp; Guidance:</p>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {[
-                    "Career Direction & Skill Prioritization (Engineering Students & Freshers)",
-                    "Modern Web Development (React, TypeScript, Next.js, Node.js)",
-                    "Backend Architecture (Java, Spring Boot, MySQL, REST APIs)",
-                    "Salesforce Platform (Certified App Builder & Platform Developer I)",
-                  ].map((area, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground-700">
-                      <CheckCircle2 className="w-4 h-4 text-primary-600 shrink-0 mt-0.5" />
-                      <span>{area}</span>
-                    </div>
-                  ))}
+              <div className="p-6 rounded-2xl bg-primary-50/60 border border-primary-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <div className="font-heading font-semibold text-foreground-950 text-base sm:text-lg">
+                    1-on-1 Career Clarity Session
+                  </div>
+                  <p className="text-xs sm:text-sm text-foreground-600 font-light">
+                    60-minute private diagnostic call · Skill audit · Personalized 30-day execution roadmap · ₹799
+                  </p>
                 </div>
-              </div>
 
-              <div className="pt-4 border-t border-background-200/80 flex flex-wrap items-center gap-3">
                 <Link
                   href="/work/career-clarity"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-primary-500 text-white font-medium text-xs hover:bg-primary-600 transition-all shadow-xs"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary-500 text-white font-medium text-xs hover:bg-primary-600 transition-all shadow-xs shrink-0"
                   id="work-clarity-cta"
                 >
-                  <Compass className="w-3.5 h-3.5" />
-                  <span>1-on-1 Career Clarity Session (60 Mins · ₹799)</span>
+                  <span>View Details &amp; Book</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
+              </div>
+
+              <div className="pt-2 flex flex-wrap items-center gap-4 text-xs">
                 <Link
                   href="/contact?intent=learn"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-background-300 text-foreground-800 font-medium text-xs hover:bg-background-100 transition-all"
+                  className="inline-flex items-center gap-1.5 text-foreground-600 hover:text-foreground-900 transition-colors"
                   id="work-learn-cta"
                 >
-                  <span>Inquire for 1-on-1 Technical Mentorship</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>Need ongoing technical mentorship? Contact Vikas</span>
+                  <ArrowRight className="w-3 h-3" />
                 </Link>
+                <span className="text-foreground-300">·</span>
                 <Link
                   href="/learn"
-                  className="inline-flex items-center gap-1.5 text-xs font-mono text-primary-700 hover:text-primary-800 hover:underline px-2 py-1"
+                  className="inline-flex items-center gap-1.5 font-mono text-primary-700 hover:text-primary-800 hover:underline"
                 >
-                  <span>Looking for structured cohorts? Visit /learn</span>
+                  <span>Looking for structured cohorts? Explore /learn</span>
                   <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
