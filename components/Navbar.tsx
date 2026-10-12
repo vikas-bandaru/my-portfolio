@@ -10,6 +10,7 @@ export const navLinks = [
   { label: "Builds", href: "/builds" },
   { label: "LogicSims", href: "/logicsims" },
   { label: "Watch", href: "/watch" },
+  { label: "Learn", href: "/learn" },
   { label: "Work With Me", href: "/work" },
   { label: "Collaborate", href: "/collaborate" },
   { label: "About", href: "/about" },
@@ -27,6 +28,9 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const isStudio = pathname.startsWith("/studio");
+  if (isStudio) return null;
 
   // On non-home pages, always render solid/scrolled style for clear contrast
   const isSolid = !isHome || scrolled || menuOpen;

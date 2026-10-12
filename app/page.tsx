@@ -4,6 +4,7 @@ import PedagogySection from "@/components/home/PedagogySection";
 import IdeasSection from "@/components/home/IdeasSection";
 import MarqueeBand from "@/components/MarqueeBand";
 import BuildsSection from "@/components/home/BuildsSection";
+import LearnSection from "@/components/home/LearnSection";
 import WatchSection from "@/components/home/WatchSection";
 import EngagementSection from "@/components/home/EngagementSection";
 import CollaborateSection from "@/components/home/CollaborateSection";
@@ -23,6 +24,7 @@ export default function HomePage() {
       <IdeasSection />
       <MarqueeBand />
       <BuildsSection />
+      <LearnSection />
       <WatchSection />
       <EngagementSection />
       <CollaborateSection />

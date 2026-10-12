@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import EditorialSubpageHero from "@/components/EditorialSubpageHero";
 import Reveal from "@/components/Reveal";
+import ServiceTestimonials from "@/components/ServiceTestimonials";
 
 // WhatsApp Contact Configuration
 const WHATSAPP_PHONE = "918096990227";
@@ -452,6 +453,14 @@ export default function FrontendFoundationsPage() {
             ))}
           </div>
         </div>
+
+        {/* Student Feedback & Testimonials */}
+        <ServiceTestimonials
+          serviceSlug="frontend-foundations"
+          serviceTitle="AI-Assisted Frontend Foundations Cohort"
+          badge="Verified Student Experiences"
+          badgeTone="emerald"
+        />
 
         {/* Contact CTA */}
         <Reveal>
