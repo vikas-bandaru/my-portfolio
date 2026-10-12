@@ -3,6 +3,7 @@
 import { verifyStudioSession } from "@/lib/auth";
 import { supabase, CurationItemRecord, TestimonialRecord } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
+import { TestimonialStatusSchema } from "@/lib/contracts/testimonials";
 
 export async function fetchCurationItems(): Promise<{
   items: CurationItemRecord[];
@@ -116,9 +117,14 @@ export async function updateTestimonialStatus(
     return { success: false, error: "Unauthorized access" };
   }
 
+  const parsedStatus = TestimonialStatusSchema.safeParse(status);
+  if (!parsedStatus.success) {
+    return { success: false, error: "Invalid testimonial status transition" };
+  }
+
   const payload: Record<string, unknown> = {
-    status,
-    approved_at: status === "approved" ? new Date().toISOString() : null,
+    status: parsedStatus.data,
+    approved_at: parsedStatus.data === "approved" ? new Date().toISOString() : null,
   };
 
   const { error } = await supabase

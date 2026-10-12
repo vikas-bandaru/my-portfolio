@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "node --test scripts/verify-implementation.test.mjs && npx --yes tsx --experimental-websocket scripts/backend-testimonials.test.mjs"
+    "test": "node --test scripts/verify-implementation.test.mjs && npx --yes tsx --experimental-websocket scripts/contracts-testimonials.test.mjs && npx --yes tsx --experimental-websocket scripts/backend-testimonials.test.mjs"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +20,8 @@
     "lucide-react": "^1.33.0",
     "next": "^16.3.2",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",

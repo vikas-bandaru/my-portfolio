@@ -2,15 +2,12 @@
 
 import { supabase, TestimonialRecord } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
+import {
+  SubmitTestimonialInputSchema,
+  SubmitTestimonialInput,
+} from "@/lib/contracts/testimonials";
 
-export interface SubmitTestimonialInput {
-  service_slug: string;
-  author_name: string;
-  author_role?: string;
-  rating?: number;
-  content: string;
-  highlight?: string;
-}
+export type { SubmitTestimonialInput };
 
 /**
  * Public action: Students or clients submit a testimonial.
@@ -19,24 +16,26 @@ export interface SubmitTestimonialInput {
 export async function submitTestimonial(
   input: SubmitTestimonialInput
 ): Promise<{ success: boolean; message?: string; error?: string }> {
-  const trimmedName = (input.author_name || "").trim();
-  const trimmedContent = (input.content || "").trim();
+  // Validate and parse against the runtime Zod contract
+  const validation = SubmitTestimonialInputSchema.safeParse(input);
 
-  if (!trimmedName || !trimmedContent) {
+  if (!validation.success) {
+    const firstIssue = validation.error.issues[0];
     return {
       success: false,
-      error: "Please provide your name and your testimonial feedback.",
+      error: firstIssue ? firstIssue.message : "Invalid testimonial submission details.",
     };
   }
 
+  const validData = validation.data;
   const now = new Date().toISOString();
   const payload = {
-    service_slug: input.service_slug.trim(),
-    author_name: trimmedName,
-    author_role: (input.author_role || "").trim() || null,
-    rating: input.rating ? Math.min(5, Math.max(1, input.rating)) : 5,
-    content: trimmedContent,
-    highlight: (input.highlight || "").trim() || null,
+    service_slug: validData.service_slug,
+    author_name: validData.author_name,
+    author_role: validData.author_role || null,
+    rating: validData.rating,
+    content: validData.content,
+    highlight: validData.highlight || null,
     status: "pending" as const,
     created_at: now,
   };

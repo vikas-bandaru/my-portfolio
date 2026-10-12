@@ -12,7 +12,7 @@ test("Backend Testimonials Server Action Logic", async (t) => {
     });
 
     assert.equal(res.success, false);
-    assert.match(res.error || "", /Please provide your name/);
+    assert.match(res.error || "", /Name must be at least 2 characters/);
   });
 
   await t.test("submitTestimonial: Rejects submission missing author name", async () => {
@@ -23,7 +23,7 @@ test("Backend Testimonials Server Action Logic", async (t) => {
     });
 
     assert.equal(res.success, false);
-    assert.match(res.error || "", /Please provide your name/);
+    assert.match(res.error || "", /Name must be at least 2 characters/);
   });
 
   await t.test("submitTestimonial: Rejects submission missing content body", async () => {
@@ -34,7 +34,7 @@ test("Backend Testimonials Server Action Logic", async (t) => {
     });
 
     assert.equal(res.success, false);
-    assert.match(res.error || "", /Please provide your name and your testimonial feedback/);
+    assert.match(res.error || "", /Testimonial content must be at least 10 characters/);
   });
 
   await t.test("fetchApprovedTestimonials: returns structured response with array", async () => {
