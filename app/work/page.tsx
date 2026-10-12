@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, GraduationCap, Users, Code2, Mic, CheckCircle2, Briefcase } from "lucide-react";
+import { ArrowRight, GraduationCap, Users, Code2, Mic, CheckCircle2, Briefcase, Sparkles } from "lucide-react";
 import EditorialSubpageHero from "@/components/EditorialSubpageHero";
 import Reveal from "@/components/Reveal";
 
@@ -82,13 +82,22 @@ export default function WorkPage() {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-background-200/80">
+              <div className="pt-4 border-t border-background-200/80 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/cohorts/frontend-foundations"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-emerald-600 text-white font-medium text-xs hover:bg-emerald-700 transition-all shadow-xs"
+                  id="work-cohort-cta"
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Next Cohort: AI-Assisted Frontend Foundations (4 Weeks)</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
                 <Link
                   href="/contact?intent=learn"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary-500 text-white font-medium text-xs hover:bg-primary-600 transition-all shadow-xs"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-background-300 text-foreground-800 font-medium text-xs hover:bg-background-100 transition-all"
                   id="work-learn-cta"
                 >
-                  <span>Inquire About Technical Mentorship</span>
+                  <span>1-on-1 Mentorship Inquiry</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>

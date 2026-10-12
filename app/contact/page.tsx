@@ -7,7 +7,6 @@ import Reveal from "@/components/Reveal";
 
 export default function ContactPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,11 +18,6 @@ export default function ContactPage() {
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
     window.location.href = `mailto:vikas.bandaaru@gmail.com?subject=${subject}&body=${body}`;
     setFormSubmitted(true);
-  };
-
-  const handleNewsletterSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setNewsletterSubmitted(true);
   };
 
   return (
@@ -149,46 +143,9 @@ export default function ContactPage() {
           {/* Newsletter Signup & Direct Info */}
           <div className="space-y-8">
             <Reveal delay={120}>
-              <div className="rounded-3xl border border-background-200 bg-background-50/80 p-7 sm:p-9 md:p-10 shadow-xs space-y-5">
-                <div className="flex items-center gap-2.5 text-foreground-950 font-heading font-semibold text-xl">
-                  <div className="w-8 h-8 rounded-lg bg-primary-50 text-primary-700 flex items-center justify-center">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <span>Subscribe to Essays</span>
-                </div>
-                <p className="text-sm text-foreground-600 leading-relaxed font-light">
-                  Get notified when I publish new essays on Indian technical education reform, state machines, and learning architecture. No spam.
-                </p>
-
-                {newsletterSubmitted ? (
-                  <div className="p-4 bg-emerald-50 border border-emerald-200/80 rounded-2xl text-emerald-900 text-xs font-medium font-mono">
-                    ✓ Subscribed! Thank you for following the work.
-                  </div>
-                ) : (
-                  <form onSubmit={handleNewsletterSubmit} className="space-y-3 pt-2">
-                    <input
-                      type="email"
-                      id="newsletter-email"
-                      required
-                      placeholder="you@domain.com"
-                      className="w-full px-4 py-3 text-xs sm:text-sm bg-white border border-background-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-foreground-950 placeholder:text-foreground-400 shadow-xs"
-                    />
-                    <button
-                      type="submit"
-                      id="newsletter-submit"
-                      className="w-full py-3 px-5 rounded-full bg-foreground-950 text-white font-medium text-xs hover:bg-foreground-800 transition-all shadow-xs font-mono cursor-pointer"
-                    >
-                      Join Mailing List
-                    </button>
-                  </form>
-                )}
-              </div>
-            </Reveal>
-
-            <Reveal delay={160}>
               <div className="rounded-3xl border border-background-200 bg-background-100/60 p-7 sm:p-9 space-y-4 text-xs sm:text-sm text-foreground-600">
                 <h3 className="font-heading font-semibold text-lg text-foreground-950">
-                  Direct Contact Details
+                  Direct Contact &amp; Channels
                 </h3>
                 <p className="flex items-center gap-2.5">
                   <Mail className="w-4 h-4 text-primary-600 shrink-0" />
@@ -206,6 +163,9 @@ export default function ContactPage() {
                   <MapPin className="w-4 h-4 text-foreground-400 shrink-0 mt-0.5" />
                   <span>Location: Hyderabad, India (Available for Remote &amp; On-Site Engagement)</span>
                 </p>
+                <div className="pt-2 text-xs text-foreground-500 font-mono">
+                  Typical response window: 24 to 48 hours.
+                </div>
               </div>
             </Reveal>
           </div>

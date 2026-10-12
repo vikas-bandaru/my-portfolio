@@ -20,7 +20,7 @@ export const engagementCards = [
     description:
       "Non-transactional avenues: contribute domain variables to LogicSims, run experimental active learning pilots in your institution, or explore research questions.",
     cta: "Join the Mission",
-    href: "#collaborate",
+    href: "/collaborate",
     tone: "accent",
   },
 ];

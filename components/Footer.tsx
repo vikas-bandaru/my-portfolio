@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 
 export const footerSocials = [
-  { label: "YouTube (Official)", href: "https://www.youtube.com/@VikasBandaruOfficial" },
+  { label: "YouTube (Official) — Yet to be launched", href: "/watch" },
   { label: "YouTube (Tech)", href: "https://www.youtube.com/@VikasBandaruTech" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/vikas-bandaru/" },
   { label: "Instagram", href: "https://www.instagram.com/thoughts.in.beta" },

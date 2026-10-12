@@ -81,3 +81,33 @@ Optionally, orchestrate the whole build with the **Create a Website** metaskill 
 - No stock "passionate about technology" language
 - No motion/animation as decoration — only where it serves a real interaction
 - Don't build LogicSims product features here — this repo is the hub only, LogicSims links out
+
+## Future Capabilities: Essay Subscription & Newsletter Service (Archived to Re-enable)
+The "Subscribe to Essays" component previously located in `/contact` (`app/contact/page.tsx`) was hidden to prevent client friction until a real mailing list service (e.g., Supabase / Resend / ConvertKit) is configured.
+When ready to re-activate:
+- Restore the newsletter subscription card in `app/contact/page.tsx`:
+```tsx
+<div className="rounded-3xl border border-background-200 bg-background-50/80 p-7 sm:p-9 md:p-10 shadow-xs space-y-5">
+  <div className="flex items-center gap-2.5 text-foreground-950 font-heading font-semibold text-xl">
+    <div className="w-8 h-8 rounded-lg bg-primary-50 text-primary-700 flex items-center justify-center">
+      <Mail className="w-4 h-4" />
+    </div>
+    <span>Subscribe to Essays</span>
+  </div>
+  <p className="text-sm text-foreground-600 leading-relaxed font-light">
+    Get notified when I publish new essays on Indian technical education reform, state machines, and learning architecture. No spam.
+  </p>
+  <form onSubmit={handleNewsletterSubmit} className="space-y-3 pt-2">
+    <input
+      type="email"
+      required
+      placeholder="you@domain.com"
+      className="w-full px-4 py-3 text-xs sm:text-sm bg-white border border-background-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+    />
+    <button type="submit" className="w-full py-3 px-5 rounded-full bg-foreground-950 text-white font-medium text-xs font-mono">
+      Join Mailing List
+    </button>
+  </form>
+</div>
+```
+- Wire `handleNewsletterSubmit` to an API route (e.g. `/api/newsletter/subscribe`) persisting emails into Supabase or external provider.
