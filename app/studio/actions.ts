@@ -1,7 +1,7 @@
 "use server";
 
 import { verifyStudioSession } from "@/lib/auth";
-import { supabase, CurationItemRecord } from "@/lib/supabase";
+import { supabase, CurationItemRecord, TestimonialRecord } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
 
 export async function fetchCurationItems(): Promise<{
@@ -80,3 +80,76 @@ export async function deleteCurationItem(id: string): Promise<{ success: boolean
   revalidatePath("/studio");
   return { success: true };
 }
+
+// ─────────────────────────────────────────────────────────────
+// Testimonials Management Actions
+// ─────────────────────────────────────────────────────────────
+
+export async function fetchAllTestimonials(): Promise<{
+  testimonials: TestimonialRecord[];
+  error?: string;
+}> {
+  const isAuth = await verifyStudioSession();
+  if (!isAuth) {
+    return { testimonials: [], error: "Unauthorized access" };
+  }
+
+  const { data, error } = await supabase
+    .from("service_testimonials")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    // If the table doesn't exist yet, return gracefully
+    return { testimonials: [], error: error.message };
+  }
+
+  return { testimonials: (data as TestimonialRecord[]) || [] };
+}
+
+export async function updateTestimonialStatus(
+  id: string,
+  status: "approved" | "rejected" | "pending"
+): Promise<{ success: boolean; error?: string }> {
+  const isAuth = await verifyStudioSession();
+  if (!isAuth) {
+    return { success: false, error: "Unauthorized access" };
+  }
+
+  const payload: Record<string, unknown> = {
+    status,
+    approved_at: status === "approved" ? new Date().toISOString() : null,
+  };
+
+  const { error } = await supabase
+    .from("service_testimonials")
+    .update(payload)
+    .eq("id", id);
+
+  if (error) {
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/studio");
+  revalidatePath("/learn");
+  revalidatePath("/work");
+  return { success: true };
+}
+
+export async function deleteTestimonial(
+  id: string
+): Promise<{ success: boolean; error?: string }> {
+  const isAuth = await verifyStudioSession();
+  if (!isAuth) {
+    return { success: false, error: "Unauthorized access" };
+  }
+
+  const { error } = await supabase.from("service_testimonials").delete().eq("id", id);
+  if (error) {
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/studio");
+  return { success: true };
+}
+

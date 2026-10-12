@@ -1,6 +1,6 @@
 import { verifyStudioSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { fetchCurationItems } from "./actions";
+import { fetchCurationItems, fetchAllTestimonials } from "./actions";
 import StudioClient from "./StudioClient";
 
 export const metadata = {
@@ -18,6 +18,7 @@ export default async function StudioPage() {
   }
 
   const { items } = await fetchCurationItems();
+  const { testimonials } = await fetchAllTestimonials();
 
-  return <StudioClient initialItems={items} />;
+  return <StudioClient initialItems={items} initialTestimonials={testimonials} />;
 }

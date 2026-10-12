@@ -3,11 +3,17 @@
 import { useState } from "react";
 import {
   CurationItemRecord,
+  TestimonialRecord,
   ContentType,
   PublicationStatus,
   TargetSurface,
 } from "@/lib/supabase";
-import { saveCurationItem, deleteCurationItem } from "./actions";
+import {
+  saveCurationItem,
+  deleteCurationItem,
+  updateTestimonialStatus,
+  deleteTestimonial,
+} from "./actions";
 import { logoutAction } from "./login/actions";
 import {
   FileText,
@@ -75,11 +81,20 @@ const COGNITIVE_SUGGESTIONS = [
   "Next.js App Router",
 ];
 
-export default function StudioClient({ initialItems }: { initialItems: CurationItemRecord[] }) {
+export default function StudioClient({
+  initialItems,
+  initialTestimonials = [],
+}: {
+  initialItems: CurationItemRecord[];
+  initialTestimonials?: TestimonialRecord[];
+}) {
+  const [mainTab, setMainTab] = useState<"content" | "testimonials">("content");
   const [items, setItems] = useState<CurationItemRecord[]>(initialItems);
+  const [testimonials, setTestimonials] = useState<TestimonialRecord[]>(initialTestimonials);
   const [selectedId, setSelectedId] = useState<string | null>(initialItems[0]?.id || null);
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [testimonialStatusFilter, setTestimonialStatusFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -336,6 +351,33 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
               Private Source of Truth • Supabase Cloud
             </div>
           </div>
+          <div className="flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/10">
+            <button
+              type="button"
+              onClick={() => setMainTab("content")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors cursor-pointer ${
+                mainTab === "content"
+                  ? "bg-primary-500 text-white shadow-xs"
+                  : "text-foreground-300 hover:text-white"
+              }`}
+            >
+              Content ({items.length})
+            </button>
+            <button
+              type="button"
+              onClick={() => setMainTab("testimonials")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors cursor-pointer ${
+                mainTab === "testimonials"
+                  ? "bg-primary-500 text-white shadow-xs"
+                  : "text-foreground-300 hover:text-white"
+              }`}
+            >
+              <span>Testimonials ({testimonials.length})</span>
+              {testimonials.filter((t) => t.status === "pending").length > 0 && (
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              )}
+            </button>
+          </div>
         </div>
 
         <div className="flex items-center gap-4">
@@ -368,24 +410,199 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
         </div>
       </header>
 
-      {/* Main Studio Two-Column Workspace */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Left Sidebar: Content Navigator */}
-        <aside className="w-80 md:w-96 border-r border-white/10 flex flex-col bg-[#070e1c] shrink-0">
-          {/* Create Button Strip */}
-          <div className="p-4 border-b border-white/10 space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-foreground-400">
-                Create Content
-              </span>
+      {/* Main Studio Workspace */}
+      {mainTab === "testimonials" ? (
+        <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
+            <div>
+              <h2 className="font-heading font-semibold text-2xl text-white">
+                Service Testimonials &amp; Reviews
+              </h2>
+              <p className="text-xs font-mono text-foreground-400 mt-1">
+                Student and client submissions for courses, cohorts, and 1-on-1 sessions.
+              </p>
             </div>
-            <div className="grid grid-cols-3 gap-1.5">
-              {CONTENT_TYPES.map((type) => {
-                const Icon = type.icon;
-                return (
-                  <button
-                    key={type.id}
-                    onClick={() => handleCreateNew(type.id)}
+
+            {/* Filter Buttons */}
+            <div className="flex items-center gap-1.5 bg-white/5 p-1 rounded-xl border border-white/10 text-xs font-mono">
+              {["all", "pending", "approved", "rejected"].map((st) => (
+                <button
+                  key={st}
+                  type="button"
+                  onClick={() => setTestimonialStatusFilter(st)}
+                  className={`px-3 py-1.5 rounded-lg capitalize transition-colors cursor-pointer ${
+                    testimonialStatusFilter === st
+                      ? "bg-primary-500 text-white font-semibold"
+                      : "text-foreground-400 hover:text-white"
+                  }`}
+                >
+                  {st} (
+                  {st === "all"
+                    ? testimonials.length
+                    : testimonials.filter((t) => t.status === st).length}
+                  )
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Testimonials List */}
+          {testimonials
+            .filter((t) =>
+              testimonialStatusFilter === "all"
+                ? true
+                : t.status === testimonialStatusFilter
+            )
+            .length === 0 ? (
+            <div className="p-12 text-center rounded-2xl border border-dashed border-white/10 bg-white/5 space-y-2">
+              <p className="font-heading text-lg text-white">No testimonials found</p>
+              <p className="text-xs font-mono text-foreground-400">
+                Submissions from course pages with filter &apos;{testimonialStatusFilter}&apos; will appear here.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {testimonials
+                .filter((t) =>
+                  testimonialStatusFilter === "all"
+                    ? true
+                    : t.status === testimonialStatusFilter
+                )
+                .map((t) => (
+                  <div
+                    key={t.id}
+                    className="flex flex-col justify-between p-6 rounded-2xl border border-white/10 bg-white/5 space-y-4"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/10 text-primary-300">
+                          {t.service_slug}
+                        </span>
+                        <span
+                          className={`font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                            t.status === "approved"
+                              ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
+                              : t.status === "pending"
+                              ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                              : "bg-rose-500/20 text-rose-300 border border-rose-500/30"
+                          }`}
+                        >
+                          {t.status}
+                        </span>
+                      </div>
+
+                      {t.highlight && (
+                        <h4 className="font-heading font-semibold text-white text-base">
+                          &ldquo;{t.highlight}&rdquo;
+                        </h4>
+                      )}
+
+                      <p className="text-xs text-foreground-300 leading-relaxed font-light whitespace-pre-line">
+                        {t.content}
+                      </p>
+
+                      <div className="pt-2 border-t border-white/10">
+                        <div className="font-heading font-semibold text-white text-xs">
+                          {t.author_name}
+                        </div>
+                        {t.author_role && (
+                          <div className="text-[11px] font-mono text-foreground-400">
+                            {t.author_role}
+                          </div>
+                        )}
+                        <div className="text-[10px] font-mono text-foreground-500 mt-1">
+                          Rating: {t.rating || 5}/5 ★ • Submitted:{" "}
+                          {new Date(t.created_at).toLocaleDateString()}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        {t.status !== "approved" && (
+                          <button
+                            type="button"
+                            onClick={async () => {
+                              const res = await updateTestimonialStatus(t.id, "approved");
+                              if (res.success) {
+                                setTestimonials((prev) =>
+                                  prev.map((item) =>
+                                    item.id === t.id
+                                      ? { ...item, status: "approved" }
+                                      : item
+                                  )
+                                );
+                              }
+                            }}
+                            className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-mono text-xs font-semibold transition-colors cursor-pointer"
+                          >
+                            Approve
+                          </button>
+                        )}
+
+                        {t.status !== "rejected" && (
+                          <button
+                            type="button"
+                            onClick={async () => {
+                              const res = await updateTestimonialStatus(t.id, "rejected");
+                              if (res.success) {
+                                setTestimonials((prev) =>
+                                  prev.map((item) =>
+                                    item.id === t.id
+                                      ? { ...item, status: "rejected" }
+                                      : item
+                                  )
+                                );
+                              }
+                            }}
+                            className="px-3 py-1.5 rounded-lg bg-zinc-700 hover:bg-zinc-600 text-white font-mono text-xs transition-colors cursor-pointer"
+                          >
+                            Reject
+                          </button>
+                        )}
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          if (confirm("Delete this testimonial permanently?")) {
+                            const res = await deleteTestimonial(t.id);
+                            if (res.success) {
+                              setTestimonials((prev) => prev.filter((item) => item.id !== t.id));
+                            }
+                          }
+                        }}
+                        className="p-1.5 text-foreground-400 hover:text-rose-400 transition-colors cursor-pointer"
+                        title="Delete permanently"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        /* Main Studio Two-Column Workspace */
+        <div className="flex-1 flex overflow-hidden">
+          {/* Left Sidebar: Content Navigator */}
+          <aside className="w-80 md:w-96 border-r border-white/10 flex flex-col bg-[#070e1c] shrink-0">
+            {/* Create Button Strip */}
+            <div className="p-4 border-b border-white/10 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-foreground-400">
+                  Create Content
+                </span>
+              </div>
+              <div className="grid grid-cols-3 gap-1.5">
+                {CONTENT_TYPES.map((type) => {
+                  const Icon = type.icon;
+                  return (
+                    <button
+                      key={type.id}
+                      onClick={() => handleCreateNew(type.id)}
                     className="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-primary-500/30 text-foreground-300 hover:text-white text-[11px] transition-all gap-1 text-center cursor-pointer"
                     title={`Create new ${type.label}`}
                   >
@@ -1145,7 +1362,8 @@ export default function StudioClient({ initialItems }: { initialItems: CurationI
             </div>
           </div>
         </main>
-      </div>
+        </div>
+      )}
     </div>
   );
 }
