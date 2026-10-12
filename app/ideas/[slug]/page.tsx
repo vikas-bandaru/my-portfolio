@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Layers, ExternalLink, Calendar, Clock, BookOpen, Quote } from "lucide-react";
 import { getIdeaBySlug, getIdeas } from "@/lib/content";
 import Reveal from "@/components/Reveal";
+import EssayEngagementSection from "@/components/ideas/EssayEngagementSection";
 
 export async function generateStaticParams() {
   const posts = getIdeas();
@@ -192,33 +193,13 @@ export default async function IdeaDetailPage({
         </Reveal>
       )}
 
-      {/* Discussion & Collaborative CTAs */}
+      {/* Discussion, Share Bar & Direct Reflection Overlay */}
       <Reveal delay={240}>
-        <div className="pt-10 border-t border-background-200 flex flex-wrap items-center justify-between gap-4">
-          <div className="space-y-1">
-            <h4 className="font-heading font-semibold text-base text-foreground-950">
-              Have thoughts or real-world observations on this?
-            </h4>
-            <p className="text-xs text-foreground-500 font-light">
-              I welcome reflections from educators, engineers, and curious builders.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="/contact?intent=idea"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-primary-600 text-white font-medium text-xs hover:bg-primary-500 transition-all shadow-xs"
-            >
-              <span>Exchange Thoughts</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-            <Link
-              href="/collaborate"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-background-200 bg-background-50/80 text-foreground-800 font-medium text-xs hover:bg-background-100 transition-all"
-            >
-              <span>Collaborate</span>
-            </Link>
-          </div>
-        </div>
+        <EssayEngagementSection
+          essaySlug={post.slug}
+          essayTitle={post.title}
+          essaySubtitle={post.subtitle}
+        />
       </Reveal>
     </article>
   );
