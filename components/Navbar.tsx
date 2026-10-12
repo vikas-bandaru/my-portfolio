@@ -95,7 +95,7 @@ export default function Navbar() {
             href="/contact"
             className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary-500 text-background-50 text-sm font-semibold whitespace-nowrap transition-colors duration-300 hover:bg-primary-600 shadow-xs"
           >
-            Start a Conversation
+            Get in Touch
             <ArrowRight className="w-4 h-4" />
           </Link>
           <button
@@ -139,7 +139,7 @@ export default function Navbar() {
             onClick={() => setMenuOpen(false)}
             className="mt-5 inline-flex w-full items-center justify-center gap-2 px-4 py-3 rounded-md bg-primary-500 text-background-50 text-sm font-semibold"
           >
-            Start a Conversation
+            Get in Touch
             <ArrowRight className="w-4 h-4" />
           </Link>
         </nav>
