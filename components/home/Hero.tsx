@@ -40,7 +40,7 @@ export default function Hero() {
           </h1>
 
           <p className="mt-7 text-base sm:text-lg text-background-100/85 leading-relaxed max-w-2xl font-light">
-            In an era where generative AI commoditizes syntax-first coding, technical education must evolve from rote memorization toward <strong>inductive, consequence-driven mental modeling</strong> and verifiable proof of competence.
+            When AI can generate code in seconds, technical education has to change. Instead of memorizing syntax for exams, students need to <strong>build, see what breaks, and understand the systems</strong> they run.
           </p>
 
           <div className="mt-9 flex flex-col sm:flex-row gap-3">

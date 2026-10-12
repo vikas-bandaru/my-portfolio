@@ -58,7 +58,7 @@ export default function FrontendFoundationsPage() {
         <Reveal>
           <div className="p-7 sm:p-9 rounded-3xl bg-primary-50/70 border border-primary-200/70 space-y-2 shadow-xs">
             <span className="font-mono text-xs font-semibold uppercase tracking-wider text-primary-700 block">
-              Pedagogical Stance
+              Learning Stance
             </span>
             <p className="font-heading font-semibold text-xl sm:text-2xl text-foreground-950">
               Build with AI. Understand the code.
@@ -431,7 +431,7 @@ export default function FrontendFoundationsPage() {
               },
               {
                 q: "Are session recordings included?",
-                a: "No. Live presence and active coding during the 90 minutes are core to the pedagogical model. Recordings are excluded from the standard fee.",
+                a: "No. Live presence and active coding during the 90 minutes are core to how this cohort works. Students learn by writing code live, making mistakes, and getting immediate feedback. Recordings are excluded from the standard fee.",
               },
               {
                 q: "Will this guarantee an internship or job?",

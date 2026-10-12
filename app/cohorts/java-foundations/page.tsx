@@ -64,7 +64,7 @@ export default function JavaFoundationsPage() {
         <Reveal>
           <div className="p-7 sm:p-9 rounded-3xl bg-primary-50/70 border border-primary-200/70 space-y-2 shadow-xs">
             <span className="font-mono text-xs font-semibold uppercase tracking-wider text-primary-700 block">
-              Pedagogical Stance
+              Learning Stance
             </span>
             <p className="font-heading font-semibold text-xl sm:text-2xl text-foreground-950">
               AI can generate code in seconds. Can you verify that it is right?

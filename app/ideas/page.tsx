@@ -38,7 +38,7 @@ export default function IdeasPage() {
         stats={[
           { value: "04", label: "Published Essays" },
           { value: "03", label: "Core Categories" },
-          { value: "12", label: "Years Pedagogical Data" },
+          { value: "12", label: "Years Teaching Experience" },
         ]}
       >
         {/* Category Filter Pills in Hero */}

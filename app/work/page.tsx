@@ -18,12 +18,12 @@ export default function WorkPage() {
         badgeDotColor="bg-primary-400"
         title="Teaching, Faculty Workshops"
         titleHighlight="&amp; Advisory"
-        description="Alongside long-term cognitive systems research and building LogicSims, I lead focused pedagogical workshops, faculty development programs, and technical mentoring."
+        description="Alongside building LogicSims, I lead practical workshops, faculty development programs, and technical mentoring."
         bgImage="/images/editorial/hero-network.webp"
         stats={[
-          { value: "04", label: "Pedagogical Domains" },
+          { value: "04", label: "Specialized Tracks" },
           { value: "12", label: "Years Experience" },
-          { value: "Direct", label: "Collegial Advisory" },
+          { value: "Direct", label: "1-on-1 & Team Advisory" },
         ]}
       />
 
@@ -33,13 +33,13 @@ export default function WorkPage() {
         <Reveal>
           <div className="p-7 sm:p-9 rounded-3xl bg-primary-50/70 border border-primary-200/70 space-y-2 shadow-xs">
             <span className="font-mono text-xs font-semibold uppercase tracking-wider text-primary-700 block">
-              Pedagogical Stance
+              Teaching Stance
             </span>
             <p className="font-heading font-semibold text-xl sm:text-2xl text-foreground-950">
-              Inductive Discovery, Cognitive Rigor &amp; Practical Competence
+              Hands-On Problem Solving, Real Context &amp; Practical Skill
             </p>
             <p className="text-sm sm:text-base text-foreground-700 leading-relaxed font-light pt-1">
-              Every workshop and mentorship track is grounded in first-principles clarity, cognitive load optimization, and verified capabilities, helping learners move from passive syllabus memorization to self-directed systems comprehension.
+              Every workshop and mentorship track is built around real problems rather than abstract lectures, helping learners move from passive syllabus memorization to confident systems thinking.
             </p>
           </div>
         </Reveal>
@@ -127,17 +127,17 @@ export default function WorkPage() {
               </div>
 
               <p className="text-sm sm:text-base text-foreground-600 leading-relaxed font-light">
-                Drawing on 12 years spanning university engineering faculties (Assistant Professor) and technical curriculum leadership, I partner with engineering departments, academic boards, and educator collectives to transition from didactic lecturing into active, inductive discovery classrooms aligned with modern cognitive and competency frameworks.
+                Drawing on 12 years across university engineering classrooms (Assistant Professor) and technical training management, I partner with engineering departments, academic boards, and educator teams to move away from one-way lectures and into interactive problem-solving classrooms.
               </p>
 
               <div className="space-y-3 pt-2">
-                <p className="font-mono text-xs font-semibold text-foreground-800 uppercase tracking-wider">Curricular &amp; Pedagogical Modules:</p>
+                <p className="font-mono text-xs font-semibold text-foreground-800 uppercase tracking-wider">Curriculum &amp; Teaching Modules:</p>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {[
-                    "Curricular restructuring: replacing syntax-first syllabi with failure-driven simulation & inquiry",
-                    "Dual-coding pedagogical design: mapping abstract control flow to visual dynamic state machines",
-                    "Authentic diagnostic assessments: evaluating mental model integrity over syntactic memorization",
-                    "Navigating the Generative AI inflection: preserving student cognitive agency and preventing epistemic learned helplessness",
+                    "Curriculum modernization: replacing syntax memorization with interactive simulations and hands-on builds",
+                    "Visual system design: connecting code execution to live visual state diagrams so students see the machine",
+                    "Practical evaluation: grading students on their debugging ability and mental models rather than written syntax tests",
+                    "AI in engineering education: teaching students how to inspect, debug, and question AI-generated code rather than blindly copying it",
                   ].map((module, idx) => (
                     <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground-700">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />

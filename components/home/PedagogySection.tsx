@@ -7,24 +7,24 @@ import { FlaskConical, BookOpen } from "lucide-react";
 export const pedagogyModes = [
   {
     key: "rote",
-    label: "Syntax-First Instruction",
-    heading: "Deductive / Syllabus-First: Traditional CS Classroom",
-    summary: "Abstract syntax and definitions are presented first, memorized for exams, and collapse under non-deterministic production conditions.",
+    label: "Syntax-First Teaching",
+    heading: "Syllabus-First: The Traditional Classroom",
+    summary: "Rules, definitions, and syntax are memorized for exams, but break down the moment students face real-world bugs.",
     points: [
       'Lecture: "A Promise represents a future value. Memorize the syntax for the exam."',
-      "Cognitive Failure: High extraneous load; abstract syntax without internal mental models or visual grounding.",
-      "Result: Brittle graduates who score 90%+ in exams but panic when debugging an asynchronous race condition.",
+      "The Problem: Students memorize words and code patterns without understanding what is actually happening behind the scenes.",
+      "Result: Graduates score 90%+ in exams, but get stuck debugging an unexpected timing or network error.",
     ],
   },
   {
     key: "discovery",
-    label: "Inductive Simulation",
-    heading: "Inductive / Consequence-Driven: LogicSims Cognitive Architecture",
-    summary: "Learners manipulate interactive system states and discover boundary conditions before formalizing code schemas.",
+    label: "Hands-On Simulation",
+    heading: "Hands-On & Consequence-Driven: The LogicSims Approach",
+    summary: "Students interact with live system states and see what breaks before writing code.",
     points: [
-      'Simulation: "Manipulate the event loop buffer, force thread contention, and observe where execution starves."',
-      "Cognitive Science: Dual Coding Theory (visual state + textual logic) anchoring parallel memory traces.",
-      "Result: Deep intuition that survives contact with real-world distributed architectures.",
+      'Simulation: "Change the queue size, trigger thread clashes, and watch where execution slows down."',
+      "Why it works: Seeing the visual state alongside code builds a real mental picture of the machine.",
+      "Result: Genuine engineering intuition that holds up when building production software.",
     ],
   },
 ];

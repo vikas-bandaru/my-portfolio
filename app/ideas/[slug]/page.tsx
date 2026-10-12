@@ -78,7 +78,7 @@ export default async function IdeaDetailPage({
             <div>
               <div className="font-semibold text-foreground-950">Vikas Bandaru</div>
               <div className="text-foreground-500 font-light">
-                12 Years in Engineering Education, Systems Architecture &amp; Pedagogy
+                12 Years in Engineering Education, Systems Architecture &amp; Learning Design
               </div>
             </div>
           </div>

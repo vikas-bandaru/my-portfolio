@@ -77,7 +77,7 @@ export default function WatchPage() {
                 </div>
 
                 <ul className="text-sm text-foreground-600 space-y-2 pl-4 list-disc marker:text-primary-500 leading-relaxed font-light">
-                  <li>Indian education reform and pedagogical policy</li>
+                  <li>Indian education reform and classroom policy</li>
                   <li>Technology, GenAI, and human agency in society</li>
                   <li>AI-washing critique and educator awareness</li>
                   <li>What India and developing nations can build for their own conditions</li>

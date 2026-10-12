@@ -182,10 +182,10 @@ export default function LogicSimsPage() {
           <section className="space-y-8">
             <div className="border-b border-background-200 pb-4">
               <span className="font-mono text-xs font-semibold tracking-wider uppercase text-primary-600 block">
-                Cognitive Theory &amp; Foundations
+                How People Actually Learn
               </span>
               <h2 className="font-heading font-semibold text-2xl sm:text-3xl text-foreground-950 mt-1">
-                Pedagogical &amp; Epistemic Architecture
+                Learning Architecture &amp; Mental Models
               </h2>
             </div>
 
@@ -193,40 +193,40 @@ export default function LogicSimsPage() {
               <div className="p-7 rounded-3xl border border-background-200 bg-background-50/80 shadow-xs space-y-3 hover:border-primary-400/50 hover:shadow-md transition-all">
                 <div className="flex items-center gap-2.5 font-heading font-semibold text-foreground-950 text-base">
                   <Cpu className="w-5 h-5 text-primary-600" />
-                  Macro: Meaningful Reception (Ausubel DAG)
+                  Building on What You Already Know
                 </div>
                 <p className="text-sm text-foreground-600 leading-relaxed font-light">
-                  Linear lecture sequences assume tabula rasa minds. LogicSims structures curricula as a Directed Acyclic Graph (DAG) of cognitive anchors. Advanced organizers bridge prior mental schema to new abstractions, activating intrinsic structural anchors before introducing code.
+                  Traditional lectures throw new syntax at students without context. LogicSims maps concepts like building blocks, connecting new programming patterns to systems and real-world analogies students already understand before introducing code.
                 </p>
               </div>
 
               <div className="p-7 rounded-3xl border border-background-200 bg-background-50/80 shadow-xs space-y-3 hover:border-primary-400/50 hover:shadow-md transition-all">
                 <div className="flex items-center gap-2.5 font-heading font-semibold text-foreground-950 text-base">
                   <Zap className="w-5 h-5 text-amber-600" />
-                  Meso: Experiential Learning (Kolb Cycle)
+                  Learning Through Action &amp; Reflection
                 </div>
                 <p className="text-sm text-foreground-600 leading-relaxed font-light">
-                  Learners move systematically through four cyclical quadrants: Concrete Experience (stress-testing state) → Reflective Observation (inspecting execution telemetry) → Abstract Conceptualization (synthesizing invariants) → Active Experimentation (refactoring under load).
+                  Learners move through a practical cycle: test the system live, observe where it breaks or slows down, discover the underlying rule, and fix the code to handle real edge cases.
                 </p>
               </div>
 
               <div className="p-7 rounded-3xl border border-background-200 bg-background-50/80 shadow-xs space-y-3 hover:border-primary-400/50 hover:shadow-md transition-all">
                 <div className="flex items-center gap-2.5 font-heading font-semibold text-foreground-950 text-base">
                   <GitBranch className="w-5 h-5 text-emerald-600" />
-                  Micro: Dual-Coding State Machines (Paivio)
+                  Seeing Code and Memory Side-by-Side
                 </div>
                 <p className="text-sm text-foreground-600 leading-relaxed font-light">
-                  Replacing invisible heap and stack buffers with synchronized verbal syntax and nonverbal spatial state representations. By activating verbal and visual cognitive channels simultaneously without cross-talk overload, learners build durable spatial mental models.
+                  Instead of hiding memory buffers inside a black box, the simulator shows code lines alongside a live visual diagram of memory states, variables, and threads. Seeing both at once makes invisible execution flows click.
                 </p>
               </div>
 
               <div className="p-7 rounded-3xl border border-background-200 bg-background-50/80 shadow-xs space-y-3 hover:border-primary-400/50 hover:shadow-md transition-all">
                 <div className="flex items-center gap-2.5 font-heading font-semibold text-foreground-950 text-base">
                   <ShieldCheck className="w-5 h-5 text-purple-600" />
-                  Authentic Proof of Work for the Mind
+                  Authentic Proof of Capability
                 </div>
                 <p className="text-sm text-foreground-600 leading-relaxed font-light">
-                  When LLMs write synthetic code effortlessly, paper diplomas and LeetCode ranks lose all epistemic credibility. Mastery is proven through interactive diagnostic telemetry, architectural post-mortems, and edge-case survival under chaotic state injection.
+                  When AI can write basic code instantly, paper certificates and memorized quiz scores no longer prove skill. Real capability is demonstrated when a developer can diagnose unexpected bugs, explain execution choices, and keep systems running under pressure.
                 </p>
               </div>
             </div>
@@ -301,14 +301,14 @@ export default function LogicSimsPage() {
           <section className="space-y-4 p-7 sm:p-9 md:p-10 rounded-3xl bg-background-50/80 border border-background-200 shadow-xs">
             <div className="flex items-center gap-2 font-heading font-semibold text-xl text-foreground-950">
               <Sparkles className="w-5 h-5 text-primary-600" />
-              The Socratic Companion Core &amp; Assessment Isolation Governor
+              Socratic AI Guidance: Asking Questions Instead of Giving Answers
             </div>
             <div className="space-y-3 text-sm sm:text-base text-foreground-600 leading-relaxed font-light">
               <p>
-                In the LogicSims architecture, artificial intelligence is deliberately constrained from functioning as an automated code generator or answer dispenser. To prevent epistemic dependency and cognitive atrophy, the Socratic Companion Core operates strictly as an inquisitive diagnostician.
+                In LogicSims, AI is purposefully designed not to give away answers or generate complete code for you. If students rely on an AI to do their thinking, their problem-solving skills weaken. Instead, the assistant acts like a patient mentor that asks questions.
               </p>
               <p>
-                When a student encounters a runtime contradiction or invalid state, the system asks probing questions about observed variable transitions rather than suggesting solutions. During formal evaluation, the Assessment Isolation Governor disconnects auto-completion entirely, verifying that the human mind retains genuine diagnostic mastery.
+                When a student gets stuck on a bug or invalid state, the system asks guided questions about what changed and where variables diverted from expectations. During skill checks, AI auto-completion is turned off entirely, ensuring learners build independent confidence.
               </p>
             </div>
           </section>
