@@ -111,7 +111,7 @@ export default function CollaboratePage() {
               <div className="p-6 rounded-2xl bg-background-100/70 border border-background-200 space-y-1.5">
                 <p className="font-mono text-xs font-semibold uppercase tracking-wider text-foreground-950">How you can contribute:</p>
                 <p className="text-foreground-700 text-xs sm:text-sm leading-relaxed font-light">
-                  Run active learning trials using LogicSims prototypes with your student cohorts and share empirical feedback, student debugging observations, and learning curve telemetry.
+                  Try LogicSims in your classroom with your students and share honest feedback on what worked, where students got stuck, and what helped them understand concepts faster.
                 </p>
               </div>
 
@@ -150,7 +150,7 @@ export default function CollaboratePage() {
               <div className="p-6 rounded-2xl bg-background-100/70 border border-background-200 space-y-1.5">
                 <p className="font-mono text-xs font-semibold uppercase tracking-wider text-foreground-950">How you can contribute:</p>
                 <p className="text-foreground-700 text-xs sm:text-sm leading-relaxed font-light">
-                  Share empirical datasets, co-investigate case studies, or provide constructive critical critique on published essays.
+                  Share classroom data, explore joint case studies, or provide constructive critical feedback on published essays.
                 </p>
               </div>
 

@@ -148,7 +148,7 @@ export default function WorkPage() {
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-600 text-white font-medium text-xs hover:bg-emerald-500 transition-all shadow-xs"
                   id="work-faculty-cta"
                 >
-                  <span>Inquire for Institutional / Faculty Colloquium</span>
+                  <span>Invite Vikas for a College / Faculty Workshop</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -165,23 +165,23 @@ export default function WorkPage() {
                 <div>
                   <span className="font-mono text-xs uppercase tracking-wider text-amber-600 font-semibold block">Track 03</span>
                   <h2 className="font-heading font-semibold text-2xl sm:text-3xl text-foreground-950 group-hover:text-amber-700 transition-colors">
-                    Systems Architecture &amp; Educational Tool Engineering
+                    Web Systems &amp; Learning Tools Development
                   </h2>
                 </div>
               </div>
 
               <p className="text-sm sm:text-base text-foreground-600 leading-relaxed font-light">
-                Engineering resilient web platforms, interactive computational simulators, and educational telemetry infrastructure. I bring research and architectural rigor into tangible, production-tested software artifacts.
+                Building reliable web applications, interactive software simulators, and learning tools. I turn ideas and research into working software that users can run and test directly.
               </p>
 
               <div className="space-y-3 pt-2">
-                <p className="font-mono text-xs font-semibold text-foreground-800 uppercase tracking-wider">Engineering Disciplines:</p>
+                <p className="font-mono text-xs font-semibold text-foreground-800 uppercase tracking-wider">Engineering Focus Areas:</p>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {[
-                    "Full-stack educational & web platforms (React 19, TypeScript, Next.js App Router)",
-                    "State-isolated simulation sandboxes & interactive visual runtime inspectors",
-                    "Relational schema modeling (PostgreSQL / Supabase with strict Row Level Security policies)",
-                    "Serverless edge compute (Deno/Edge runtimes), verification APIs, and distributed event flows",
+                    "Full-stack web applications (React 19, TypeScript, Next.js App Router)",
+                    "Interactive browser simulators & live state execution tools",
+                    "Database modeling & security (PostgreSQL / Supabase with Row Level Security)",
+                    "Cloud functions, server actions, and reliable backend APIs",
                   ].map((capability, idx) => (
                     <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground-700">
                       <CheckCircle2 className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
@@ -192,9 +192,9 @@ export default function WorkPage() {
               </div>
 
               <div className="p-5 rounded-2xl bg-background-100/70 border border-background-200 text-xs space-y-1">
-                <span className="font-semibold text-foreground-950">Exemplar Systems Case Study:</span>
+                <span className="font-semibold text-foreground-950">Featured Project Case Study:</span>
                 <p className="text-foreground-600">
-                  Engineered <span className="font-semibold text-foreground-900">traits.co.in</span>, an end-to-end commerce system built using agent-orchestrated workflows, relational integrity, and edge compute.
+                  Built <span className="font-semibold text-foreground-900">traits.co.in</span>, a complete e-commerce platform developed with clean architecture, database integrity, and edge deployment.
                 </p>
                 <Link href="/builds/traits-ecommerce" className="text-primary-700 hover:underline font-semibold inline-flex items-center gap-1 pt-1">
                   <span>Read Architecture Breakdown</span>
@@ -208,14 +208,14 @@ export default function WorkPage() {
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-amber-600 text-white font-medium text-xs hover:bg-amber-500 transition-all shadow-xs"
                   id="work-build-cta"
                 >
-                  <span>Propose Systems Architecture Collaboration</span>
+                  <span>Discuss a Development Project</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </section>
           </Reveal>
 
-          {/* Track 4: Keynotes, Colloquia & Panels */}
+          {/* Track 4: Keynotes, Guest Lectures & Talks */}
           <Reveal delay={200}>
             <section id="speaking" className="group relative rounded-3xl border border-background-200 bg-background-50/80 p-7 sm:p-9 md:p-10 shadow-xs hover:border-purple-400/50 hover:shadow-xl transition-all duration-300 space-y-6">
               <div className="flex items-center gap-4">
@@ -225,25 +225,25 @@ export default function WorkPage() {
                 <div>
                   <span className="font-mono text-xs uppercase tracking-wider text-purple-600 font-semibold block">Track 04</span>
                   <h2 className="font-heading font-semibold text-2xl sm:text-3xl text-foreground-950 group-hover:text-purple-700 transition-colors">
-                    Keynotes, Academic Colloquia &amp; Panels
+                    Keynotes, College Talks &amp; Panel Discussions
                   </h2>
                 </div>
               </div>
 
               <p className="text-sm sm:text-base text-foreground-600 leading-relaxed font-light">
-                Keynotes, symposium lectures, and faculty colloquia addressing the collapse of rote computing curricula, engineering cognitive models, and human agency in the age of algorithmic synthesis.
+                Keynotes, college guest lectures, and panel talks on why rote learning fails in computer science, how students should learn in the AI era, and what real engineering ability looks like.
               </p>
 
               <div className="space-y-3 pt-2">
-                <p className="font-mono text-xs font-semibold text-foreground-800 uppercase tracking-wider">Symposium &amp; Lecture Themes:</p>
+                <p className="font-mono text-xs font-semibold text-foreground-800 uppercase tracking-wider">Key Talk Topics:</p>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="p-5 bg-background-100/70 border border-background-200 rounded-2xl space-y-1">
-                    <div className="font-heading font-semibold text-sm text-foreground-950">The Collapse of Syntax-First CS</div>
-                    <p className="text-foreground-600 text-xs leading-relaxed font-light">Why LeetCode and rote memorization yield fragile engineers, and how cognitive simulations reconstruct deep architectural competence.</p>
+                    <div className="font-heading font-semibold text-sm text-foreground-950">Beyond Syntax: Why Memorizing Code Fails</div>
+                    <p className="text-foreground-600 text-xs leading-relaxed font-light">Why college exams and LeetCode don&apos;t prepare students for production, and how building real projects creates lasting skills.</p>
                   </div>
                   <div className="p-5 bg-background-100/70 border border-background-200 rounded-2xl space-y-1">
-                    <div className="font-heading font-semibold text-sm text-foreground-950">AI Trust Crisis &amp; Proof of Work for the Mind</div>
-                    <p className="text-foreground-600 text-xs leading-relaxed font-light">How educational institutions can assess authentic comprehension and diagnostic capability when code generation cost is zero.</p>
+                    <div className="font-heading font-semibold text-sm text-foreground-950">AI in Software Engineering: How to Stand Out</div>
+                    <p className="text-foreground-600 text-xs leading-relaxed font-light">How colleges and students can verify genuine understanding when AI can generate code in seconds.</p>
                   </div>
                 </div>
               </div>
@@ -254,7 +254,7 @@ export default function WorkPage() {
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-purple-600 text-white font-medium text-xs hover:bg-purple-500 transition-all shadow-xs"
                   id="work-speaking-cta"
                 >
-                  <span>Invite for Keynote / Colloquium</span>
+                  <span>Invite Vikas to Speak</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>

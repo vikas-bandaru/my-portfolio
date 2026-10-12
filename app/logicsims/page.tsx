@@ -35,7 +35,7 @@ export default function LogicSimsPage() {
         bgImage="/images/editorial/build-logicsims.webp"
         stats={[
           { value: "01", label: "Live Java Simulator" },
-          { value: "04", label: "Pedagogical Tiers" },
+          { value: "04", label: "Learning Stages" },
           { value: "01", label: "Active Feedback Loop" },
         ]}
       >
@@ -382,7 +382,7 @@ export default function LogicSimsPage() {
               Explore the Prototype or Collaborate
             </h3>
             <p className="text-sm sm:text-base text-foreground-200 leading-relaxed max-w-xl font-light">
-              Try the live LogicSims Java prototype online today, or connect to collaborate on pedagogical research and real-world system modeling.
+              Try the live LogicSims Java prototype online today, or connect to collaborate on learning research and real-world system modeling.
             </p>
             <div className="flex flex-wrap gap-4 pt-2">
               <a
