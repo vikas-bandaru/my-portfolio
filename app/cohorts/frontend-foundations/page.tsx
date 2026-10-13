@@ -372,7 +372,7 @@ export default function FrontendFoundationsPage() {
                         </p>
                       </div>
                       <div className="pt-1 text-[11px] font-mono text-foreground-500">
-                        Estimated effort: 4–5 hours total (guided live coding + guided refinement).
+                        Estimated effort: 6 to 7 hours (4.5 hours live coding across 3 sessions of 90 mins + 2 hours independent refinement).
                       </div>
                     </div>
                   </div>
@@ -417,7 +417,7 @@ export default function FrontendFoundationsPage() {
                         </p>
                       </div>
                       <div className="pt-1 text-[11px] font-mono text-foreground-500">
-                        Estimated effort: 5–6 hours total (guided live coding + refinement). No backend or form submission.
+                        Estimated effort: 7 to 8 hours (4.5 to 6 hours live coding across 3-4 sessions of 90 mins + 2.5 hours independent refinement). No backend or form submission.
                       </div>
                     </div>
                   </div>
@@ -462,7 +462,7 @@ export default function FrontendFoundationsPage() {
                         </p>
                       </div>
                       <div className="pt-1 text-[11px] font-mono text-foreground-500">
-                        Estimated effort: 7–9 hours. Backend, databases, auth, payments, APIs, and React are outside scope.
+                        Estimated effort: 12 to 14 hours (7.5 to 9 hours live guided builds across 5-6 sessions of 90 mins + 4 to 5 hours independent practice and defence preparation). Backend, databases, auth, payments, APIs, and React are outside scope.
                       </div>
                     </div>
                   </div>
