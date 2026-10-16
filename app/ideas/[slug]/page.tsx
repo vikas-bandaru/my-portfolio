@@ -1,15 +1,31 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Layers, ExternalLink, Calendar, Clock, BookOpen, Quote } from "lucide-react";
-import { getIdeaBySlug, getIdeas } from "@/lib/content";
+import { Metadata } from "next";
+import { ArrowLeft, ArrowRight, Layers, ExternalLink, Calendar, Clock, Quote } from "lucide-react";
+import { getPublishedIdeaBySlug } from "@/lib/ideas";
 import Reveal from "@/components/Reveal";
 import EssayEngagementSection from "@/components/ideas/EssayEngagementSection";
 
-export async function generateStaticParams() {
-  const posts = getIdeas();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPublishedIdeaBySlug(slug);
+
+  if (!post) {
+    return {
+      title: "Essay Not Found | Vikas Bandaru",
+    };
+  }
+
+  return {
+    title: `${post.title} | Vikas Bandaru`,
+    description: post.excerpt,
+  };
 }
 
 export default async function IdeaDetailPage({
@@ -20,8 +36,9 @@ export default async function IdeaDetailPage({
   const resolvedParams = await params;
   const { slug } = resolvedParams;
 
-  const post = getIdeaBySlug(slug);
+  const post = await getPublishedIdeaBySlug(slug);
 
+  // If item doesn't exist or is still marked as 'draft', return 404
   if (!post) {
     notFound();
   }
@@ -38,7 +55,7 @@ export default async function IdeaDetailPage({
           className="inline-flex items-center gap-2 font-mono text-xs font-semibold text-foreground-500 hover:text-primary-700 transition-colors group"
         >
           <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
-          <span>Back to Ideas &amp; Reflective Essays</span>
+          <span>Back to Ideas & Reflective Essays</span>
         </Link>
       </Reveal>
 
@@ -79,7 +96,7 @@ export default async function IdeaDetailPage({
             <div>
               <div className="font-semibold text-foreground-950">Vikas Bandaru</div>
               <div className="text-foreground-500 font-light">
-                12 Years in Engineering Education, Systems Architecture &amp; Learning Design
+                12 Years in Engineering Education, Systems Architecture & Learning Design
               </div>
             </div>
           </div>
@@ -185,7 +202,7 @@ export default async function IdeaDetailPage({
                 href="/logicsims"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 text-white font-medium text-xs transition-all"
               >
-                <span>Architecture &amp; Vision</span>
+                <span>Architecture & Vision</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

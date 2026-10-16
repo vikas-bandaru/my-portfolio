@@ -64,6 +64,11 @@ export async function saveCurationItem(
   }
 
   revalidatePath("/studio");
+  revalidatePath("/ideas");
+  revalidatePath("/");
+  if (data?.slug) {
+    revalidatePath(`/ideas/${data.slug}`);
+  }
   return { success: true, item: data as CurationItemRecord };
 }
 
@@ -79,6 +84,8 @@ export async function deleteCurationItem(id: string): Promise<{ success: boolean
   }
 
   revalidatePath("/studio");
+  revalidatePath("/ideas");
+  revalidatePath("/");
   return { success: true };
 }
 
