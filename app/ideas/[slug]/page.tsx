@@ -23,9 +23,27 @@ export async function generateMetadata({
     };
   }
 
+  const origin = "https://vikas-bandaru.vercel.app";
+  const url = `${origin}/ideas/${post.slug}`;
+  const title = `${post.title} | Vikas Bandaru`;
+
   return {
-    title: `${post.title} | Vikas Bandaru`,
+    title,
     description: post.excerpt,
+    openGraph: {
+      title,
+      description: post.excerpt,
+      url,
+      type: "article",
+      publishedTime: post.date,
+      authors: ["Vikas Bandaru"],
+      siteName: "Vikas Bandaru",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: post.excerpt,
+    },
   };
 }
 

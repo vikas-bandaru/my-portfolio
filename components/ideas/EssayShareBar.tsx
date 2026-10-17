@@ -12,19 +12,45 @@ interface EssayShareBarProps {
 export default function EssayShareBar({ title, slug, subtitle }: EssayShareBarProps) {
   const [copied, setCopied] = useState(false);
 
-  // Construct absolute URL (safe for SSR & CSR)
-  const origin = typeof window !== "undefined" ? window.location.origin : "https://vikasbandaru.in";
+  // Construct absolute URL (using live deployment origin or current window location)
+  const origin =
+    typeof window !== "undefined" && window.location.origin && !window.location.origin.includes("localhost")
+      ? window.location.origin
+      : "https://vikas-bandaru.vercel.app";
   const url = `${origin}/ideas/${slug}`;
   const encodedUrl = encodeURIComponent(url);
 
-  // WhatsApp share message: Title + hook + URL
-  const whatsappText = encodeURIComponent(
-    `"${title}" by Vikas Bandaru\n${subtitle ? `${subtitle}\n\n` : "\n"}${url}`
-  );
-  const whatsappHref = `https://wa.me/?text=${whatsappText}`;
+  // WhatsApp share message: Contextual teaser message + hook + URL
+  const whatsappHeadline = `Thoughtful essay by Vikas Bandaru: "${title}"`;
+  const whatsappHook = subtitle ? `${subtitle}\n\n` : "";
+  const whatsappPrompt = `Exploring systems logic, mental models, and real-world problem solving:\n`;
+  const whatsappFullMessage = `${whatsappHeadline}\n\n${whatsappHook}${whatsappPrompt}${url}`;
+  const whatsappHref = `https://wa.me/?text=${encodeURIComponent(whatsappFullMessage)}`;
 
-  // LinkedIn share URL
-  const linkedinHref = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+  // LinkedIn suggested text: pre-composed reflection hook + URL
+  const linkedinText = `Sharing this reflective essay by Vikas Bandaru: "${title}"\n\n${subtitle ? `${subtitle}\n\n` : ""}${url}`;
+  const encodedLinkedinText = encodeURIComponent(linkedinText);
+
+  // Fallback direct URL using LinkedIn feed update endpoint with pre-filled text
+  const linkedinDirectHref = `https://www.linkedin.com/feed/?shareActive=true&text=${encodedLinkedinText}`;
+
+  const handleLinkedInShare = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    // Copy the suggested message and link to clipboard automatically so user can paste if desired
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(linkedinText).catch(() => {});
+    }
+
+    // Attempt to open the LinkedIn feed active share composer with pre-filled text
+    const width = 640;
+    const height = 600;
+    const left = window.screen.width / 2 - width / 2;
+    const top = window.screen.height / 2 - height / 2;
+    const windowFeatures = `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=${width}, height=${height}, top=${top}, left=${left}`;
+
+    // Prefer shareActive composer with pre-filled text; fallback to share-offsite
+    window.open(linkedinDirectHref, "linkedin-share-dialog", windowFeatures);
+  };
 
   const handleCopyLink = async () => {
     try {
@@ -68,7 +94,8 @@ export default function EssayShareBar({ title, slug, subtitle }: EssayShareBarPr
 
         {/* LinkedIn Share */}
         <a
-          href={linkedinHref}
+          href={linkedinDirectHref}
+          onClick={handleLinkedInShare}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Share on LinkedIn"
