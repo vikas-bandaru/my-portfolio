@@ -85,7 +85,7 @@ export default async function IdeasSection() {
                 <article className="group h-full flex flex-col rounded-xl border border-background-200 bg-background-50 overflow-hidden transition-colors duration-300 hover:border-primary-400 shadow-xs">
                   <div className="relative w-full h-44 overflow-hidden bg-background-200">
                     <Image
-                      src={ideaThumbnails[post.slug] || "/images/editorial/hero-network.webp"}
+                      src={post.coverImage || ideaThumbnails[post.slug] || "/images/editorial/hero-network.webp"}
                       alt={post.title}
                       fill
                       className="object-cover object-top transition-transform duration-700 group-hover:scale-105"

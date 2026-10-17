@@ -132,6 +132,7 @@ export function mapCurationItemToIdea(record: CurationItemRecord): IdeaItem {
     readTime: record.read_time || "5 min read",
     status: "live",
     reviewStatus: record.status === "published" ? "published" : "draft",
+    coverImage: record.cover_image || undefined,
     crossPostLinks: {
       medium: record.cross_post_links?.medium,
       linkedin: record.cross_post_links?.linkedin,

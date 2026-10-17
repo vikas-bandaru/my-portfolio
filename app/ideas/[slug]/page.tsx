@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ArrowLeft, ArrowRight, Layers, ExternalLink, Calendar, Clock, Quote } from "lucide-react";
@@ -27,6 +28,8 @@ export async function generateMetadata({
   const url = `${origin}/ideas/${post.slug}`;
   const title = `${post.title} | Vikas Bandaru`;
 
+  const imageUrl = post.coverImage ? `${origin}${post.coverImage}` : undefined;
+
   return {
     title,
     description: post.excerpt,
@@ -38,11 +41,13 @@ export async function generateMetadata({
       publishedTime: post.date,
       authors: ["Vikas Bandaru"],
       siteName: "Vikas Bandaru",
+      ...(imageUrl ? { images: [{ url: imageUrl, alt: post.title }] } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: post.excerpt,
+      ...(imageUrl ? { images: [imageUrl] } : {}),
     },
   };
 }
@@ -146,6 +151,19 @@ export default async function IdeaDetailPage({
                   LinkedIn Articles <ExternalLink className="w-3 h-3" />
                 </a>
               )}
+            </div>
+          )}
+
+          {/* Essay Cover Hook Image */}
+          {post.coverImage && (
+            <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] rounded-3xl overflow-hidden border border-background-200 bg-background-100 shadow-md">
+              <Image
+                src={post.coverImage}
+                alt={post.title}
+                fill
+                priority
+                className="object-cover"
+              />
             </div>
           )}
         </header>

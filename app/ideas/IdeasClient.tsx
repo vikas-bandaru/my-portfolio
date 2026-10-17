@@ -182,10 +182,10 @@ export default function IdeasClient({ initialPosts }: IdeasClientProps) {
                       </div>
 
                       {/* Thumbnail if present */}
-                      {(ideaThumbnails[post.slug] || post.sections.length > 0) && (
+                      {(post.coverImage || ideaThumbnails[post.slug] || post.sections.length > 0) && (
                         <div className="relative w-full sm:w-36 sm:h-36 md:w-44 md:h-44 shrink-0 rounded-2xl overflow-hidden border border-background-200 bg-background-100 shadow-sm self-stretch sm:self-center">
                           <Image
-                            src={ideaThumbnails[post.slug] || "/images/editorial/hero-network.webp"}
+                            src={post.coverImage || ideaThumbnails[post.slug] || "/images/editorial/hero-network.webp"}
                             alt={post.title}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-105"

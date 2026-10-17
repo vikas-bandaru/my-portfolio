@@ -21,6 +21,7 @@ export interface IdeaItem {
   readTime: string;
   status: MaturityStatus;
   reviewStatus: "draft" | "published";
+  coverImage?: string;
   crossPostLinks?: {
     medium?: string;
     linkedin?: string;
