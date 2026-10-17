@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Layers, ExternalLink, Calendar, Clock, Quote } f
 import { getPublishedIdeaBySlug } from "@/lib/ideas";
 import Reveal from "@/components/Reveal";
 import EssayEngagementSection from "@/components/ideas/EssayEngagementSection";
+import FormattedMarkdownText from "@/components/ideas/FormattedMarkdownText";
 
 export const dynamic = "force-dynamic";
 
@@ -150,7 +151,7 @@ export default async function IdeaDetailPage({
 
               {section.paragraphs.map((p, pIdx) => (
                 <p key={pIdx} className="leading-relaxed font-light text-foreground-700">
-                  {p}
+                  <FormattedMarkdownText content={p} />
                 </p>
               ))}
 
@@ -161,7 +162,7 @@ export default async function IdeaDetailPage({
                     <Quote className="w-5 h-5 text-primary-600 shrink-0 mt-0.5" />
                     <div className="space-y-1.5 flex-1">
                       <p className="font-serif italic text-base sm:text-lg leading-relaxed text-foreground-900">
-                        &ldquo;{section.callout.text}&rdquo;
+                        &ldquo;<FormattedMarkdownText content={section.callout.text} />&rdquo;
                       </p>
                       {section.callout.attribution && (
                         <p className="font-mono text-xs uppercase tracking-wider text-primary-800 font-semibold">
