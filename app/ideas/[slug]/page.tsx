@@ -70,10 +70,54 @@ export default async function IdeaDetailPage({
   // Cross-post links are prepared for personal blog CMS and only display if a URL is populated
   const hasCrossPost = Boolean(post.crossPostLinks?.medium || post.crossPostLinks?.linkedin);
 
+  const origin = "https://vikas-bandaru.vercel.app";
+  const essayUrl = `${origin}/ideas/${post.slug}`;
+  const imageUrl = post.coverImage ? `${origin}${post.coverImage}` : `${origin}/images/editorial/hero-network.webp`;
+
+  // Agentic AI & Search Engine Schema (AEO / GEO structured data)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: post.title,
+    alternativeHeadline: post.subtitle,
+    description: post.excerpt,
+    url: essayUrl,
+    image: imageUrl,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Person",
+      name: "Vikas Bandaru",
+      url: `${origin}/about`,
+      jobTitle: "Engineering Educator & Systems Architect",
+      sameAs: [
+        "https://www.linkedin.com/in/vikas-bandaru/",
+        "https://github.com/vikas-bandaru",
+      ],
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Vikas Bandaru",
+      url: origin,
+    },
+    articleSection: post.category,
+    keywords: post.tags && post.tags.length > 0 ? post.tags.join(", ") : post.category,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": essayUrl,
+    },
+  };
+
   return (
-    <article className="max-w-3xl mx-auto pt-28 md:pt-36 pb-24 px-6 md:px-8 space-y-12">
-      {/* Back Navigation */}
-      <Reveal>
+    <>
+      {/* Agentic AI / Search Schema Microdata */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <article className="max-w-3xl mx-auto pt-28 md:pt-36 pb-24 px-6 md:px-8 space-y-12">
+        {/* Back Navigation */}
+        <Reveal>
         <Link
           href="/ideas"
           className="inline-flex items-center gap-2 font-mono text-xs font-semibold text-foreground-500 hover:text-primary-700 transition-colors group"
@@ -256,5 +300,6 @@ export default async function IdeaDetailPage({
         />
       </Reveal>
     </article>
+    </>
   );
 }

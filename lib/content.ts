@@ -27,6 +27,7 @@ export interface IdeaItem {
     linkedin?: string;
   };
   sections: IdeaSection[];
+  tags?: string[];
   relatedBuildSlug?: string;
   relatedChannel?: "official" | "tech";
 }

@@ -35,6 +35,7 @@ import {
   BookMarked,
   Wand2,
   Check,
+  Upload,
 } from "lucide-react";
 
 const CONTENT_TYPES: { id: ContentType; label: string; icon: typeof FileText }[] = [
@@ -97,6 +98,7 @@ export default function StudioClient({
   const [testimonialStatusFilter, setTestimonialStatusFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [saving, setSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   // Form State
@@ -227,6 +229,49 @@ export default function StudioClient({
   function removeTag(tagToRemove: string) {
     const current = formState.tags || [];
     setFormState((prev) => ({ ...prev, tags: current.filter((t) => t !== tagToRemove) }));
+  }
+
+  // Upload & Convert Image handler
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    setMessage(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      if (formState.slug) {
+        formData.append("name", formState.slug);
+      }
+
+      const res = await fetch("/api/studio/upload-image", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        setMessage({ type: "error", text: data.error || "Failed to convert image" });
+      } else {
+        setFormState((prev) => ({
+          ...prev,
+          cover_image: data.url,
+        }));
+        setMessage({
+          type: "success",
+          text: `Image converted to high-res WebP and attached: ${data.fileName}`,
+        });
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setMessage({ type: "error", text: `Image upload failed: ${msg}` });
+    } finally {
+      setUploadingImage(false);
+      // Reset input value so same file can be selected again if needed
+      e.target.value = "";
+    }
   }
 
   // Research Sources Helpers
@@ -984,17 +1029,52 @@ export default function StudioClient({
                 )}
               </div>
 
-              <div className="space-y-2">
-                <input
-                  type="text"
-                  value={formState.cover_image || ""}
-                  onChange={(e) => setFormState((prev) => ({ ...prev, cover_image: e.target.value }))}
-                  placeholder="/images/editorial/hero-network.webp or external image URL"
-                  className="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white font-mono"
-                />
+              <div className="space-y-3">
+                {/* File Upload & Auto-Convert Button */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <label className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-dashed border-primary-500/40 bg-primary-500/10 hover:bg-primary-500/15 text-primary-300 font-mono text-xs cursor-pointer transition-colors">
+                    <Upload className="w-4 h-4 text-primary-400" />
+                    <span>
+                      {uploadingImage
+                        ? "Converting & Optimizing..."
+                        : "Upload Any Screenshot (.heic, .heif, .png, .webp)"}
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/*,.heic,.heif"
+                      disabled={uploadingImage}
+                      onChange={handleImageUpload}
+                      className="hidden"
+                    />
+                  </label>
 
-                <p className="text-[11px] text-foreground-400 font-mono">
-                  Select from pre-rendered editorial assets:
+                  {formState.cover_image && (
+                    <div className="relative w-16 h-10 rounded-lg overflow-hidden border border-white/20 bg-black/40 shrink-0">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={formState.cover_image}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[10px] font-mono text-foreground-400">
+                    Direct Image URL / Path:
+                  </label>
+                  <input
+                    type="text"
+                    value={formState.cover_image || ""}
+                    onChange={(e) => setFormState((prev) => ({ ...prev, cover_image: e.target.value }))}
+                    placeholder="/images/editorial/your-name.webp or external image URL"
+                    className="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white font-mono"
+                  />
+                </div>
+
+                <p className="text-[11px] text-foreground-400 font-mono pt-1">
+                  Or select from pre-rendered editorial assets:
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
                   {EDITORIAL_IMAGES.map((img) => (
